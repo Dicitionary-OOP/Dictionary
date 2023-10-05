@@ -1,0 +1,4 @@
+test	thu
+check	thu
+test	thu
+
