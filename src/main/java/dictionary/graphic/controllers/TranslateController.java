@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 
-public class TranslateController {
+public class TranslateController extends MenuController {
     @FXML
     private ChoiceBox<String> sourceLanguageChoiceBox;
 

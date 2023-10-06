@@ -14,12 +14,12 @@
     <children>
         <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Button fx:id="offlineButton" mnemonicParsing="false" styleClass="menu-btn" text="Từ điển" textOverrun="WORD_ELLIPSIS">
+                <Button fx:id="lookupTab" mnemonicParsing="false" onAction="#onLookupTabClick" styleClass="menu-btn" text="Từ điển" textOverrun="WORD_ELLIPSIS">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="onlineButton" mnemonicParsing="false" text="Dịch văn bản" textOverrun="WORD_ELLIPSIS">
+                <Button fx:id="translateTab" mnemonicParsing="false" onAction="#onTranslateTabClick" text="Dịch văn bản" textOverrun="WORD_ELLIPSIS">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
