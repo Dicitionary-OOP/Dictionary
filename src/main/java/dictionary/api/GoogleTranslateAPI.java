@@ -26,8 +26,10 @@ public class GoogleTranslateAPI {
         final URL GOOGLE_SCRIPT_WEB_APP = new URL(String.format(
                 "https://script.google.com/macros/s/%s/exec?q=%s&target=%s&source=%s",
                 DEPLOYMENT_ID, URLEncoder.encode(text, StandardCharsets.UTF_8), targetLanguage, sourceLanguage));
+
         final HttpURLConnection request = (HttpURLConnection) GOOGLE_SCRIPT_WEB_APP.openConnection();
         request.setRequestProperty("User-Agent", "Mozilla/5.0");
+
         final BufferedReader inputStream = new BufferedReader(new InputStreamReader(request.getInputStream()));
         String inputLine;
         final StringBuilder response = new StringBuilder();
@@ -35,6 +37,7 @@ public class GoogleTranslateAPI {
             response.append(inputLine);
         }
         inputStream.close();
+
         return StringEscapeUtils.unescapeHtml4(response.toString());
     }
 }

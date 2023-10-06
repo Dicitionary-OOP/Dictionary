@@ -1,4 +1,4 @@
-package dictionary;
+package dictionary.cli;
 
 import java.util.ArrayList;
 import java.util.Arrays;

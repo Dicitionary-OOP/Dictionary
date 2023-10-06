@@ -1,4 +1,4 @@
-package dictionary;
+package dictionary.cli;
 
 public class Word {
     private String wordTarget;

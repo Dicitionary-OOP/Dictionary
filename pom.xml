@@ -23,17 +23,20 @@
         <version>4.11</version>
         <scope>test</scope>
     </dependency>
+
     <!-- https://mvnrepository.com/artifact/net.sf.sociaal/freetts -->
     <dependency>
         <groupId>net.sf.sociaal</groupId>
         <artifactId>freetts</artifactId>
         <version>1.2.2</version>
     </dependency>
+
     <dependency>
         <groupId>org.json</groupId>
         <artifactId>json</artifactId>
         <version>20210307</version>
     </dependency>
+
     <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-text</artifactId>
@@ -44,19 +47,38 @@
         <artifactId>httpclient</artifactId>
         <version>4.5.13</version>
     </dependency>
+
+    <!-- JavaFX with SceneBuilder -->
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>20</version>
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-media</artifactId>
+        <version>20</version>
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-fxml</artifactId>
+        <version>20</version>
+    </dependency>
+
 </dependencies>
 
 <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
                 <configuration>
-                    <mainClass>dictionary.App</mainClass>
+                    <mainClass>dictionary.graphic.Application</mainClass>
                 </configuration>
             </plugin>
+
             <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
