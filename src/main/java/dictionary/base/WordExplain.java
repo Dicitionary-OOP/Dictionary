@@ -1,9 +1,9 @@
-package dictionary.cli;
+package dictionary.base;
 
 public class WordExplain {
     private String meaning;
 
-    WordExplain(String meaning) {
+    public WordExplain(String meaning) {
         this.meaning = meaning;
     }
 

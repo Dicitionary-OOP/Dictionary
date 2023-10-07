@@ -1,27 +1,27 @@
-package dictionary.cli;
+package dictionary.base;
 
 public class Word {
     private String wordTarget;
     private WordExplain wordExplain;
 
-    Word(final String wordTarget, final WordExplain wordExplain) {
+    public Word(final String wordTarget, final WordExplain wordExplain) {
         this.wordTarget = wordTarget;
         this.wordExplain = wordExplain;
     }
 
-    String getWordTarget() {
+    public String getWordTarget() {
         return wordTarget;
     }
 
-    void setWordTarget(final String wordTarget) {
+    public void setWordTarget(final String wordTarget) {
         this.wordTarget = wordTarget;
     }
 
-    WordExplain getWordExplain() {
+    public WordExplain getWordExplain() {
         return wordExplain;
     }
 
-    void setWordExplain(final WordExplain wordExplain) {
+    public void setWordExplain(final WordExplain wordExplain) {
         this.wordExplain = wordExplain;
     }
 }

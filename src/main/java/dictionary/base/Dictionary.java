@@ -1,19 +1,19 @@
-package dictionary.cli;
+package dictionary.base;
 
 import java.util.ArrayList;
 
 public class Dictionary {
     private final ArrayList<Word> words;
 
-    Dictionary() {
+    public Dictionary() {
         words = new ArrayList<>();
     }
 
-    void add(final Word word) {
+    public void add(final Word word) {
         words.add(word);
     }
 
-    ArrayList<Word> getWords() {
+    public ArrayList<Word> getWords() {
         return words;
     }
 
@@ -23,7 +23,7 @@ public class Dictionary {
      * @param lookupWord word to lookup
      * @return List of words matched lookupWord
      */
-    ArrayList<Word> lookup(final String lookupWord) {
+    public ArrayList<Word> lookup(final String lookupWord) {
         final ArrayList<Word> result = new ArrayList<>();
         for (final Word word : words) {
             if (word.getWordTarget().equals(lookupWord)) {
@@ -38,7 +38,7 @@ public class Dictionary {
      * 
      * @param index word's index
      */
-    void removeWord(final int index) {
+    public void removeWord(final int index) {
         if (0 <= index && index < words.size()) {
             words.remove(index);
         }
