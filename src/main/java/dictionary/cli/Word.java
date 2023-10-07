@@ -2,9 +2,9 @@ package dictionary.cli;
 
 public class Word {
     private String wordTarget;
-    private String wordExplain;
+    private WordExplain wordExplain;
 
-    Word(final String wordTarget, final String wordExplain) {
+    Word(final String wordTarget, final WordExplain wordExplain) {
         this.wordTarget = wordTarget;
         this.wordExplain = wordExplain;
     }
@@ -17,11 +17,11 @@ public class Word {
         this.wordTarget = wordTarget;
     }
 
-    String getWordExplain() {
+    WordExplain getWordExplain() {
         return wordExplain;
     }
 
-    void setWordExplain(final String wordExplain) {
+    void setWordExplain(final WordExplain wordExplain) {
         this.wordExplain = wordExplain;
     }
 }

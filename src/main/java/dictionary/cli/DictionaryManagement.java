@@ -37,10 +37,10 @@ public class DictionaryManagement {
                     continue;
                 }
 
-                final String wordTarget = word[0];
-                final String wordExplain = word[1];
+                final String target = word[0];
+                final String meaning = word[1];
 
-                dictionary.add(new Word(wordTarget, wordExplain));
+                dictionary.add(new Word(target, new WordExplain(meaning)));
             }
 
             buf.close();
@@ -62,12 +62,12 @@ public class DictionaryManagement {
 
         for (int i = 0; i < Integer.parseInt(numberOfWords); ++i) {
             System.out.print("Input word: ");
-            final String wordTarget = inputScanner.next();
+            final String target = inputScanner.next();
 
             System.out.print("Input meaning of word: ");
-            final String wordExplain = inputScanner.next();
+            final String meaning = inputScanner.next();
 
-            dictionary.add(new Word(wordTarget, wordExplain));
+            dictionary.add(new Word(target, new WordExplain(meaning)));
         }
     }
 
@@ -89,16 +89,16 @@ public class DictionaryManagement {
         final Word word = dictionary.getWords().get(targetIndex);
 
         System.out.print("New word target: ");
-        final String wordTarget = inputScanner.next();
-        System.out.print("New word explain: ");
-        final String wordExplain = inputScanner.next();
+        final String target = inputScanner.next();
+        System.out.print("New word meaning: ");
+        final String meaning = inputScanner.next();
 
-        if (wordTarget != null) {
-            word.setWordTarget(wordTarget);
+        if (target != null) {
+            word.setWordTarget(target);
         }
 
-        if (wordExplain != null) {
-            word.setWordExplain(wordExplain);
+        if (meaning != null) {
+            word.setWordExplain(new WordExplain(meaning));
         }
     }
 
@@ -115,7 +115,7 @@ public class DictionaryManagement {
         final ArrayList<Word> words = dictionary.lookup(str);
 
         for (final Word word : words) {
-            table.addRow(word.getWordTarget(), word.getWordExplain());
+            table.addRow(word.getWordTarget(), word.getWordExplain().getMeaning());
         }
         table.show();
     }
@@ -133,7 +133,8 @@ public class DictionaryManagement {
         final ArrayList<Word> words = dictionary.getWords();
         for (int i = 0; i < words.size(); ++i) {
             if (words.get(i).getWordTarget().startsWith(str)) {
-                table.addRow(Integer.toString(index++), words.get(i).getWordTarget(), words.get(i).getWordExplain());
+                table.addRow(Integer.toString(index++), words.get(i).getWordTarget(),
+                        words.get(i).getWordExplain().getMeaning());
             }
         }
         table.show();

@@ -26,7 +26,7 @@ public class DictionaryCommandline {
 
         final ArrayList<Word> words = dictionaryManagement.getDictionary().getWords();
         for (int i = 0; i < words.size(); ++i) {
-            table.addRow(Integer.toString(i), words.get(i).getWordTarget(), words.get(i).getWordExplain());
+            table.addRow(Integer.toString(i), words.get(i).getWordTarget(), words.get(i).getWordExplain().getMeaning());
         }
 
         table.show();
