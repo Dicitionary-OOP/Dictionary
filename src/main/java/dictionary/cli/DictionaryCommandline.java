@@ -13,11 +13,11 @@ public class DictionaryCommandline {
     private final DictionaryManagement dictionaryManagement;
     private final Scanner inputScanner;
 
-    DictionaryCommandline() {
+    public DictionaryCommandline() {
         this(new DictionaryManagement());
     }
 
-    DictionaryCommandline(final DictionaryManagement dictionaryManagement) {
+    public DictionaryCommandline(final DictionaryManagement dictionaryManagement) {
         this.dictionaryManagement = dictionaryManagement;
         inputScanner = new Scanner(System.in);
     }
@@ -25,7 +25,7 @@ public class DictionaryCommandline {
     /**
      * Show a table of words
      */
-    void showAllWords() {
+    public void showAllWords() {
         final CommandLineTable table = new CommandLineTable();
         table.setHeaders("No", "English", "Vietnamese");
 
@@ -37,98 +37,38 @@ public class DictionaryCommandline {
         table.show();
     }
 
-    DictionaryManagement getDictionaryManagement() {
+    public DictionaryManagement getDictionaryManagement() {
         return dictionaryManagement;
     }
 
-    public void dictionaryBasic() {
-        insertFromCommandline();
-        showAllWords();
-    }
-
-    public void dictionaryAdvanced() {
-        boolean isRunning = true;
-        while (isRunning) {
-            showMenu();
-            isRunning = handleMenuAction();
-        }
-    }
-
-    public boolean handleMenuAction() {
-        System.out.print("Your action: ");
-        String input = inputScanner.next();
-
-        while (!input.matches("[0-9]")) {
-            System.out.println("Action not supported");
-
-            System.out.print("Your action: ");
-            input = inputScanner.next();
-        }
-
-        final int action = Integer.parseInt(input);
-
-        switch (action) {
-            case 0:
-                return false;
-            case 1:
-                handleAdd();
-                break;
-            case 2:
-                handleRemove();
-                break;
-            case 3:
-                handleUpdate();
-                break;
-            case 4:
-                handleDisplay();
-                break;
-            case 5:
-                handleLookup();
-                break;
-            case 6:
-                handleSearch();
-                break;
-            case 7:
-                handleGame();
-                break;
-            case 8:
-                handleImport();
-                break;
-            case 9:
-                handleExport();
-                break;
-        }
-        return true;
-    }
-
-    void handleAdd() {
+    public void handleAdd() {
         insertFromCommandline();
     }
 
-    void handleRemove() {
+    public void handleRemove() {
         deleteFromCommandline();
     }
 
-    void handleUpdate() {
+    public void handleUpdate() {
         updateFromCommandline();
     }
 
-    void handleDisplay() {
+    public void handleDisplay() {
         showAllWords();
     }
 
-    void handleLookup() {
+    public void handleLookup() {
         dictionaryLookup();
     }
 
-    void handleSearch() {
+    public void handleSearch() {
         dictionarySearcher();
     }
 
-    void handleGame() {
+    public void handleGame() {
     }
 
-    void handleImport() {
+    public void handleImport() {
         System.out.print("Input filepath to import: ");
         final String filepath = inputScanner.next();
         try {
@@ -137,27 +77,13 @@ public class DictionaryCommandline {
         }
     }
 
-    void handleExport() {
+    public void handleExport() {
         System.out.print("Input filepath to export: ");
         final String filepath = inputScanner.next();
         try {
             getDictionaryManagement().dictionaryExportToFile(filepath);
         } catch (final IOException e) {
         }
-    }
-
-    public void showMenu() {
-        System.out.println("Welcome to Dictionary!");
-        System.out.println("[0] Exit");
-        System.out.println("[1] Add");
-        System.out.println("[2] Remove");
-        System.out.println("[3] Update");
-        System.out.println("[4] Display");
-        System.out.println("[5] Lookup");
-        System.out.println("[6] Search");
-        System.out.println("[7] Game");
-        System.out.println("[8] Import from file");
-        System.out.println("[9] Export to file");
     }
 
     /**
