@@ -1,7 +1,8 @@
 package dictionary.cli;
 
-import dictionary.cli.commands.DictionaryCommand;
 import picocli.CommandLine;
+
+import dictionary.cli.commands.DictionaryCommand;
 
 public class Main {
     public static void main(final String[] args) {
