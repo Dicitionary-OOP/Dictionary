@@ -1,4 +1,4 @@
-package dictionary.api;
+package dictionary.base.api;
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;

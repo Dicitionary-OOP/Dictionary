@@ -1,4 +1,3 @@
-
 package dictionary.cli.commands;
 
 import picocli.CommandLine.Command;

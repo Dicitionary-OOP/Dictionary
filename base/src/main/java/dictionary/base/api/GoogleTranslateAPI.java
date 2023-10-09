@@ -1,4 +1,4 @@
-package dictionary.api;
+package dictionary.base.api;
 
 import org.apache.commons.text.StringEscapeUtils;
 

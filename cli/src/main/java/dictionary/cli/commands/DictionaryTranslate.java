@@ -6,7 +6,7 @@ import picocli.CommandLine.Parameters;
 
 import java.io.IOException;
 
-import dictionary.api.GoogleTranslateAPI;
+import dictionary.base.api.GoogleTranslateAPI;
 
 import dictionary.base.Language;
 

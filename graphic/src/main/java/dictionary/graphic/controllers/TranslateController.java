@@ -1,6 +1,6 @@
 package dictionary.graphic.controllers;
 
-import dictionary.api.GoogleTranslateAPI;
+import dictionary.base.api.GoogleTranslateAPI;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
