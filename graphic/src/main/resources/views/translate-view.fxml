@@ -80,6 +80,6 @@
                 </AnchorPane>
             </items>
         </SplitPane>
-      <Button fx:id="translateButton" layoutX="368.0" layoutY="396.0" mnemonicParsing="false" onAction="#onTranslateButtonClick" styleClass="menu-btn" text="Translate" textOverrun="WORD_ELLIPSIS" />
+        <Button fx:id="translateButton" layoutX="368.0" layoutY="396.0" mnemonicParsing="false" onAction="#onTranslateButtonClick" styleClass="menu-btn" text="Translate" textOverrun="WORD_ELLIPSIS" />
     </children>
 </AnchorPane>
