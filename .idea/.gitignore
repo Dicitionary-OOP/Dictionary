@@ -1,6 +1,5 @@
 # Default ignored files
 /shelf/
-/workspace.xml
 
 # Ignore more files
 *
@@ -9,3 +8,6 @@
 !/encodings.xml
 !/vcs.xml
 !/misc.xml
+
+# Keep run configurations
+!/workspace.xml

@@ -113,3 +113,8 @@ assigned to write. When you want to run:
    Run button at the bottom.**
 
    ![Specifying Runtime Command Line Arguments](images/program-arguments.png)
+
+3. A note about the file `.idea/workspace.xml`: You must
+never commit this file. Just leave it intact, because it
+contains the run configurations so that you could run the
+JAR files when you press `Alt-Shift-F10`.

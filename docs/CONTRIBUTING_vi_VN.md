@@ -118,3 +118,8 @@ trong các file mà bạn được phân công. Nếu muốn chạy thử:
    rồi ấn nút Run ở dưới cùng để chạy.**
 
    ![Specifying Runtime Command Line Arguments](images/program-arguments.png)
+
+3. Chú ý về file `.idea/workspace.xml`: Bạn không được
+phép commit file này. Hãy để file này nguyên vẹn, vì nó
+chứa các run configurations để bạn có thể chạy các file
+JAR mà tổ hợp phím `Alt-Shift-F10` mở ra.
