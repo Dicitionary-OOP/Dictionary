@@ -1,3 +1,11 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+
+# Ignore more files
+*
+*.*
+!/compiler.xml
+!/encodings.xml
+!/vcs.xml
+!/misc.xml
