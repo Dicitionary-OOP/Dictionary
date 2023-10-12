@@ -19,7 +19,7 @@ public class Dictionary {
 
     /**
      * Use linear search to find lookupWord in words
-     * 
+     *
      * @param lookupWord word to lookup
      * @return List of words matched lookupWord
      */
@@ -35,7 +35,7 @@ public class Dictionary {
 
     /**
      * Remove a word by index
-     * 
+     *
      * @param index word's index
      */
     public void removeWord(final int index) {

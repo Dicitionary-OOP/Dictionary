@@ -19,7 +19,7 @@ public class DictionaryManagement {
 
     /**
      * Insert Words from a text file with line format "wordTarget\twordExplain".
-     * 
+     *
      * @param filepath
      * @throws IOException
      */
@@ -48,7 +48,7 @@ public class DictionaryManagement {
 
     /**
      * Save current dictionary to a text file with format "wordTarget\twordExplain"
-     * 
+     *
      * @param filepath
      * @throws IOException
      */

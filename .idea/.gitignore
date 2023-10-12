@@ -1,0 +1,10 @@
+# Default ignored files
+/shelf/
+
+# Ignore more files
+*
+*.*
+!/compiler.xml
+!/encodings.xml
+!/vcs.xml
+!/misc.xml

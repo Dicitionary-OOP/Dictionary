@@ -4,9 +4,9 @@ public enum Language {
     VIETNAMESE("vi"),
     ENGLISH("en");
 
-    public String code;
+    public final String code;
 
-    private Language(String code) {
+    Language(String code) {
         this.code = code;
     }
 }
