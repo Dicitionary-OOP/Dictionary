@@ -8,6 +8,3 @@
 !/encodings.xml
 !/vcs.xml
 !/misc.xml
-
-# Keep run configurations
-!/workspace.xml
