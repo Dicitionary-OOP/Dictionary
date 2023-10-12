@@ -110,6 +110,7 @@ When you want to run:
    options, click the **Run button**, then click
    `Modify Run Configuration`. In the `Program arguments`
    text box, type in the command line arguments you
-   want, then click Run.
+   want, then click OK. After that, run the module
+   as instructed in step 2.
 
    ![Program arguments](images/program-arguments.png)
