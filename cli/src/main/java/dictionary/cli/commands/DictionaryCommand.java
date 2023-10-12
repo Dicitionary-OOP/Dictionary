@@ -14,6 +14,7 @@ import picocli.CommandLine.Command;
         DictionaryLookup.class,
         DictionaryMatch.class,
         DictionaryTranslate.class,
+        DictionaryInteractive.class,
 })
 public class DictionaryCommand implements Runnable {
     @Override
