@@ -81,11 +81,11 @@ Last but not least, **your commit messages must comply with the rules of
 1. Clone the forked project to your local machine.
 2. Make sure your machine has the following software
    installed:
-    - JDK 20
+    - JDK 11 or above
     - IntelliJ IDEA
 3. Open the project directory with IntelliJ IDEA.
 4. In IntelliJ IDEA, press the `Ctrl` key twice, then
-   type in: `mvn clean package install`.
+   type in: `mvn clean package install` and press Enter.
 
 ## Development Process
 
@@ -95,7 +95,7 @@ assigned to write.
 
 When you want to run:
 
-1. Open the Main.java file of the CLI or the GUI module.
+1. Open the `Main.java` file of the CLI or the GUI module.
    There should be a **Run button** at the left of the
    line that the `Main` class or the `Main.main` function
    resides.
