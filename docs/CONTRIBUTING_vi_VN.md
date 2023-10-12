@@ -74,7 +74,8 @@ trở lại repo chính. Và chỉ khi admin duyệt pull request của bạn, c
 Khi công việc của bạn chưa hoàn thành, nhưng bạn cần lấy code trong các
 file của các thành viên khác về repo đã fork của mình (chẳng hạn: để chạy
 thử), vẫn làm theo các bước như trên, nhưng click nút `Sync Fork` thay vì
-`Contribute`. Sau đó [làm theo các bước trong link này](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork).
+`Contribute`. Sau
+đó [làm theo các bước trong link này](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork).
 
 Cuối cùng và cũng cực kỳ quan trọng, chú ý rằng **các commit messages của
 bạn phải tuân thủ các quy tắc của [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).**
@@ -85,7 +86,7 @@ bạn phải tuân thủ các quy tắc của [Conventional Commits](https://www
    (local machine).
 2. Đảm bảo local machine đã được cài đặt các phần mềm
    sau:
-    - JDK 20
+    - JDK 11 trở lên
     - IntelliJ IDEA
 3. Mở thư mục chứa repo bằng IntelliJ IDEA.
 4. Trong IntelliJ IDEA, ấn phím `Ctrl` hai lần, gõ:
@@ -95,31 +96,25 @@ bạn phải tuân thủ các quy tắc của [Conventional Commits](https://www
 
 **Sau khi thiết lập xong theo các bước như trên, bạn
 không cần làm lại các bước đó nữa.** Chỉ cần viết code
-trong các file mà bạn được phân công. Nếu muốn chạy thử:
+trong các file mà bạn được phân công.
 
-1. Ấn tổ hợp `Alt-Shift-F10` ([thông tin thêm](https://stackoverflow.com/a/11159341/13680015))
-   sau đó **đừng dùng chuột** ; dùng phím mũi tên
-   Lên/Xuống trên bàn phím để chọn file JAR mình muốn
-   chạy, sau đó bấm Enter.
+Nếu muốn chạy thử:
 
-   ![After pressing Alt-Shift-F10](images/alt-shift-f10.png)
+1. Mở file `Main.java` của module CLI hoặc GUI. Có một
+   nút bấm Run màu xanh ở bên trái dòng code chứa lệnh
+   khai báo class `Main`, hoặc lệnh khai báo hàm `main`
+   của class `Main`.
 
-2. Nếu bạn muốn test file jar CLI với các command line
-   argument (đối số dòng lệnh), vẫn theo quy trình ở bước 1,
-   vẫn dùng các phím mũi tên Lên/Xuống để chọn file jar CLI ;
-   nhưng thay vì ấn Enter ngay, hãy **ấn phím mũi tên
-   sang Phải, rồi ấn phím mũi tên Xuống để di chuyển tới
-   nút Edit, và ấn Enter.**
+   ![Run or Debug the module](images/run-or-debug.png)
 
-   ![Edit Configuration](images/cli-edit.png)
+2. Click nút Run màu xanh, rồi chọn `Run Main.main()`
+   hoặc `Debug Main.main()` để chạy module đó trực tiếp.
 
-   **Nhìn trong phần "Program
-   Arguments", gõ vào đó các đối số dòng lệnh bạn muốn,
-   rồi ấn nút Run ở dưới cùng để chạy.**
+3. Nếu bạn muốn chạy thử CLI với các đối số dòng lệnh
+   (command line arguments), bấm nút Run màu xanh, rồi
+   chọn `Modify Run Configuration`. Trong mục `Program
+   arguments`, nhập vào command line arguments bạn
+   muốn, rồi click OK. Sau đó, lặp lại quy trình ở
+   bước 2.
 
-   ![Specifying Runtime Command Line Arguments](images/program-arguments.png)
-
-3. Chú ý về file `.idea/workspace.xml`: Bạn không được
-phép commit file này. Hãy để file này nguyên vẹn, vì nó
-chứa các run configurations để bạn có thể chạy các file
-JAR mà tổ hợp phím `Alt-Shift-F10` mở ra.
+   ![Program arguments](images/program-arguments.png)
