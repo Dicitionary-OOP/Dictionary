@@ -91,30 +91,25 @@ Last but not least, **your commit messages must comply with the rules of
 
 **After finishing setup, you won't have to do the setup
 process again.** Just write code in files that you are
-assigned to write. When you want to run:
+assigned to write.
 
-1. Press `Alt-Shift-F10` ([more info](https://stackoverflow.com/a/11159341/13680015))
-   then **don't use the mouse** ; instead, use the Up/Down
-   arrow keys on the keyboard to select which JAR file to
-   run, then press Enter.
+When you want to run:
 
-   ![After pressing Alt-Shift-F10](images/alt-shift-f10.png)
+1. Open the Main.java file of the CLI or the GUI module.
+   There should be a **Run button** at the left of the
+   line that the `Main` class or the `Main.main` function
+   resides.
 
-2. If you want to test CLI with custom command line
-   options, still use the Up/Down arrow key to select
-   the CLI as above, but instead of pressing Enter right
-   away, **press the Right arrow key, then press Down
-   arrow key to move to the Edit button. Press Enter.**
+   ![Run or Debug the module](images/run-or-debug.png)
 
-   ![Edit Configuration](images/cli-edit.png)
+2. Click the **Run button**, then click `Run
+   Main.main()` or `Debug Main.main()` to run
+   the module directly.
 
-   **In the "Program Arguments" section, specify the
-   command line options you want, then click the
-   Run button at the bottom.**
+3. If you want to test CLI with custom command line
+   options, click the **Run button**, then click
+   `Modify Run Configuration`. In the `Program arguments`
+   text box, type in the command line arguments you
+   want, then click Run.
 
-   ![Specifying Runtime Command Line Arguments](images/program-arguments.png)
-
-3. A note about the file `.idea/workspace.xml`: You must
-never commit this file. Just leave it intact, because it
-contains the run configurations so that you could run the
-JAR files when you press `Alt-Shift-F10`.
+   ![Program arguments](images/program-arguments.png)
