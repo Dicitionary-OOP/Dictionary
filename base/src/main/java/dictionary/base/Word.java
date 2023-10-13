@@ -1,7 +1,7 @@
 package dictionary.base;
 
 public class Word {
-    private String wordTarget;
+    private String wordTargett;
     private WordExplain wordExplain;
 
     public Word(final String wordTarget, final WordExplain wordExplain) {
