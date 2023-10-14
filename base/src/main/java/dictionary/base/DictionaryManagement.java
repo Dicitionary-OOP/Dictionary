@@ -55,7 +55,7 @@ public class DictionaryManagement {
     public void dictionaryExportToFile(final String filepath) throws IOException {
         final FileWriter writer = new FileWriter(filepath);
         final String format = "%s\t%s\n";
-        for (final Word word : getDictionary().getWords()) {
+        for (final Word word : getDictionary().getAllWords()) {
             writer.write(String.format(format, word.getWordTarget(), word.getWordExplain()));
         }
         writer.close();
