@@ -1,20 +1,21 @@
 package dictionary.base;
+import dictionary.base.algorithm.trie.Trie;
 
 import java.util.ArrayList;
 
 public class Dictionary {
-    private final ArrayList<Word> words;
+    private final Trie<Word> words;
 
     public Dictionary() {
-        words = new ArrayList<>();
+        words = new Trie<>();
     }
 
     public void add(final Word word) {
-        words.add(word);
+        words.add(word.getWordTarget(), word);
     }
 
     public ArrayList<Word> getWords() {
-        return words;
+        return lookup("");
     }
 
     /**
@@ -24,23 +25,15 @@ public class Dictionary {
      * @return List of words matched lookupWord
      */
     public ArrayList<Word> lookup(final String lookupWord) {
-        final ArrayList<Word> result = new ArrayList<>();
-        for (final Word word : words) {
-            if (word.getWordTarget().equals(lookupWord)) {
-                result.add(word);
-            }
-        }
-        return result;
+        return words.findWithPrefix(lookupWord);
     }
 
     /**
-     * Remove a word by index
+     * Remove a word by word
      *
-     * @param index word's index
+     * @param word to remove
      */
-    public void removeWord(final int index) {
-        if (0 <= index && index < words.size()) {
-            words.remove(index);
-        }
+    public void removeWord(final Word word) {
+        words.remove(word.getWordTarget());
     }
 }
