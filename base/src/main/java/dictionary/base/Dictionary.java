@@ -1,4 +1,6 @@
 package dictionary.base;
+import dictionary.base.algorithm.trie.Trie;
+
 import java.util.ArrayList;
 
 public class Dictionary {
