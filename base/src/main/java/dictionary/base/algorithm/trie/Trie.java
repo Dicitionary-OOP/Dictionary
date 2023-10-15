@@ -1,19 +1,16 @@
 package dictionary.base.algorithm.trie;
+import org.w3c.dom.Node;
+
 import java.util.ArrayList;
 
 
 public class Trie
 {
-    private final int ASCIISIZE = 128;
     private char characterTable[] = {
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
             'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
             'u', 'v', 'w', 'x', 'y', 'z', ' ', '-', '\''};
-    private Integer mapToCharacterPosition[] = new Integer[ASCIISIZE];
     private final TrieNode root;
-    private ArrayList wordLists;
-
-    private String currentWord = "";
 
     public Trie() { root = new TrieNode(); }
 
@@ -22,11 +19,12 @@ public class Trie
      *
      * @param key   The key to add.
      */
+
     public void add(final String key)
     {
         TrieNode currentNode = root;
         for (char ch : key.toCharArray()) {
-            currentNode = currentNode.next(ch);
+            currentNode = currentNode.getNextAndCreate(ch);
         }
         currentNode.setEnd(true);
     }
@@ -36,33 +34,42 @@ public class Trie
      *
      * @param key The key to remove.
      */
+
+    public TrieNode getTheEndNode(final String key){
+        TrieNode currentNode = root;
+        for (char ch : key.toCharArray()) {
+            if(currentNode == null){
+                return null;
+            }
+            currentNode = currentNode.getNext(ch);
+        }
+        return currentNode;
+    }
+
     public void remove(final String key)
     {
-        TrieNode currentNode = root;
+        TrieNode currentNode = getTheEndNode(key);
+        if(currentNode != null){
+            currentNode.setEnd(false);
 
-        // find the end node
-        for (char ch : key.toCharArray()) {
-            currentNode = currentNode.next(ch);
-        }
-        currentNode.setEnd(false);
+            // go back to remove the footprint
+            for (int i = key.length() - 1; i >= 0; i--) {
+                final char currentChar = key.charAt(i);
 
-        // go back to remove the footprint
-        for (int i = key.length() - 1; i >= 0; i--) {
-            final char currentChar = key.charAt(i);
-
-            // check if there is any other way
-            boolean isNull = true;
-            for (int j = 0; j < characterTable.length; j++) {
-                if (currentNode.getChilds()[j] != null) {
-                    isNull = false;
-                    break;
+                // check if there is any other way
+                boolean isNull = true;
+                for (int j = 0; j < characterTable.length; j++) {
+                    if (currentNode.getChilds()[j] != null) {
+                        isNull = false;
+                        break;
+                    }
                 }
-            }
 
-            // if there is no other way and the character is not end -> clear the character
-            if (isNull && currentNode.isEnd() == false) {
-                currentNode = currentNode.getParent();
-                currentNode.setChildToNull(currentChar);
+                // if there is no other way and the character is not end -> clear the character
+                if (isNull && currentNode.isEnd() == false) {
+                    currentNode = currentNode.getParent();
+                    currentNode.setChildToNull(currentChar);
+                }
             }
         }
     }
@@ -73,18 +80,18 @@ public class Trie
      * @param prefix The prefix to search for.
      * @return An ArrayList of values associated with keys that have the given prefix.
      */
-    public ArrayList findWithPrefix(final String prefix)
+    public ArrayList<String> getWordsStartWithPrefix(final String prefix)
     {
-        wordLists = new ArrayList<>();
+        ArrayList<String> wordLists =  new ArrayList<String>();
+        TrieNode currentNode = getTheEndNode(prefix);
 
-        TrieNode currentNode = root;
-        for (char ch : prefix.toCharArray()) {
-            currentWord += ch;
-            currentNode = currentNode.next(ch);
+        if(currentNode == null){
+            //If we cant find the end node, return empty array
+            return new ArrayList<String>();
+        }else {
+            findAllNodesWithPrefix(currentNode, prefix, wordLists);
+            return wordLists;
         }
-        findAllNodes(currentNode);
-
-        return wordLists;
     }
 
     /**
@@ -92,17 +99,14 @@ public class Trie
      *
      * @param currentNode The current node to explore.
      */
-    private void findAllNodes(final TrieNode currentNode)
+    private void findAllNodesWithPrefix(final TrieNode currentNode, String currentWord, ArrayList<String> wordLists)
     {
         if (currentNode.isEnd() == true) {
             wordLists.add(currentWord);
         }
-
         for (int i = 0; i < characterTable.length; i++) {
             if (currentNode.getChild(i) != null) {
-                currentWord += characterTable[i];
-                findAllNodes(currentNode.next(characterTable[i]));
-                currentWord = currentWord.substring(0, currentWord.length() - 1);
+                findAllNodesWithPrefix(currentNode.getNext(characterTable[i]), currentWord + characterTable[i], wordLists);
             }
         }
     }
