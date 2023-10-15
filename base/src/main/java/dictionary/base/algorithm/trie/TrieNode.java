@@ -1,102 +1,83 @@
 package dictionary.base.algorithm.trie;
 
+import java.util.HashMap;
 
-/**
- * Represents a node in a Trie data structure.
- */
-public class TrieNode
-{
-    private final int ASCIISIZE = 128;
-    private char characterTable[] = {
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-            'u', 'v', 'w', 'x', 'y', 'z', ' ', '-', '\''};
-    private Integer mapToCharacterPosition[] = new Integer[ASCIISIZE];
+public class TrieNode {
     private TrieNode parent;
-    private final TrieNode[] childs;
+    private final HashMap<Character, TrieNode> childs;
     private boolean isEnd;
 
     /**
-     * Initializes a new TrieNode with an empty array of child nodes.
+     * Initializes a new TrieNode.
      */
-    public TrieNode()
-    {
-        parent = null;
-        childs = new TrieNode[characterTable.length];
-        for (int i = 0; i < characterTable.length; i++) {
-            mapToCharacterPosition[(int)characterTable[i]] = i;
-            childs[i] = null;
+    public TrieNode() {
+        this.parent = null;
+        this.childs = new HashMap<>();
+        this.isEnd = false;
+    }
+
+    public TrieNode(TrieNode parent) {
+        this();
+        this.parent = parent;
+    }
+
+    /**
+     * Gets the child node associated with a character or creates a new one if it
+     * doesn't exist.
+     *
+     * @param ch The character to find or create the child node.
+     * @return The child TrieNode associated with the character.
+     */
+    public TrieNode addChild(final char ch) {
+        if (childs.get(ch) == null) {
+            childs.put(ch, new TrieNode(this));
         }
-        isEnd = false;
+        return childs.get(ch);
     }
 
     /**
-     * Gets the next child node associated with a character.
+     * Gets the child nodes of this TrieNode.
      *
-     * @param nextChar The character to find or create the child node.
-     * @return The next child TrieNode associated with the character.
+     * @return A HashMap containing the child nodes.
      */
-    public TrieNode getNextAndCreate(final char nextChar)
-    {
-        if (childs[mapToCharacterPosition[nextChar]] == null) {
-            childs[mapToCharacterPosition[nextChar]] = new TrieNode();
-        }
-        return childs[mapToCharacterPosition[nextChar]];
-    }
-
-    public TrieNode getNext(final char nextChar) {
-        return childs[mapToCharacterPosition[nextChar]];
-    }
-    /**
-     * Gets the array of child nodes.
-     *
-     * @return The array of child TrieNodes.
-     */
-    public TrieNode[] getChilds() { return childs; }
-
-    /**
-     * Gets the child node at a specific index.
-     *
-     * @param i The index of the child node to retrieve.
-     * @return The child TrieNode at the specified index.
-     */
-    public TrieNode getChild(final int i) { return childs[i]; }
-
-    /**
-     * Sets the child node associated with a character to null.
-     *
-     * @param currentChar The character to clear the child node.
-     */
-    public void setChildToNull(final char currentChar)
-    {
-        this.childs[mapToCharacterPosition[currentChar]] = null;
+    public HashMap<Character, TrieNode> getChilds() {
+        return childs;
     }
 
     /**
-     * Sets the flag to indicate whether the TrieNode represents the end of a word.
+     * Sets a flag to indicate whether the TrieNode represents the end of a word.
      *
-     * @param isEnd true if the TrieNode represents the end of a word, false otherwise.
+     * @param isEnd true if the TrieNode represents the end of a word, false
+     *              otherwise.
      */
-    public void setEnd(final boolean isEnd) { this.isEnd = isEnd; }
+    public void setEnd(final boolean isEnd) {
+        this.isEnd = isEnd;
+    }
 
     /**
      * Checks if the TrieNode represents the end of a word.
      *
      * @return true if the TrieNode represents the end of a word, false otherwise.
      */
-    public boolean isEnd() { return isEnd; }
+    public boolean isEnd() {
+        return isEnd;
+    }
 
     /**
      * Gets the parent TrieNode of the current TrieNode.
      *
      * @return The parent TrieNode of the current TrieNode.
      */
-    public TrieNode getParent() { return parent; }
+    public TrieNode getParent() {
+        return parent;
+    }
 
     /**
      * Sets the parent TrieNode of the current TrieNode.
      *
      * @param parentNode The parent TrieNode to set.
      */
-    public void setParent(final TrieNode parentNode) { this.parent = parentNode; }
+    public void setParent(final TrieNode parentNode) {
+        this.parent = parentNode;
+    }
 }
