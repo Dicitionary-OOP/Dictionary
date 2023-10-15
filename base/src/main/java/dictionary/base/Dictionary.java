@@ -2,18 +2,26 @@ package dictionary.base;
 
 import dictionary.base.algorithm.trie.Trie;
 import dictionary.base.database.DictionaryDatabase;
-import dictionary.base.utils.Utils;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Dictionary {
     private final Trie words;
+    private final DictionaryDatabase db;
 
     /**
      * Initializes a new Dictionary with an empty Trie.
      */
-    public Dictionary() {
+    public Dictionary() throws IOException, SQLException {
         words = new Trie();
+        db = new DictionaryDatabase();
+        db.createTables();
+
+        for (String word : db.getAllWords()) {
+            words.insert(word);
+        }
     }
 
     /**
@@ -21,8 +29,14 @@ public class Dictionary {
      *
      * @param word The Word object to add.
      */
-    public void add(String word) {
-        words.insert(word);
+    public void add(Word word) {
+        words.insert(word.getTarget());
+
+        try {
+            db.addWord(word);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -53,34 +67,20 @@ public class Dictionary {
         words.remove(word);
     }
 
+    public WordExplain getWordExplain(String word) throws SQLException {
+        return getDatabase().getWordExplain(word);
+    }
+
+    public DictionaryDatabase getDatabase() {
+        return db;
+    }
+
     public static void main(final String[] args) {
         try {
-            final DictionaryDatabase db = new DictionaryDatabase(Utils.getResource("/database/database.db"));
-            db.createTables();
-            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('h elloword','en')");
-            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('h allo','en')");
-            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('h ahah','en')");
-            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('h aha','en')");
-            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('h e','en')");
-            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('goodmorning','en')");
-
             Dictionary dict = new Dictionary();
-            for (String word : db.getAllWords()) {
-                System.out.println(word);
-                dict.add(word);
-            }
-            System.out.println("BEFORE");
-            for (String word : dict.lookup("")) {
-                System.out.println(word);
-            }
-
-            dict.removeWord("goodmorning");
-            System.out.println("LOOKUP");
-            for (String word : dict.lookup("")) {
-                System.out.println(word);
-            }
-
-            db.close();
+            dict.add(new Word("hello world", new WordExplain("noun", "helo", "chao the gioi", "hey hello world", "vi"),
+                    Language.ENGLISH));
+            System.out.println(dict.getWordExplain("hello world").getMeaning());
         } catch (final Exception e) {
             e.printStackTrace();
         }

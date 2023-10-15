@@ -11,8 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Database {
-    private final Connection connection;
-    private final Statement statement;
+    protected final Connection connection;
+    protected final Statement statement;
 
     /**
      * Constructs a Database object and connects to the specified database file.

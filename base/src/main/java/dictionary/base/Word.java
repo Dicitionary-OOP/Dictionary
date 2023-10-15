@@ -1,27 +1,37 @@
 package dictionary.base;
 
 public class Word {
-    private String wordTarget;
-    private WordExplain wordExplain;
+    private String target;
+    private WordExplain explain;
+    private Language language;
 
-    public Word(final String wordTarget, final WordExplain wordExplain) {
-        this.wordTarget = wordTarget;
-        this.wordExplain = wordExplain;
+    public Word(final String wordTarget, final WordExplain wordExplain, final Language language) {
+        this.target = wordTarget;
+        this.explain = wordExplain;
+        this.language = language;
     }
 
-    public String getWordTarget() {
-        return wordTarget;
+    public String getTarget() {
+        return target;
     }
 
-    public void setWordTarget(final String wordTarget) {
-        this.wordTarget = wordTarget;
+    public void setTarget(final String wordTarget) {
+        this.target = wordTarget;
     }
 
-    public WordExplain getWordExplain() {
-        return wordExplain;
+    public WordExplain getExplain() {
+        return explain;
     }
 
-    public void setWordExplain(final WordExplain wordExplain) {
-        this.wordExplain = wordExplain;
+    public void setExplain(final WordExplain wordExplain) {
+        this.explain = wordExplain;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 }
