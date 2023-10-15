@@ -41,7 +41,7 @@ public class Dictionary {
      * @return An ArrayList of words that match the given prefix.
      */
     public ArrayList<String> lookup(final String lookupWord) {
-        return words.findWithPrefix(lookupWord);
+        return words.getWordsStartWithPrefix(lookupWord);
     }
 
     /**

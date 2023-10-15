@@ -36,7 +36,7 @@ public class TrieNode
      * @param nextChar The character to find or create the child node.
      * @return The next child TrieNode associated with the character.
      */
-    public TrieNode next(final char nextChar)
+    public TrieNode getNextAndCreate(final char nextChar)
     {
         if (childs[mapToCharacterPosition[nextChar]] == null) {
             childs[mapToCharacterPosition[nextChar]] = new TrieNode();
@@ -44,6 +44,9 @@ public class TrieNode
         return childs[mapToCharacterPosition[nextChar]];
     }
 
+    public TrieNode getNext(final char nextChar) {
+        return childs[mapToCharacterPosition[nextChar]];
+    }
     /**
      * Gets the array of child nodes.
      *
