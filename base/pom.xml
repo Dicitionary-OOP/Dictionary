@@ -2,66 +2,71 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-<modelVersion>4.0.0</modelVersion>
-<parent>
-    <groupId>dictionary</groupId>
-    <artifactId>dictionary</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>dictionary</groupId>
+        <artifactId>dictionary</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>base</artifactId>
     <version>1.0</version>
-</parent>
+    <packaging>jar</packaging>
 
-<artifactId>base</artifactId>
-<version>1.0</version>
-<packaging>jar</packaging>
+    <dependencies>
+        <!-- Text to speech -->
+        <dependency>
+            <groupId>net.sf.sociaal</groupId>
+            <artifactId>freetts</artifactId>
+            <version>1.2.2</version>
+        </dependency>
 
-<dependencies>
-    <dependency>
-        <groupId>net.sf.sociaal</groupId>
-        <artifactId>freetts</artifactId>
-        <version>1.2.2</version>
-    </dependency>
+        <!-- Fetch api -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20230618</version>
+        </dependency>
 
-    <dependency>
-        <groupId>org.json</groupId>
-        <artifactId>json</artifactId>
-        <version>20230618</version>
-    </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.10.0</version>
+        </dependency>
 
-    <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-text</artifactId>
-        <version>1.10.0</version>
-    </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+        </dependency>
 
-    <dependency>
-        <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-        <version>4.5.13</version>
-    </dependency>
+        <dependency>
+            <groupId>org.w3c</groupId>
+            <artifactId>dom</artifactId>
+            <version>2.3.0-jaxb-1.0.6</version>
+        </dependency>
 
-    <dependency>
-        <groupId>org.w3c</groupId>
-        <artifactId>dom</artifactId>
-        <version>2.3.0-jaxb-1.0.6</version>
-    </dependency>
+        <!-- Sqlite -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.43.2.0</version>
+        </dependency>
+    </dependencies>
 
-    <dependency>
-        <groupId>org.xerial</groupId>
-        <artifactId>sqlite-jdbc</artifactId>
-        <version>3.43.2.0</version>
-    </dependency>
-</dependencies>
-
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>1.2.1</version>
-            <configuration>
-                <mainClass>dictionary.base.Dictionary</mainClass>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
+    <build>
+        <plugins>
+            <!-- Execute Dictionary class -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <mainClass>dictionary.base.Dictionary</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
