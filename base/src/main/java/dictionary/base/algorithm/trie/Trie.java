@@ -1,33 +1,33 @@
 package dictionary.base.algorithm.trie;
 import java.util.ArrayList;
 
-/**
- * A data structure for implementing a Trie.
- *
- * @param <V> The type of values associated with Trie keys.
- */
-public class Trie<V>
-{
-    private final int ALPHABET_SIZE = 26;
-    private final TrieNode<V> root;
-    private ArrayList<V> wordLists;
 
-    public Trie() { root = new TrieNode<>(); }
+public class Trie
+{
+    private final int ASCIISIZE = 128;
+    private char characterTable[] = {
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+            'u', 'v', 'w', 'x', 'y', 'z', ' ', '-', '\''};
+    private Integer mapToCharacterPosition[] = new Integer[ASCIISIZE];
+    private final TrieNode root;
+    private ArrayList wordLists;
+
+    private String currentWord = "";
+
+    public Trie() { root = new TrieNode(); }
 
     /**
      * Adds a key-value pair to the Trie.
      *
      * @param key   The key to add.
-     * @param value The value associated with the key.
      */
-    public void add(final String key, final V value)
+    public void add(final String key)
     {
-        TrieNode<V> currentNode = root;
+        TrieNode currentNode = root;
         for (char ch : key.toCharArray()) {
             currentNode = currentNode.next(ch);
         }
-
-        currentNode.setData(value);
         currentNode.setEnd(true);
     }
 
@@ -38,13 +38,12 @@ public class Trie<V>
      */
     public void remove(final String key)
     {
-        TrieNode<V> currentNode = root;
+        TrieNode currentNode = root;
 
         // find the end node
         for (char ch : key.toCharArray()) {
             currentNode = currentNode.next(ch);
         }
-        currentNode.setData(null);
         currentNode.setEnd(false);
 
         // go back to remove the footprint
@@ -53,7 +52,7 @@ public class Trie<V>
 
             // check if there is any other way
             boolean isNull = true;
-            for (int j = 0; j < ALPHABET_SIZE; j++) {
+            for (int j = 0; j < characterTable.length; j++) {
                 if (currentNode.getChilds()[j] != null) {
                     isNull = false;
                     break;
@@ -74,12 +73,13 @@ public class Trie<V>
      * @param prefix The prefix to search for.
      * @return An ArrayList of values associated with keys that have the given prefix.
      */
-    public ArrayList<V> findWithPrefix(final String prefix)
+    public ArrayList findWithPrefix(final String prefix)
     {
         wordLists = new ArrayList<>();
 
-        TrieNode<V> currentNode = root;
+        TrieNode currentNode = root;
         for (char ch : prefix.toCharArray()) {
+            currentWord += ch;
             currentNode = currentNode.next(ch);
         }
         findAllNodes(currentNode);
@@ -92,16 +92,20 @@ public class Trie<V>
      *
      * @param currentNode The current node to explore.
      */
-    private void findAllNodes(final TrieNode<V> currentNode)
+    private void findAllNodes(final TrieNode currentNode)
     {
         if (currentNode.isEnd() == true) {
-            wordLists.add(currentNode.getData());
+            wordLists.add(currentWord);
         }
 
-        for (int i = 0; i < ALPHABET_SIZE; i++) {
+        for (int i = 0; i < characterTable.length; i++) {
             if (currentNode.getChild(i) != null) {
-                findAllNodes(currentNode.next((char)(i + (int)'a')));
+                currentWord += characterTable[i];
+                findAllNodes(currentNode.next(characterTable[i]));
+                currentWord = currentWord.substring(0, currentWord.length() - 1);
             }
         }
     }
 }
+
+

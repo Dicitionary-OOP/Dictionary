@@ -7,13 +7,13 @@ import dictionary.base.utils.Utils;
 import java.util.ArrayList;
 
 public class Dictionary {
-    private final Trie<String> words;
+    private final Trie words;
 
     /**
      * Initializes a new Dictionary with an empty Trie.
      */
     public Dictionary() {
-        words = new Trie<>();
+        words = new Trie();
     }
 
     /**
@@ -22,7 +22,7 @@ public class Dictionary {
      * @param word The Word object to add.
      */
     public void add(String word) {
-        words.add(word, word);
+        words.add(word);
     }
 
     /**
@@ -49,8 +49,8 @@ public class Dictionary {
      *
      * @param word The Word object to remove.
      */
-    public void removeWord(final Word word) {
-        words.remove(word.getWordTarget());
+    public void removeWord(final String word) {
+        words.remove(word);
     }
 
     public static void main(final String[] args) {
