@@ -22,7 +22,7 @@ public class Dictionary {
      * @param word The Word object to add.
      */
     public void add(String word) {
-        words.add(word);
+        words.insert(word);
     }
 
     /**
@@ -41,7 +41,7 @@ public class Dictionary {
      * @return An ArrayList of words that match the given prefix.
      */
     public ArrayList<String> lookup(final String lookupWord) {
-        return words.getWordsStartWithPrefix(lookupWord);
+        return words.getAllWordsStartWith(lookupWord);
     }
 
     /**
@@ -57,11 +57,11 @@ public class Dictionary {
         try {
             final DictionaryDatabase db = new DictionaryDatabase(Utils.getResource("/database/database.db"));
             db.createTables();
-            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('helloword','en')");
-            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('hallo','en')");
-            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('hahah','en')");
-            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('haha','en')");
-            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('he','en')");
+            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('h elloword','en')");
+            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('h allo','en')");
+            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('h ahah','en')");
+            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('h aha','en')");
+            db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('h e','en')");
             db.executeUpdate("INSERT INTO words(word,lang_id) VALUES('goodmorning','en')");
 
             Dictionary dict = new Dictionary();
@@ -69,9 +69,14 @@ public class Dictionary {
                 System.out.println(word);
                 dict.add(word);
             }
+            System.out.println("BEFORE");
+            for (String word : dict.lookup("")) {
+                System.out.println(word);
+            }
 
+            dict.removeWord("goodmorning");
             System.out.println("LOOKUP");
-            for (String word : dict.lookup("ha")) {
+            for (String word : dict.lookup("")) {
                 System.out.println(word);
             }
 
