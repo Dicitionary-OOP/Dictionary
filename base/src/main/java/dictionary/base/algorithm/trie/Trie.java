@@ -5,9 +5,11 @@ import java.util.HashMap;
 
 public class Trie {
     private final TrieNode root;
+    private int size;
 
     public Trie() {
         this.root = new TrieNode();
+        this.size = 0;
     }
 
     /**
@@ -21,6 +23,7 @@ public class Trie {
             currentNode = currentNode.addChild(ch);
         }
         currentNode.setEnd(true);
+        this.size += 1;
     }
 
     /**
@@ -60,6 +63,7 @@ public class Trie {
             node = node.getParent();
             node.getChilds().remove(word.charAt(i));
         }
+        this.size -= 1;
     }
 
     /**
@@ -94,7 +98,6 @@ public class Trie {
 
         if (node.isEnd()) {
             wordLists.add(word);
-            return;
         }
 
         for (final HashMap.Entry<Character, TrieNode> entry : node.getChilds().entrySet()) {
@@ -102,5 +105,9 @@ public class Trie {
                 retrieveWordsStartingWith(entry.getValue(), word + entry.getKey(), wordLists);
             }
         }
+    }
+
+    public int size() {
+        return size;
     }
 }
