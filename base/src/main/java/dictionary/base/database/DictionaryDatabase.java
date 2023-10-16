@@ -1,28 +1,25 @@
 package dictionary.base.database;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import dictionary.base.Example;
 import dictionary.base.Word;
 import dictionary.base.WordExplain;
 import dictionary.base.utils.Utils;
 
 public class DictionaryDatabase extends Database {
-    public DictionaryDatabase() throws SQLException {
-        super(Utils.getResource("/database/database.db"));
-    }
+    private final static String DATABASE_PATH = Utils.getResource("/database/database.db");
 
-    public void createTables() throws SQLException, FileNotFoundException, IOException {
-        executeSQLFile(Utils.getResource("/sql/dictionary.sql"));
+    public DictionaryDatabase() throws SQLException {
+        super(DATABASE_PATH);
     }
 
     public ArrayList<String> getAllWords() throws SQLException {
-        final ResultSet resultSet = executeQuery("select * from words");
         final ArrayList<String> words = new ArrayList<>();
-
+        final ResultSet resultSet = executeQuery(Statement.getAllWord());
         while (resultSet.next()) {
             words.add(resultSet.getString("word"));
         }
@@ -30,35 +27,50 @@ public class DictionaryDatabase extends Database {
         return words;
     }
 
-    public void addLanguage(String languageId, String languageName) throws SQLException {
-        executeUpdate(String.format(("INSERT INTO languages(lang_id,lang_name) VALUES('%s','%s')"),
-                languageId,
-                languageName));
+    public ArrayList<Example> getExamples(final String explain_id) throws SQLException {
+        final ArrayList<Example> examples = new ArrayList<>();
+        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getExamples());
+        preparedStatement.setString(1, explain_id);
+
+        final ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            final String example = resultSet.getString("example");
+            final String translate = resultSet.getString("translate");
+            examples.add(new Example(example, translate));
+        }
+
+        return examples;
     }
 
-    public void addWord(Word word) throws SQLException {
-        executeUpdate(String.format(("INSERT INTO words(word,lang_id) VALUES('%s','%s')"),
-                word.getTarget(),
-                word.getLanguage().code));
+    public ArrayList<WordExplain> getWordExplain(final String word) throws SQLException {
+        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getWordExplains());
+        preparedStatement.setString(1, word);
 
-        executeUpdate(
-                String.format(("INSERT INTO explains(word,lang_id, meaning) VALUES('%s','%s','%s')"),
-                        word.getTarget(),
-                        word.getLanguage().code,
-                        word.getExplain().getMeaning()));
+        final ArrayList<WordExplain> explains = new ArrayList<>();
+        final ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            final String type = resultSet.getString("type");
+            final String meaning = resultSet.getString("meaning");
+            final String explain_id = resultSet.getString("explain_id");
+            explains.add(new WordExplain(type, meaning, getExamples(explain_id)));
+        }
+
+        return explains;
     }
 
-    public WordExplain getWordExplain(final String word) throws SQLException {
-        final StringBuilder query = new StringBuilder();
-        query.append("select * from explains ");
-        query.append(String.format("where word = '%s'", word));
+    public void addWord(final Word word) throws SQLException {
+        // TODO
+    }
 
-        final ResultSet resultSet = executeQuery(query.toString());
-        final String type = resultSet.getString("type");
-        final String pronounce = resultSet.getString("pronounce");
-        final String meaning = resultSet.getString("meaning");
-        final String example = resultSet.getString("examples");
-        final String lang = resultSet.getString("lang_id");
-        return new WordExplain(type, pronounce, meaning, example, lang);
+    public void addExplain(final WordExplain explain, final String word) throws SQLException {
+        // TODO
+    }
+
+    public void addExample(final Example example, final String example_id) throws SQLException {
+        // TODO
+    }
+
+    public void findAllWordsStartWith(final String prefix) throws SQLException {
+        // TODO
     }
 }

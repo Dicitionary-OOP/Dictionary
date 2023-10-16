@@ -17,11 +17,11 @@ public class Database {
     /**
      * Constructs a Database object and connects to the specified database file.
      *
-     * @param databaseFile The path to the SQLite database file.
+     * @param databasePath The path to the SQLite database file.
      * @throws SQLException If a database access error occurs.
      */
-    public Database(final String databaseFile) throws SQLException {
-        connection = DriverManager.getConnection("jdbc:sqlite:" + databaseFile);
+    public Database(final String databasePath) throws SQLException {
+        connection = DriverManager.getConnection(String.format("jdbc:sqlite:%s", databasePath));
         statement = connection.createStatement();
     }
 

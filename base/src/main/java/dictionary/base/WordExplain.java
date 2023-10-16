@@ -1,18 +1,16 @@
 package dictionary.base;
 
+import java.util.ArrayList;
+
 public class WordExplain {
     private String type;
-    private String pronounce;
     private String meaning;
-    private String examples;
-    private String language;
+    private ArrayList<Example> examples;
 
-    public WordExplain(String type, String pronounce, String meaning, String examples, String language) {
+    public WordExplain(String type, String meaning, ArrayList<Example> examples) {
         this.type = type;
-        this.pronounce = pronounce;
         this.meaning = meaning;
         this.examples = examples;
-        this.language = language;
     }
 
     public String getMeaning() {
@@ -31,27 +29,11 @@ public class WordExplain {
         this.type = type;
     }
 
-    public String getPronounce() {
-        return pronounce;
-    }
-
-    public void setPronounce(String pronunce) {
-        this.pronounce = pronunce;
-    }
-
-    public String getExamples() {
+    public ArrayList<Example> getExamples() {
         return examples;
     }
 
-    public void setExamples(String examples) {
+    public void setExamples(ArrayList<Example> examples) {
         this.examples = examples;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
     }
 }

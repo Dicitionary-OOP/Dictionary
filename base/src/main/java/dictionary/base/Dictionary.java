@@ -1,25 +1,20 @@
 package dictionary.base;
 
-import dictionary.base.algorithm.trie.Trie;
-import dictionary.base.database.DictionaryDatabase;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Dictionary {
-    private final Trie words;
-    private final DictionaryDatabase db;
+import dictionary.base.algorithm.trie.Trie;
+import dictionary.base.database.DictionaryDatabase;
 
-    /**
-     * Initializes a new Dictionary with an empty Trie.
-     */
+public class Dictionary {
+    private final DictionaryDatabase db;
+    private final Trie words;
+
     public Dictionary() throws IOException, SQLException {
         words = new Trie();
         db = new DictionaryDatabase();
-        db.createTables();
-
-        for (String word : db.getAllWords()) {
+        for (String word : getDatabase().getAllWords()) {
             words.insert(word);
         }
     }
@@ -67,22 +62,11 @@ public class Dictionary {
         words.remove(word);
     }
 
-    public WordExplain getWordExplain(String word) throws SQLException {
+    public ArrayList<WordExplain> getWordExplain(String word) throws SQLException {
         return getDatabase().getWordExplain(word);
     }
 
     public DictionaryDatabase getDatabase() {
         return db;
-    }
-
-    public static void main(final String[] args) {
-        try {
-            Dictionary dict = new Dictionary();
-            dict.add(new Word("hello world", new WordExplain("noun", "helo", "chao the gioi", "hey hello world", "vi"),
-                    Language.ENGLISH));
-            System.out.println(dict.getWordExplain("hello world").getMeaning());
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
     }
 }
