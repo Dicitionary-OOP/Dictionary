@@ -1,0 +1,10 @@
+dictionary.base
+dictionary.base.algorithm.trie
+dictionary.base.database
+dictionary.base.externalApi
+dictionary.base.utils
+dictionary.cli
+dictionary.cli.commands
+dictionary.cli.utils
+dictionary.graphic
+dictionary.graphic.controllers
