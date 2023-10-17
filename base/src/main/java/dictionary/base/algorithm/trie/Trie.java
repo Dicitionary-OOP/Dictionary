@@ -56,7 +56,7 @@ public class Trie {
         node.setEnd(false);
 
         for (int i = word.length() - 1; i >= 0; i--) {
-            if (node.getChilds().isEmpty() || node.isEnd()) {
+            if (!node.getChilds().isEmpty() || node.isEnd()) {
                 break;
             }
 
