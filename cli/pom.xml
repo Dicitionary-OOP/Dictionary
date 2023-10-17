@@ -11,15 +11,14 @@
     </parent>
 
     <artifactId>cli</artifactId>
-    <version>1.0</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <!-- Base module -->
         <dependency>
-            <groupId>dictionary</groupId>
+            <groupId>${project.parent.groupId}</groupId>
             <artifactId>base</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Picocli for command-line interface -->
