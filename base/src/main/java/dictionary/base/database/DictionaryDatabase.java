@@ -11,7 +11,7 @@ import dictionary.base.WordExplain;
 import dictionary.base.utils.Utils;
 
 public class DictionaryDatabase extends Database {
-    private final static String DATABASE_PATH = Utils.getResource("/database/database.db");
+    private final static String DATABASE_PATH = Utils.getResource("/database/en-vi.db");
 
     public DictionaryDatabase() throws SQLException {
         super(DATABASE_PATH);

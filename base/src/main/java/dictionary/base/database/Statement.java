@@ -9,7 +9,7 @@ public class Statement {
         final StringBuilder query = new StringBuilder();
         query.append("SELECT *");
         query.append("FROM examples ");
-        query.append("INNER JOIN explains_examples USING(example_id) ");
+        query.append("GROUP BY explain_id");
         query.append("WHERE explain_id = ?");
         return query.toString();
     }
@@ -18,7 +18,6 @@ public class Statement {
         final StringBuilder query = new StringBuilder();
         query.append("SELECT explains.explain_id, explains.type, explains.meaning ");
         query.append("FROM explains ");
-        query.append("INNER JOIN words_explains USING(explain_id) ");
         query.append("INNER JOIN words USING(word_id) ");
         query.append("WHERE words.word = ?");
         return query.toString();
