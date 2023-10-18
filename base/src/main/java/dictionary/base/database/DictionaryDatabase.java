@@ -58,6 +58,18 @@ public class DictionaryDatabase extends Database {
         return explains;
     }
 
+    public ArrayList<String> getWordsStartWith(final String prefix) throws SQLException {
+        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getWordsLike());
+        preparedStatement.setString(1, prefix + "%");
+
+        final ArrayList<String> words = new ArrayList<>();
+        final ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            words.add(resultSet.getString("word"));
+        }
+        return words;
+    }
+
     public void addWord(final Word word) throws SQLException {
         // TODO
     }
@@ -70,17 +82,4 @@ public class DictionaryDatabase extends Database {
         // TODO
     }
 
-    public ArrayList<String> findAllWordsStartWith(final String prefix) throws SQLException {
-        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getAllWordStartWith());
-        preparedStatement.setString(1, prefix + "%");
-       
-        final ArrayList<String> words = new ArrayList<>();
-        final ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            final String word = resultSet.getString("word");
-             System.out.println(word);
-            words.add(word);
-        }
-        return words;
-    }
 }

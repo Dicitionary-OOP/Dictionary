@@ -23,11 +23,11 @@ public class Statement {
         return query.toString();
     }
 
-    public static String getAllWordStartWith() {
+    public static String getWordsLike() {
         final StringBuilder query = new StringBuilder();
         query.append("SELECT word ");
         query.append("FROM words ");
-        query.append("WHERE word LIKE ?");
+        query.append("WHERE words.word LIKE ?");
         return query.toString();
 
     }
