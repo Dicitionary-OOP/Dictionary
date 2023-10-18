@@ -22,4 +22,13 @@ public class Statement {
         query.append("WHERE words.word = ?");
         return query.toString();
     }
+
+    public static String getAllWordStartWith() {
+        final StringBuilder query = new StringBuilder();
+        query.append("SELECT word ");
+        query.append("FROM words ");
+        query.append("WHERE word LIKE ?");
+        return query.toString();
+
+    }
 }

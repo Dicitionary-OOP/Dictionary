@@ -70,7 +70,17 @@ public class DictionaryDatabase extends Database {
         // TODO
     }
 
-    public void findAllWordsStartWith(final String prefix) throws SQLException {
-        // TODO
+    public ArrayList<String> findAllWordsStartWith(final String prefix) throws SQLException {
+        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getAllWordStartWith());
+        preparedStatement.setString(1, prefix + "%");
+       
+        final ArrayList<String> words = new ArrayList<>();
+        final ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            final String word = resultSet.getString("word");
+             System.out.println(word);
+            words.add(word);
+        }
+        return words;
     }
 }
