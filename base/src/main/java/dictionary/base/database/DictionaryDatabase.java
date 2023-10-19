@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import dictionary.base.Example;
 import dictionary.base.Word;
-import dictionary.base.WordExplain;
+import dictionary.base.Explain;
 import dictionary.base.utils.Utils;
 
 public class DictionaryDatabase extends Database {
@@ -29,30 +29,25 @@ public class DictionaryDatabase extends Database {
 
     public ArrayList<Example> getExamples(final String explain_id) throws SQLException {
         final ArrayList<Example> examples = new ArrayList<>();
-        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getExamples());
+        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getExamplesByExplainID());
         preparedStatement.setString(1, explain_id);
 
         final ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-            final String example = resultSet.getString("example");
-            final String translate = resultSet.getString("translate");
-            examples.add(new Example(example, translate));
+            examples.add(new Example(resultSet));
         }
 
         return examples;
     }
 
-    public ArrayList<WordExplain> getWordExplain(final String word) throws SQLException {
-        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getWordExplains());
+    public ArrayList<Explain> getWordExplain(final String word) throws SQLException {
+        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getExplainsByWord());
         preparedStatement.setString(1, word);
 
-        final ArrayList<WordExplain> explains = new ArrayList<>();
+        final ArrayList<Explain> explains = new ArrayList<>();
         final ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-            final String type = resultSet.getString("type");
-            final String meaning = resultSet.getString("meaning");
-            final String explain_id = resultSet.getString("explain_id");
-            explains.add(new WordExplain(type, meaning, getExamples(explain_id)));
+            explains.add(new Explain(resultSet));
         }
 
         return explains;
@@ -74,7 +69,7 @@ public class DictionaryDatabase extends Database {
         // TODO
     }
 
-    public void addExplain(final WordExplain explain, final String word) throws SQLException {
+    public void addExplain(final Explain explain, final String word) throws SQLException {
         // TODO
     }
 

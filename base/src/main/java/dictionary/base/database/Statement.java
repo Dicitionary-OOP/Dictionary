@@ -2,10 +2,19 @@ package dictionary.base.database;
 
 public class Statement {
     public static String getAllWord() {
-        return "SELECT word FROM words";
+        return "SELECT * FROM words";
     }
 
-    public static String getExamples() {
+    public static String getExplainsByWord() {
+        final StringBuilder query = new StringBuilder();
+        query.append("SELECT * ");
+        query.append("FROM explains ");
+        query.append("INNER JOIN words USING(word_id) ");
+        query.append("WHERE words.word = ? ");
+        return query.toString();
+    }
+
+    public static String getExamplesByExplainID() {
         final StringBuilder query = new StringBuilder();
         query.append("SELECT *");
         query.append("FROM examples ");
@@ -14,21 +23,11 @@ public class Statement {
         return query.toString();
     }
 
-    public static String getWordExplains() {
-        final StringBuilder query = new StringBuilder();
-        query.append("SELECT explains.explain_id, explains.type, explains.meaning ");
-        query.append("FROM explains ");
-        query.append("INNER JOIN words USING(word_id) ");
-        query.append("WHERE words.word = ?");
-        return query.toString();
-    }
-
     public static String getWordsLike() {
         final StringBuilder query = new StringBuilder();
-        query.append("SELECT word ");
+        query.append("SELECT * ");
         query.append("FROM words ");
         query.append("WHERE words.word LIKE ?");
         return query.toString();
-
     }
 }

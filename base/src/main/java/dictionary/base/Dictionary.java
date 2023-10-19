@@ -25,7 +25,7 @@ public class Dictionary {
      * @param word The Word object to add.
      */
     public void add(Word word) {
-        words.insert(word.getTarget());
+        words.insert(word.getWord());
 
         try {
             db.addWord(word);
@@ -62,7 +62,7 @@ public class Dictionary {
         words.remove(word);
     }
 
-    public ArrayList<WordExplain> getWordExplain(String word) throws SQLException {
+    public ArrayList<Explain> getWordExplain(String word) throws SQLException {
         return getDatabase().getWordExplain(word);
     }
 

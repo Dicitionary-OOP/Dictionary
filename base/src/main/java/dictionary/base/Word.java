@@ -1,37 +1,46 @@
 package dictionary.base;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Word {
-    private String target;
-    private WordExplain explain;
-    private Language language;
+    private String word_id;
+    private String word;
+    private String pronunce;
 
-    public Word(final String wordTarget, final WordExplain wordExplain, final Language language) {
-        this.target = wordTarget;
-        this.explain = wordExplain;
-        this.language = language;
+    public Word(String word_id, String word, String pronunce) {
+        this.word_id = word_id;
+        this.word = word;
+        this.pronunce = pronunce;
     }
 
-    public String getTarget() {
-        return target;
+    public Word(ResultSet resultSet) throws SQLException {
+        this(resultSet.getString("word_id"),
+                resultSet.getString("word"),
+                resultSet.getString("pronunce"));
     }
 
-    public void setTarget(final String wordTarget) {
-        this.target = wordTarget;
+    public String getWord_id() {
+        return word_id;
     }
 
-    public WordExplain getExplain() {
-        return explain;
+    public void setWord_id(String word_id) {
+        this.word_id = word_id;
     }
 
-    public void setExplain(final WordExplain wordExplain) {
-        this.explain = wordExplain;
+    public String getWord() {
+        return word;
     }
 
-    public Language getLanguage() {
-        return language;
+    public void setWord(String word) {
+        this.word = word;
     }
 
-    public void setLanguage(Language language) {
-        this.language = language;
+    public String getPronunce() {
+        return pronunce;
+    }
+
+    public void setPronunce(String pronunce) {
+        this.pronunce = pronunce;
     }
 }
