@@ -8,6 +8,12 @@ public class Word {
     private String word;
     private String pronunce;
 
+    public Word(String word, String pronunce) {
+        this.word_id = null;
+        this.word = word;
+        this.pronunce = pronunce;
+    }
+
     public Word(String word_id, String word, String pronunce) {
         this.word_id = word_id;
         this.word = word;

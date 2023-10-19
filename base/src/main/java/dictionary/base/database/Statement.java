@@ -30,4 +30,18 @@ public class Statement {
         query.append("WHERE words.word LIKE ?");
         return query.toString();
     }
+
+    public static String addWord(){
+        final StringBuilder query = new StringBuilder();
+        query.append("INSERT INTO words (word, pronounce) ");
+        query.append("VALUES (?, ?)");
+        return query.toString();
+    }
+
+    public static String removeWord(){
+        final StringBuilder query = new StringBuilder();
+        query.append("DELETE FROM words ");
+        query.append("WHERE word_id = ?");
+        return query.toString();
+    }
 }
