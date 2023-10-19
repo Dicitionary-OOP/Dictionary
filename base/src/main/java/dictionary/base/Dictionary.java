@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dictionary.base.algorithm.trie.Trie;
+import dictionary.base.database.Database;
 import dictionary.base.database.DictionaryDatabase;
 
 public class Dictionary {
@@ -29,6 +30,21 @@ public class Dictionary {
 
         try {
             db.addWord(word);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Removes a word from the dictionary.
+     *
+     * @param word The Word object to remove.
+     */
+    public void remove(Word word) {
+        words.remove(word.getWord());
+
+        try {
+            db.removeWord(word.getWordID());
         } catch (SQLException e) {
             e.printStackTrace();
         }

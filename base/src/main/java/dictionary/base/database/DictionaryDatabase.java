@@ -66,7 +66,18 @@ public class DictionaryDatabase extends Database {
     }
 
     public void addWord(final Word word) throws SQLException {
-        // TODO
+        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.addWord());
+        preparedStatement.setString(1, word.getWord());
+        preparedStatement.setString(2, word.getPronunce());
+
+        preparedStatement.executeUpdate();
+    }
+
+    public void removeWord(String wordID) throws SQLException {
+        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.removeWord());
+        preparedStatement.setString(1, wordID);
+
+        preparedStatement.executeUpdate();
     }
 
     public void addExplain(final Explain explain, final String word) throws SQLException {
