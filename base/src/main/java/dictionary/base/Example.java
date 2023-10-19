@@ -9,14 +9,18 @@ public class Example {
     private String example;
     private String translate;
 
-    public Example(String example_id, String explain_id, String example, String translate) {
+    public Example(final String explain_id, final String example, final String translate) {
+        this(null, explain_id, example, translate);
+    }
+
+    public Example(final String example_id, final String explain_id, final String example, final String translate) {
         this.example_id = example_id;
         this.explain_id = explain_id;
         this.example = example;
         this.translate = translate;
     }
 
-    public Example(ResultSet resultSet) throws SQLException {
+    public Example(final ResultSet resultSet) throws SQLException {
         this(resultSet.getString("example_id"),
                 resultSet.getString("example_id"),
                 resultSet.getString("example"),
@@ -27,7 +31,7 @@ public class Example {
         return example_id;
     }
 
-    public void setExampleID(String example_id) {
+    public void setExampleID(final String example_id) {
         this.example_id = example_id;
     }
 
@@ -35,7 +39,7 @@ public class Example {
         return explain_id;
     }
 
-    public void setExplainID(String explain_id) {
+    public void setExplainID(final String explain_id) {
         this.explain_id = explain_id;
     }
 
@@ -43,7 +47,7 @@ public class Example {
         return example;
     }
 
-    public void setExample(String example) {
+    public void setExample(final String example) {
         this.example = example;
     }
 
@@ -51,7 +55,7 @@ public class Example {
         return translate;
     }
 
-    public void setTranslate(String translate) {
+    public void setTranslate(final String translate) {
         this.translate = translate;
     }
 }

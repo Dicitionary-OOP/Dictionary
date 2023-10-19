@@ -9,6 +9,10 @@ public class Explain {
     private String type;
     private String meaning;
 
+    public Explain(String word_id, String type, String meaning) {
+        this(null, word_id, type, meaning);
+    }
+
     public Explain(String explain_id, String word_id, String type, String meaning) {
         this.explain_id = explain_id;
         this.word_id = word_id;

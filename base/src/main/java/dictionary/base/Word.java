@@ -8,19 +8,17 @@ public class Word {
     private String word;
     private String pronunce;
 
-    public Word(String word, String pronunce) {
-        this.word_id = null;
-        this.word = word;
-        this.pronunce = pronunce;
+    public Word(final String word, final String pronunce) {
+        this(null, word, pronunce);
     }
 
-    public Word(String word_id, String word, String pronunce) {
+    public Word(final String word_id, final String word, final String pronunce) {
         this.word_id = word_id;
         this.word = word;
         this.pronunce = pronunce;
     }
 
-    public Word(ResultSet resultSet) throws SQLException {
+    public Word(final ResultSet resultSet) throws SQLException {
         this(resultSet.getString("word_id"),
                 resultSet.getString("word"),
                 resultSet.getString("pronunce"));
@@ -30,7 +28,7 @@ public class Word {
         return word_id;
     }
 
-    public void setWordID(String word_id) {
+    public void setWordID(final String word_id) {
         this.word_id = word_id;
     }
 
@@ -38,7 +36,7 @@ public class Word {
         return word;
     }
 
-    public void setWord(String word) {
+    public void setWord(final String word) {
         this.word = word;
     }
 
@@ -46,7 +44,7 @@ public class Word {
         return pronunce;
     }
 
-    public void setPronunce(String pronunce) {
+    public void setPronunce(final String pronunce) {
         this.pronunce = pronunce;
     }
 }
