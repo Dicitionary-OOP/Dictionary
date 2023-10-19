@@ -23,19 +23,19 @@ public class Example {
                 resultSet.getString("translate"));
     }
 
-    public String getExample_id() {
+    public String getExampleID() {
         return example_id;
     }
 
-    public void setExample_id(String example_id) {
+    public void setExampleID(String example_id) {
         this.example_id = example_id;
     }
 
-    public String getExplain_id() {
+    public String getExplainID() {
         return explain_id;
     }
 
-    public void setExplain_id(String explain_id) {
+    public void setExplainID(String explain_id) {
         this.explain_id = explain_id;
     }
 

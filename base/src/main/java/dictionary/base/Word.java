@@ -20,11 +20,11 @@ public class Word {
                 resultSet.getString("pronunce"));
     }
 
-    public String getWord_id() {
+    public String getWordID() {
         return word_id;
     }
 
-    public void setWord_id(String word_id) {
+    public void setWordID(String word_id) {
         this.word_id = word_id;
     }
 
