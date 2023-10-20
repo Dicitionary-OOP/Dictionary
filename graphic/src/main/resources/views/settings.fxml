@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" styleClass="pane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.SettingsController">
+   <children>
+       <fx:include source="navbar.fxml" />
+      <ChoiceBox fx:id="languageChoiceBox" layoutX="225.0" layoutY="96.0" prefWidth="150.0" />
+      <Label layoutX="66.0" layoutY="96.0" text="%language" />
+      <ChoiceBox fx:id="themeChoiceBox" layoutX="225.0" layoutY="141.0" prefWidth="150.0" />
+      <Label layoutX="66.0" layoutY="141.0" text="%theme" />
+      <Button fx:id="applyButton" layoutX="323.0" layoutY="212.0" mnemonicParsing="false" onAction="#applySettings" text="%apply" />
+   </children>
+</AnchorPane>

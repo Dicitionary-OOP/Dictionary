@@ -10,8 +10,8 @@ import javafx.stage.Stage;
 public class App extends Application {
     @Override
     public void start(final Stage stage) throws IOException {
-        SceneController.initializeApplication(stage,
-                new FXMLLoader(getClass().getResource("/views/translate-view.fxml")));
+        SceneController.getInstance().init(stage);
+        SceneController.getInstance().switchScene("/views/settings.fxml");
     }
 
     public static void main(final String[] args) {
