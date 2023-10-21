@@ -4,7 +4,14 @@ import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
+
 public class SettingsController {
+    @FXML
+    private AnchorPane rootPane;
+
     @FXML
     private ChoiceBox<String> languageChoiceBox;
 
@@ -24,6 +31,11 @@ public class SettingsController {
 
     @FXML
     private void applySettings() {
+        Notifications.create()
+            .title("Dictionary")
+            .text("Settings have been updated")
+            .showInformation();
+
         try {
             SceneController.getInstance().setLocale(languageChoiceBox.getValue());
             SceneController.getInstance().switchScene("/views/settings.fxml");
