@@ -85,15 +85,4 @@ public class Dictionary {
     public DictionaryDatabase getDatabase() {
         return db;
     }
-
-    public static void main(String[] args) {
-        try {
-            Dictionary dict = new Dictionary();
-            for (String word : dict.lookup("test")) {
-                System.out.println(word);
-            }
-        } catch (Exception e) {
-        }
-
-    }
 }

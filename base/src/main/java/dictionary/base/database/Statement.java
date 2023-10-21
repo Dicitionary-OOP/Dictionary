@@ -44,4 +44,28 @@ public class Statement {
         query.append("WHERE word_id = ?");
         return query.toString();
     }
+
+    /**.
+     *Create SQL querry to add explain(tạo câu lệnh để thêm 1 giải thích).
+     *
+     * @return the string is SQL querry.
+     */
+    public static String addAnExplain(){
+        final StringBuilder query = new StringBuilder();
+        query.append("INSERT INTO explains (word_id, type, meaning) ");
+        query.append("VALUES (?, ?, ?)");
+        return query.toString();
+    }
+    /**.
+     *Create SQL querry to remove explain(tạo câu lệnh để xóa 1 giải thích).
+     *
+     * @return the string is SQL querry.
+     */
+
+    public static String removeAnExplain(){
+        final StringBuilder query = new StringBuilder();
+        query.append("DELETE FROM explains ");
+        query.append("WHERE explain_id= ?");
+        return query.toString();
+    }
 }
