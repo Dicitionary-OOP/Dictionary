@@ -23,6 +23,16 @@ public class NavbarController {
     }
 
     @FXML
+    private void switchToTextToIPA() {
+        SceneController.getInstance().switchScene("/views/text-to-ipa.fxml");
+    }
+
+    @FXML
+    private void switchToSynonym() {
+        SceneController.getInstance().switchScene("/views/synonym.fxml");
+    }
+
+    @FXML
     private void switchToSettings() {
         SceneController.getInstance().switchScene("/views/settings.fxml");
     }

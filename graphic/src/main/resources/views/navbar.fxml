@@ -27,6 +27,18 @@
             <String fx:value="btn-selected" />
          </styleClass>
       </Button>
+      <Button mnemonicParsing="false" onAction="#switchToTextToIPA" text="%text_to_ipa" textOverrun="WORD_ELLIPSIS">
+         <styleClass>
+            <String fx:value="menu-btn" />
+            <String fx:value="btn-selected" />
+         </styleClass>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#switchToSynonym" text="%synonym" textOverrun="WORD_ELLIPSIS">
+         <styleClass>
+            <String fx:value="menu-btn" />
+            <String fx:value="btn-selected" />
+         </styleClass>
+      </Button>
       <Button mnemonicParsing="false" onAction="#switchToSettings" text="%settings" textOverrun="WORD_ELLIPSIS">
          <styleClass>
             <String fx:value="menu-btn" />
