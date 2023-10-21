@@ -81,8 +81,35 @@ public class DictionaryDatabase extends Database {
         preparedStatement.executeUpdate();
     }
 
-    public void addExplain(final Explain explain, final String word) throws SQLException {
-        // TODO
+    /**.
+     *Add explain of the word.
+     *
+     * @param explain - the new explain(giải thích của từ).
+     * @param word - the added word(từ được giải thích).
+     *
+     * @throws SQLException
+     */
+
+    public void addExplain(final Explain explain, final Word word) throws SQLException {
+        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.addExplain());
+        preparedStatement.setString(1, word.getWordID());
+        preparedStatement.setString(2, explain.getType());
+        preparedStatement.setString(3, explain.getMeaning());
+
+        preparedStatement.executeUpdate();
+    }
+
+    /**.
+     *Remove the explain.
+     *
+     * @param wordID - the removed word(từ bị xóa)
+     * @throws SQLException
+     */
+    public void removeExplain(String wordID) throws SQLException {
+        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.removeWord());
+        preparedStatement.setString(1, wordID);
+
+        preparedStatement.executeUpdate();
     }
 
     public void addExample(final Example example, final String example_id) throws SQLException {
