@@ -83,8 +83,4 @@ public class Dictionary {
     public DictionaryDatabase getDatabase() {
         return db;
     }
-
-    public static void main(String[] args) {
-        System.out.println(TextToIPA.textToIPA("A web application or dynamic website generates content based on retrieved data (most of the time is a database) that changes based on a user’s interaction with the site. In a web application, the server is responsible for querying, retrieving, and updating data. This causes web applications to be slower and more difficult to deploy than static websites for simple applications (Reddit)."));
-    }
 }
