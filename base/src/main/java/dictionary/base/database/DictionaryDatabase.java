@@ -14,7 +14,7 @@ import dictionary.base.utils.Utils;
 public class DictionaryDatabase extends Database {
     private final static String DATABASE_PATH = Utils.getResource("/database/en-vi.db");
 
-    public DictionaryDatabase() throws SQLException , URISyntaxException {
+    public DictionaryDatabase() throws SQLException, URISyntaxException {
         super(DATABASE_PATH);
     }
 
@@ -41,9 +41,9 @@ public class DictionaryDatabase extends Database {
         return examples;
     }
 
-    public ArrayList<Explain> getWordExplain(final String word) throws SQLException {
-        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getExplainsByWord());
-        preparedStatement.setString(1, word);
+    public ArrayList<Explain> getExplainsByWordID(final String wordID) throws SQLException {
+        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getExplainsByWordID());
+        preparedStatement.setString(1, wordID);
 
         final ArrayList<Explain> explains = new ArrayList<>();
         final ResultSet resultSet = preparedStatement.executeQuery();
@@ -81,31 +81,32 @@ public class DictionaryDatabase extends Database {
         preparedStatement.executeUpdate();
     }
 
-    /**.
-     *Add explain of the word.
+    /**
+     * Add explain of the word.
      *
      * @param explain - the new explain(giải thích của từ).
-     * @param word - the added word(từ được giải thích).
+     * @param wordID  - wordID (id từ được giải thích).
      *
      * @throws SQLException
      */
 
-    public void addAnExplain(final Explain explain, final Word word) throws SQLException {
+    public void addExplain(final Explain explain, final String wordID) throws SQLException {
         final PreparedStatement preparedStatement = connection.prepareStatement(Statement.addAnExplain());
-        preparedStatement.setString(1, word.getWordID());
+        preparedStatement.setString(1, wordID);
         preparedStatement.setString(2, explain.getType());
         preparedStatement.setString(3, explain.getMeaning());
 
         preparedStatement.executeUpdate();
     }
 
-    /**.
-     *Remove the explain.
+    /**
+     * Remove the explain.
      *
      * @param explainID - the removed explain(từ bị xóa)
+     *
      * @throws SQLException
      */
-    public void removeAnExplain(String explainID) throws SQLException {
+    public void removeExplain(String explainID) throws SQLException {
         final PreparedStatement preparedStatement = connection.prepareStatement(Statement.removeAnExplain());
         preparedStatement.setString(1, explainID);
 

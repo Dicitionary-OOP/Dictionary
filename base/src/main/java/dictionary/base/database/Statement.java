@@ -5,12 +5,11 @@ public class Statement {
         return "SELECT * FROM words";
     }
 
-    public static String getExplainsByWord() {
+    public static String getExplainsByWordID() {
         final StringBuilder query = new StringBuilder();
         query.append("SELECT * ");
         query.append("FROM explains ");
-        query.append("INNER JOIN words USING(word_id) ");
-        query.append("WHERE words.word = ? ");
+        query.append("WHERE word_id = ? ");
         return query.toString();
     }
 
@@ -31,38 +30,39 @@ public class Statement {
         return query.toString();
     }
 
-    public static String addWord(){
+    public static String addWord() {
         final StringBuilder query = new StringBuilder();
         query.append("INSERT INTO words (word, pronounce) ");
         query.append("VALUES (?, ?)");
         return query.toString();
     }
 
-    public static String removeWord(){
+    public static String removeWord() {
         final StringBuilder query = new StringBuilder();
         query.append("DELETE FROM words ");
         query.append("WHERE word_id = ?");
         return query.toString();
     }
 
-    /**.
-     *Create SQL querry to add explain(tạo câu lệnh để thêm 1 giải thích).
+    /**
+     * Create SQL querry to add explain(tạo câu lệnh để thêm 1 giải thích).
      *
      * @return the string is SQL querry.
      */
-    public static String addAnExplain(){
+    public static String addAnExplain() {
         final StringBuilder query = new StringBuilder();
         query.append("INSERT INTO explains (word_id, type, meaning) ");
         query.append("VALUES (?, ?, ?)");
         return query.toString();
     }
-    /**.
-     *Create SQL querry to remove explain(tạo câu lệnh để xóa 1 giải thích).
+
+    /**
+     * Create SQL querry to remove explain(tạo câu lệnh để xóa 1 giải thích).
      *
      * @return the string is SQL querry.
      */
 
-    public static String removeAnExplain(){
+    public static String removeAnExplain() {
         final StringBuilder query = new StringBuilder();
         query.append("DELETE FROM explains ");
         query.append("WHERE explain_id= ?");

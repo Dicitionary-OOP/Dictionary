@@ -78,10 +78,6 @@ public class Dictionary {
         words.remove(word);
     }
 
-    public ArrayList<Explain> getWordExplain(String word) throws SQLException {
-        return getDatabase().getWordExplain(word);
-    }
-
     public DictionaryDatabase getDatabase() {
         return db;
     }
