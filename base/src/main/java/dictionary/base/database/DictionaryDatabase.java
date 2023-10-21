@@ -90,8 +90,8 @@ public class DictionaryDatabase extends Database {
      * @throws SQLException
      */
 
-    public void addExplain(final Explain explain, final Word word) throws SQLException {
-        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.addExplain());
+    public void addAnExplain(final Explain explain, final Word word) throws SQLException {
+        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.addAnExplain());
         preparedStatement.setString(1, word.getWordID());
         preparedStatement.setString(2, explain.getType());
         preparedStatement.setString(3, explain.getMeaning());
@@ -102,12 +102,12 @@ public class DictionaryDatabase extends Database {
     /**.
      *Remove the explain.
      *
-     * @param wordID - the removed word(từ bị xóa)
+     * @param explainID - the removed explain(từ bị xóa)
      * @throws SQLException
      */
-    public void removeExplain(String wordID) throws SQLException {
-        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.removeWord());
-        preparedStatement.setString(1, wordID);
+    public void removeAnExplain(String explainID) throws SQLException {
+        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.removeAnExplain());
+        preparedStatement.setString(1, explainID);
 
         preparedStatement.executeUpdate();
     }

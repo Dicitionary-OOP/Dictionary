@@ -25,12 +25,11 @@ public class Dictionary {
      *
      * @param word The Word object to add.
      */
-    public void add(Word word,Explain explain) {
+    public void add(Word word) {
         words.insert(word.getWord());
 
         try {
             db.addWord(word);
-            db.addExplain(explain, word);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -46,7 +45,6 @@ public class Dictionary {
 
         try {
             db.removeWord(word.getWordID());
-            db.removeExplain(word.getWordID());
         } catch (SQLException e) {
             e.printStackTrace();
         }

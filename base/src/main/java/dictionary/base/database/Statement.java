@@ -50,7 +50,7 @@ public class Statement {
      *
      * @return the string is SQL querry.
      */
-    public static String addExplain(){
+    public static String addAnExplain(){
         final StringBuilder query = new StringBuilder();
         query.append("INSERT INTO explains (word_id, type, meaning) ");
         query.append("VALUES (?, ?, ?)");
@@ -62,10 +62,10 @@ public class Statement {
      * @return the string is SQL querry.
      */
 
-    public static String removeExplain(){
+    public static String removeAnExplain(){
         final StringBuilder query = new StringBuilder();
         query.append("DELETE FROM explains ");
-        query.append("WHERE word_id = ?");
+        query.append("WHERE explain_id= ?");
         return query.toString();
     }
 }
