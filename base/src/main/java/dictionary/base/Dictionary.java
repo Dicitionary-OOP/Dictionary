@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 import dictionary.base.algorithm.trie.Trie;
 import dictionary.base.database.DictionaryDatabase;
-import dictionary.base.externalApi.SynonymApi;
-import dictionary.base.externalApi.TextToIPA;
 
 public class Dictionary {
     private final DictionaryDatabase db;

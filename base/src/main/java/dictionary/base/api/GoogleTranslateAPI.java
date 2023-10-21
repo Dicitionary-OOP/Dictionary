@@ -1,4 +1,4 @@
-package dictionary.base.externalApi;
+package dictionary.base.api;
 
 import org.apache.commons.text.StringEscapeUtils;
 
@@ -10,7 +10,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-public class GoogleTranslateApi {
+public class GoogleTranslateAPI {
     /**
      * Translates text from one language to another using the Google Translate API.
      *

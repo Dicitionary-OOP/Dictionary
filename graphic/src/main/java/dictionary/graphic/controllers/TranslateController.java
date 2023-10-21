@@ -1,6 +1,6 @@
 package dictionary.graphic.controllers;
 
-import dictionary.base.externalApi.GoogleTranslateApi;
+import dictionary.base.api.GoogleTranslateAPI;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -37,7 +37,7 @@ public class TranslateController {
         final Thread thread = new Thread(() -> {
             String output = null;
             try {
-                output = GoogleTranslateApi.translate(sourceLanguageChoiceBox.getValue(),
+                output = GoogleTranslateAPI.translate(sourceLanguageChoiceBox.getValue(),
                         targetLanguageChoiceBox.getValue(), inputTextArea.getText());
                 final String finalOutput = output;
                 Platform.runLater(() -> outputTextArea.setText(finalOutput));

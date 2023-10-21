@@ -1,4 +1,4 @@
-package dictionary.base.externalApi;
+package dictionary.base.api;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class SynonymApi {
+public class SynonymAPI {
     public static final String API = "https://api.datamuse.com/words?";
     public static final int DEFAULT_LIMIT = 50;
 

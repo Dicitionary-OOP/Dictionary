@@ -1,4 +1,4 @@
-package dictionary.base.externalApi;
+package dictionary.base.api;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,12 +10,12 @@ import java.nio.charset.StandardCharsets;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONObject;
 
-public class TextToIPA {
+public class TextToIpaAPI {
 
     private static final String API = "https://png-text-to-ipa.onrender.com";
 
     /**
-     * Converts the given text to its IPA representation using an external API.
+     * Converts the given text to its IPA representation using an API.
      *
      * @param text The text to convert to IPA.
      * @return The IPA representation of the input text, or null if an error occurs.

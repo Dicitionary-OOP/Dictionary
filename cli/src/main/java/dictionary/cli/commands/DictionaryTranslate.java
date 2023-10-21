@@ -6,7 +6,7 @@ import picocli.CommandLine.Parameters;
 
 import java.io.IOException;
 
-import dictionary.base.externalApi.GoogleTranslateApi;
+import dictionary.base.api.GoogleTranslateAPI;
 
 import dictionary.base.Language;
 
@@ -26,7 +26,7 @@ public class DictionaryTranslate implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println(GoogleTranslateApi.translate(sourceLanguage, targetLanguage, textToTranslate));
+            System.out.println(GoogleTranslateAPI.translate(sourceLanguage, targetLanguage, textToTranslate));
         } catch (IOException ex) {
         }
     }

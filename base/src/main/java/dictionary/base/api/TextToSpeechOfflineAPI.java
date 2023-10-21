@@ -1,9 +1,9 @@
-package dictionary.base.externalApi;
+package dictionary.base.api;
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
-public class TextToSpeechOfflineApi {
+public class TextToSpeechOfflineAPI {
     static final String VOICE_NAME = "kevin16";
 
     public static void getTextToSpeech(final String text) {
