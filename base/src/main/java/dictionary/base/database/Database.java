@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,10 +20,11 @@ public class Database {
      * Constructs a Database object and connects to the specified database file.
      *
      * @param databasePath The path to the SQLite database file.
-     * @throws SQLException If a database access error occurs.
+     * @throws SQLException       If a database access error occurs.
+     * @throws URISyntaxException If a URI Syntax error occurs.
      */
-    public Database(final String databasePath) throws SQLException {
-        connection = DriverManager.getConnection(String.format("jdbc:sqlite:%s", databasePath));
+    public Database(final String databasePath) throws SQLException, URISyntaxException {
+        connection = DriverManager.getConnection(new URI("jdbc:sqlite", null, databasePath, null).toString());
         statement = connection.createStatement();
     }
 

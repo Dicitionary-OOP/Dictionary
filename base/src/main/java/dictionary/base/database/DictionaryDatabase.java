@@ -1,5 +1,6 @@
 package dictionary.base.database;
 
+import java.net.URISyntaxException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ import dictionary.base.utils.Utils;
 public class DictionaryDatabase extends Database {
     private final static String DATABASE_PATH = Utils.getResource("/database/en-vi.db");
 
-    public DictionaryDatabase() throws SQLException {
+    public DictionaryDatabase() throws SQLException , URISyntaxException {
         super(DATABASE_PATH);
     }
 
@@ -87,5 +88,4 @@ public class DictionaryDatabase extends Database {
     public void addExample(final Example example, final String example_id) throws SQLException {
         // TODO
     }
-
 }

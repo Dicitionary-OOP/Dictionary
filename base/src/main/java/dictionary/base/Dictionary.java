@@ -1,18 +1,18 @@
 package dictionary.base;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dictionary.base.algorithm.trie.Trie;
-import dictionary.base.database.Database;
 import dictionary.base.database.DictionaryDatabase;
 
 public class Dictionary {
     private final DictionaryDatabase db;
     private final Trie words;
 
-    public Dictionary() throws IOException, SQLException {
+    public Dictionary() throws IOException, SQLException, URISyntaxException {
         words = new Trie();
         db = new DictionaryDatabase();
         for (String word : getDatabase().getAllWords()) {
@@ -84,5 +84,16 @@ public class Dictionary {
 
     public DictionaryDatabase getDatabase() {
         return db;
+    }
+
+    public static void main(String[] args) {
+        try {
+            Dictionary dict = new Dictionary();
+            for (String word : dict.lookup("test")) {
+                System.out.println(word);
+            }
+        } catch (Exception e) {
+        }
+
     }
 }
