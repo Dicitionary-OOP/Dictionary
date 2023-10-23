@@ -22,6 +22,11 @@ public class GoogleTranslateAPI {
      */
     public static String translate(final String sourceLanguage, final String targetLanguage, final String text)
             throws IOException {
+
+        if(sourceLanguage.equals(targetLanguage)) {
+            return text;
+        }
+
         final String DEPLOYMENT_ID = "AKfycbzS8OiTKVPtZnUecN3oWzVCHLpAHxdyI2j01W_ZoP_byBqVRfnEIaGwaWmtV2WVrrRi3g";
         final URL GOOGLE_SCRIPT_WEB_APP = new URL(String.format(
                 "https://script.google.com/macros/s/%s/exec?q=%s&target=%s&source=%s",

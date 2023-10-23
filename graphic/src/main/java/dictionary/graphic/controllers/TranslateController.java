@@ -50,4 +50,23 @@ public class TranslateController {
         thread.setDaemon(true);
         thread.start();
     }
+    
+    @FXML
+    public void onSwitchSourceLanguage() {
+        if (sourceLanguageChoiceBox.getValue().equals("en"))  {
+            targetLanguageChoiceBox.setValue("vi");
+        } else{
+            targetLanguageChoiceBox.setValue("en");
+        };
+    }
+
+    @FXML
+    public void onSwitchTargetLanguage() {
+        if (targetLanguageChoiceBox.getValue().equals("en")){
+            sourceLanguageChoiceBox.setValue("vi");
+        } else {
+            sourceLanguageChoiceBox.setValue("en");
+        };
+
+    }
 }
