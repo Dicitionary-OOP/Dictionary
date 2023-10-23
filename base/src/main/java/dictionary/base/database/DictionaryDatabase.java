@@ -11,6 +11,8 @@ import dictionary.base.Word;
 import dictionary.base.Explain;
 import dictionary.base.utils.Utils;
 
+import dictionary.base.exceptions.AddExampleException;
+
 public class DictionaryDatabase extends Database {
     private final static String DATABASE_PATH = Utils.getResource("/database/en-vi.db");
 
@@ -113,7 +115,45 @@ public class DictionaryDatabase extends Database {
         preparedStatement.executeUpdate();
     }
 
-    public void addExample(final Example example, final String example_id) throws SQLException {
-        // TODO
+    /**
+     * Adds a new example to an existing explanation (explain).
+     * / Thêm một ví dụ vào một giải thích từ.
+     * Note that the example's ID must be null. If it is not,
+     * that implies the example already exists in the database,
+     * and thus should be updated, NOT added.
+     * / Chú ý ID của đối tượng example phải là null.
+     *
+     * @param example - An Example object.
+     * @param explain_id - The explain ID.
+     * @throws SQLException
+     * @throws AddExampleException - in case the example's ID is
+     *                               not null.
+     */
+    public void addExample(final Example example, final String explain_id) throws SQLException, AddExampleException {
+        if (example.getExampleID() == null) {
+            throw new AddExampleException("Example ID must be null");
+        }
+        PreparedStatement stmt = connection.prepareStatement(
+            "INSERT INTO examples (explain_id, example, translate) VALUES (?, ?, ?)"
+        );
+        stmt.setString(1, example.getExplainID());
+        stmt.setString(2, example.getExample());
+        stmt.setString(3, example.getTranslate());
+        stmt.executeUpdate();
+    }
+
+    /**
+     * Removes an example from the database.
+     * / Xoá một ví dụ khỏi CSDL.
+     *
+     * @param exampleID - The ID of the example to be removed.
+     * @throws SQLException
+     */
+    public void removeExample(final String exampleID) throws SQLException {
+        PreparedStatement stmt = connection.prepareStatement(
+            "DELETE FROM examples WHERE example_id = ?"
+        );
+        stmt.setString(1, exampleID);
+        stmt.executeUpdate();
     }
 }
