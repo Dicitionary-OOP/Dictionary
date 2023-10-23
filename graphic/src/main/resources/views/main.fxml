@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMinHeight="35.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <tabs>
+        <Tab text="%english_vietnamese">
+            <content>
+                <fx:include source="english-vietnamese.fxml" />
+            </content>
+        </Tab>
+        <Tab text="%vietnamese_english">
+            <content>
+                <fx:include source="vietnamese-english.fxml" />
+            </content>
+        </Tab>
+        <Tab text="%translate">
+            <content>
+                <fx:include source="translate.fxml" />
+            </content>
+        </Tab>
+        <Tab text="%text_to_ipa">
+            <content>
+                <fx:include source="text-to-ipa.fxml" />
+            </content>
+        </Tab>
+        <Tab text="%synonym">
+            <content>
+                <fx:include source="synonym.fxml" />
+            </content>
+        </Tab>
+        <Tab text="%settings">
+            <content>
+                <fx:include source="settings.fxml" />
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>

@@ -48,7 +48,6 @@ public class SettingsController {
         try {
             SceneController.getInstance().setLocale(languageChoiceBox.getValue());
             SceneController.getInstance().setTheme(Theme.getTheme(themeChoiceBox.getValue()));
-            SceneController.getInstance().switchScene("/views/settings.fxml");
         } catch(Exception e){}
     }
 }

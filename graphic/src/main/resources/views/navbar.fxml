@@ -50,7 +50,7 @@
       <Insets />
    </opaqueInsets>
    <padding>
-      <Insets left="20.0" />
+      <Insets left="30.0" />
    </padding>
    <styleClass>
       <String fx:value="menu-bar" />

@@ -1,6 +1,7 @@
 package dictionary.graphic;
 
 public enum View {
+    Main("/views/main.fxml"),
     EnglishVietnamese("/views/english-vietnamese.fxml"),
     VietnameseEnglish("/views/vietnamese-english.fxml"),
     Translate("/views/translate.fxml"),

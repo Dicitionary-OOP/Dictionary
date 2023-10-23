@@ -58,7 +58,7 @@ public class SceneController {
         this.stage = _stage;
         this.locale = new Locale("en");
         this.bundle = ResourceBundle.getBundle("languages.language", locale);
-        this.scene = new Scene(new BorderPane(), 800, 450, false, SceneAntialiasing.BALANCED);
+        this.scene = new Scene(new BorderPane(), 800, 500, false, SceneAntialiasing.BALANCED);
         setTheme(theme);
     }
 

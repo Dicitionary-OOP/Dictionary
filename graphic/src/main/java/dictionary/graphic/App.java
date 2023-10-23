@@ -11,7 +11,7 @@ public class App extends Application {
     @Override
     public void start(final Stage stage) throws IOException {
         SceneController.getInstance().init(stage);
-        SceneController.getInstance().switchScene(View.EnglishVietnamese.fxml());
+        SceneController.getInstance().switchScene(View.Main.fxml());
     }
 
     public static void main(final String[] args) {
