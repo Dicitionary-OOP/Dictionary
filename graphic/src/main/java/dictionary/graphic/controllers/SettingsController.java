@@ -31,8 +31,9 @@ public class SettingsController {
 
         ObservableList<String> themeNames = FXCollections.observableArrayList();
         for (Theme theme : Theme.values()) {
-            themeNames.add(theme.name);
+            themeNames.add(theme.name());
         }
+
         themeChoiceBox.setItems(themeNames);
         themeChoiceBox.setValue(SceneController.getInstance().getTheme().name());
     }
@@ -46,7 +47,7 @@ public class SettingsController {
 
         try {
             SceneController.getInstance().setLocale(languageChoiceBox.getValue());
-            SceneController.getInstance().setTheme(themeChoiceBox.getValue());
+            SceneController.getInstance().setTheme(Theme.getTheme(themeChoiceBox.getValue()));
             SceneController.getInstance().switchScene("/views/settings.fxml");
         } catch(Exception e){}
     }

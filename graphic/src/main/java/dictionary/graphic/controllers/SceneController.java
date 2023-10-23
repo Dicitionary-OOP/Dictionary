@@ -20,13 +20,13 @@ import dictionary.graphic.Theme;
 public class SceneController {
     private static SceneController INSTANCE;
 
-    private Locale locale;
-    private ResourceBundle bundle;
-
     private Stage stage;
     private Scene scene;
     private FXMLLoader root;
     private Parent parent;
+
+    private Locale locale;
+    private ResourceBundle bundle;
 
     private Theme theme;
 
@@ -59,7 +59,7 @@ public class SceneController {
         this.locale = new Locale("en");
         this.bundle = ResourceBundle.getBundle("languages.language", locale);
         this.scene = new Scene(new BorderPane(), 800, 450, false, SceneAntialiasing.BALANCED);
-        setTheme(theme.name);
+        setTheme(theme);
     }
 
     public void switchScene(String scene) {
@@ -86,14 +86,14 @@ public class SceneController {
         return theme;
     }
 
-    public void setTheme(String themeName){
-        this.theme = Theme.getTheme(themeName);
-        applyTheme(theme);
+    public void setTheme(Theme theme){
+        this.theme = theme;
+        applyTheme(this.theme);
     }
 
     private void applyTheme(Theme theme){ 
         this.scene.getStylesheets().clear();
-        this.scene.getStylesheets().add(theme.style);
+        this.scene.getStylesheets().add(theme.style());
     }
 
     public void setLocale(String localeStr) {
