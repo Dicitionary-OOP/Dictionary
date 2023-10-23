@@ -10,6 +10,12 @@ import javafx.scene.SceneAntialiasing;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
+
+import dictionary.base.utils.Utils;
+
+import dictionary.graphic.Theme;
+
 
 public class SceneController {
     private static SceneController INSTANCE;
@@ -22,7 +28,10 @@ public class SceneController {
     private FXMLLoader root;
     private Parent parent;
 
+    private Theme theme;
+
     private SceneController() {
+        theme = Theme.Dracula;
     }
 
     public static SceneController getInstance() {
@@ -50,6 +59,7 @@ public class SceneController {
         this.locale = new Locale("en");
         this.bundle = ResourceBundle.getBundle("languages.language", locale);
         this.scene = new Scene(new BorderPane(), 800, 450, false, SceneAntialiasing.BALANCED);
+        setTheme(theme.name);
     }
 
     public void switchScene(String scene) {
@@ -70,6 +80,20 @@ public class SceneController {
 
     public Locale getLocale() {
         return locale;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String themeName){
+        this.theme = Theme.getTheme(themeName);
+        applyTheme(theme);
+    }
+
+    private void applyTheme(Theme theme){ 
+        this.scene.getStylesheets().clear();
+        this.scene.getStylesheets().add(theme.style);
     }
 
     public void setLocale(String localeStr) {

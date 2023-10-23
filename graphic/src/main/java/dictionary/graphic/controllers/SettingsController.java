@@ -2,11 +2,14 @@ package dictionary.graphic.controllers;
 
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
+
+import dictionary.graphic.Theme;
 
 public class SettingsController {
     @FXML
@@ -24,9 +27,14 @@ public class SettingsController {
     @FXML
     private void initialize() {
         languageChoiceBox.setItems(FXCollections.observableArrayList("en", "vi"));
-        themeChoiceBox.setItems(FXCollections.observableArrayList("light", "dark"));
         languageChoiceBox.setValue("vi");
-        themeChoiceBox.setValue("light");
+
+        ObservableList<String> themeNames = FXCollections.observableArrayList();
+        for (Theme theme : Theme.values()) {
+            themeNames.add(theme.name);
+        }
+        themeChoiceBox.setItems(themeNames);
+        themeChoiceBox.setValue(SceneController.getInstance().getTheme().name());
     }
 
     @FXML
@@ -38,6 +46,7 @@ public class SettingsController {
 
         try {
             SceneController.getInstance().setLocale(languageChoiceBox.getValue());
+            SceneController.getInstance().setTheme(themeChoiceBox.getValue());
             SceneController.getInstance().switchScene("/views/settings.fxml");
         } catch(Exception e){}
     }
