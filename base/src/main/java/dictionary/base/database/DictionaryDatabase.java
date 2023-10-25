@@ -20,7 +20,7 @@ public class DictionaryDatabase extends Database {
 
     public ArrayList<String> getAllWords() throws SQLException {
         final ArrayList<String> words = new ArrayList<>();
-        final ResultSet resultSet = executeQuery(Statement.getAllWord());
+        final ResultSet resultSet = executeQuery("SELECT * FROM words");
         while (resultSet.next()) {
             words.add(resultSet.getString("word"));
         }
@@ -28,10 +28,15 @@ public class DictionaryDatabase extends Database {
         return words;
     }
 
-    public ArrayList<Example> getExamples(final String explain_id) throws SQLException {
+    public ArrayList<Example> getExamples(final String explainID) throws SQLException {
+        final StringBuilder query = new StringBuilder();
+        query.append("SELECT *");
+        query.append("FROM examples ");
+        query.append("GROUP BY explain_id");
+        query.append("WHERE explain_id = ?");
         final ArrayList<Example> examples = new ArrayList<>();
-        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getExamplesByExplainID());
-        preparedStatement.setString(1, explain_id);
+        final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
+        preparedStatement.setString(1, explainID);
 
         final ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
@@ -42,7 +47,11 @@ public class DictionaryDatabase extends Database {
     }
 
     public ArrayList<Explain> getExplainsByWordID(final String wordID) throws SQLException {
-        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getExplainsByWordID());
+        final StringBuilder query = new StringBuilder();
+        query.append("SELECT * ");
+        query.append("FROM explains ");
+        query.append("WHERE word_id = ? ");
+        final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
         preparedStatement.setString(1, wordID);
 
         final ArrayList<Explain> explains = new ArrayList<>();
@@ -55,7 +64,11 @@ public class DictionaryDatabase extends Database {
     }
 
     public ArrayList<String> getWordsStartWith(final String prefix) throws SQLException {
-        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.getWordsLike());
+        final StringBuilder query = new StringBuilder();
+        query.append("SELECT * ");
+        query.append("FROM words ");
+        query.append("WHERE words.word LIKE ?");
+        final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
         preparedStatement.setString(1, prefix + "%");
 
         final ArrayList<String> words = new ArrayList<>();
@@ -63,21 +76,26 @@ public class DictionaryDatabase extends Database {
         while (resultSet.next()) {
             words.add(resultSet.getString("word"));
         }
+
         return words;
     }
 
     public void addWord(final Word word) throws SQLException {
-        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.addWord());
+        final StringBuilder query = new StringBuilder();
+        query.append("INSERT INTO words (word, pronounce) ");
+        query.append("VALUES (?, ?)");
+        final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
         preparedStatement.setString(1, word.getWord());
         preparedStatement.setString(2, word.getPronunce());
-
         preparedStatement.executeUpdate();
     }
 
-    public void removeWord(String wordID) throws SQLException {
-        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.removeWord());
+    public void removeWord(final String wordID) throws SQLException {
+        final StringBuilder query = new StringBuilder();
+        query.append("DELETE FROM words ");
+        query.append("WHERE word_id = ?");
+        final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
         preparedStatement.setString(1, wordID);
-
         preparedStatement.executeUpdate();
     }
 
@@ -91,11 +109,13 @@ public class DictionaryDatabase extends Database {
      */
 
     public void addExplain(final Explain explain, final String wordID) throws SQLException {
-        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.addAnExplain());
+        final StringBuilder query = new StringBuilder();
+        query.append("INSERT INTO explains (word_id, type, meaning) ");
+        query.append("VALUES (?, ?, ?)");
+        final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
         preparedStatement.setString(1, wordID);
         preparedStatement.setString(2, explain.getType());
         preparedStatement.setString(3, explain.getMeaning());
-
         preparedStatement.executeUpdate();
     }
 
@@ -106,10 +126,12 @@ public class DictionaryDatabase extends Database {
      *
      * @throws SQLException
      */
-    public void removeExplain(String explainID) throws SQLException {
-        final PreparedStatement preparedStatement = connection.prepareStatement(Statement.removeAnExplain());
+    public void removeExplain(final String explainID) throws SQLException {
+        final StringBuilder query = new StringBuilder();
+        query.append("DELETE FROM explains ");
+        query.append("WHERE explain_id= ?");
+        final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
         preparedStatement.setString(1, explainID);
-
         preparedStatement.executeUpdate();
     }
 
@@ -122,19 +144,15 @@ public class DictionaryDatabase extends Database {
      * / Chú ý ID của đối tượng example phải là null.
      *
      * @param example - An Example object.
-     * @param explain_id - The explain ID.
      * @throws SQLException
-     * @throws AddExampleException - in case the example's ID is
-     *                               not null.
      */
-    public void addExample(final Example example, final String explain_id) throws SQLException {
-        PreparedStatement stmt = connection.prepareStatement(
-            "INSERT INTO examples (explain_id, example, translate) VALUES (?, ?, ?)"
-        );
-        stmt.setString(1, example.getExplainID());
-        stmt.setString(2, example.getExample());
-        stmt.setString(3, example.getTranslate());
-        stmt.executeUpdate();
+    public void addExample(final Example example) throws SQLException {
+        final PreparedStatement preparedStatement = connection.prepareStatement(
+                "INSERT INTO examples (explain_id, example, translate) VALUES (?, ?, ?)");
+        preparedStatement.setString(1, example.getExplainID());
+        preparedStatement.setString(2, example.getExample());
+        preparedStatement.setString(3, example.getTranslate());
+        preparedStatement.executeUpdate();
     }
 
     /**
@@ -145,10 +163,9 @@ public class DictionaryDatabase extends Database {
      * @throws SQLException
      */
     public void removeExample(final String exampleID) throws SQLException {
-        PreparedStatement stmt = connection.prepareStatement(
-            "DELETE FROM examples WHERE example_id = ?"
-        );
-        stmt.setString(1, exampleID);
-        stmt.executeUpdate();
+        final PreparedStatement preparedStatement = connection
+                .prepareStatement("DELETE FROM examples WHERE example_id = ?");
+        preparedStatement.setString(1, exampleID);
+        preparedStatement.executeUpdate();
     }
 }
