@@ -11,8 +11,6 @@ import dictionary.base.Word;
 import dictionary.base.Explain;
 import dictionary.base.utils.Utils;
 
-import dictionary.base.exceptions.AddExampleException;
-
 public class DictionaryDatabase extends Database {
     private final static String DATABASE_PATH = Utils.getResource("/database/en-vi.db");
 
@@ -130,9 +128,6 @@ public class DictionaryDatabase extends Database {
      *                               not null.
      */
     public void addExample(final Example example, final String explain_id) throws SQLException, AddExampleException {
-        if (example.getExampleID() == null) {
-            throw new AddExampleException("Example ID must be null");
-        }
         PreparedStatement stmt = connection.prepareStatement(
             "INSERT INTO examples (explain_id, example, translate) VALUES (?, ?, ?)"
         );
