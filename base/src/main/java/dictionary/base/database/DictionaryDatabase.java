@@ -127,7 +127,7 @@ public class DictionaryDatabase extends Database {
      * @throws AddExampleException - in case the example's ID is
      *                               not null.
      */
-    public void addExample(final Example example, final String explain_id) throws SQLException, AddExampleException {
+    public void addExample(final Example example, final String explain_id) throws SQLException {
         PreparedStatement stmt = connection.prepareStatement(
             "INSERT INTO examples (explain_id, example, translate) VALUES (?, ?, ?)"
         );
