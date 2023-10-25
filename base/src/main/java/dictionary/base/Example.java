@@ -4,18 +4,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Example {
-    private String example_id;
-    private String explain_id;
+    private String exampleID;
+    private String explainID;
     private String example;
     private String translate;
 
-    public Example(final String explain_id, final String example, final String translate) {
-        this(null, explain_id, example, translate);
+    public Example(final String explainID, final String example, final String translate) {
+        this(null, explainID, example, translate);
     }
 
-    public Example(final String example_id, final String explain_id, final String example, final String translate) {
-        this.example_id = example_id;
-        this.explain_id = explain_id;
+    public Example(final String exampleID, final String explainID, final String example, final String translate) {
+        this.exampleID = exampleID;
+        this.explainID = explainID;
         this.example = example;
         this.translate = translate;
     }
@@ -28,19 +28,19 @@ public class Example {
     }
 
     public String getExampleID() {
-        return example_id;
+        return exampleID;
     }
 
-    public void setExampleID(final String example_id) {
-        this.example_id = example_id;
+    public void setExampleID(final String exampleID) {
+        this.exampleID = exampleID;
     }
 
     public String getExplainID() {
-        return explain_id;
+        return explainID;
     }
 
-    public void setExplainID(final String explain_id) {
-        this.explain_id = explain_id;
+    public void setExplainID(final String explainID) {
+        this.explainID = explainID;
     }
 
     public String getExample() {

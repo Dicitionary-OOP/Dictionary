@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Word {
-    private String word_id;
+    private String wordID;
     private String word;
     private String pronunce;
 
@@ -12,8 +12,8 @@ public class Word {
         this(null, word, pronunce);
     }
 
-    public Word(final String word_id, final String word, final String pronunce) {
-        this.word_id = word_id;
+    public Word(final String wordID, final String word, final String pronunce) {
+        this.wordID = wordID;
         this.word = word;
         this.pronunce = pronunce;
     }
@@ -25,11 +25,11 @@ public class Word {
     }
 
     public String getWordID() {
-        return word_id;
+        return wordID;
     }
 
-    public void setWordID(final String word_id) {
-        this.word_id = word_id;
+    public void setWordID(final String wordID) {
+        this.wordID = wordID;
     }
 
     public String getWord() {

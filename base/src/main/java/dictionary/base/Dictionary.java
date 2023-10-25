@@ -9,12 +9,12 @@ import dictionary.base.algorithm.trie.Trie;
 import dictionary.base.database.DictionaryDatabase;
 
 public class Dictionary {
-    private final DictionaryDatabase db;
+    private final DictionaryDatabase database;
     private final Trie words;
 
     public Dictionary() throws IOException, SQLException, URISyntaxException {
         words = new Trie();
-        db = new DictionaryDatabase();
+        database = new DictionaryDatabase();
         for (String word : getDatabase().getAllWords()) {
             words.insert(word);
         }
@@ -29,7 +29,7 @@ public class Dictionary {
         words.insert(word.getWord());
 
         try {
-            db.addWord(word);
+            database.addWord(word);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,7 +44,7 @@ public class Dictionary {
         words.remove(word.getWord());
 
         try {
-            db.removeWord(word.getWordID());
+            database.removeWord(word.getWordID());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -79,6 +79,6 @@ public class Dictionary {
     }
 
     public DictionaryDatabase getDatabase() {
-        return db;
+        return database;
     }
 }

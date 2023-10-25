@@ -4,18 +4,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Explain {
-    private String explain_id;
-    private String word_id;
+    private String explainID;
+    private String wordID;
     private String type;
     private String meaning;
 
-    public Explain(String word_id, String type, String meaning) {
-        this(null, word_id, type, meaning);
+    public Explain(String wordID, String type, String meaning) {
+        this(null, wordID, type, meaning);
     }
 
-    public Explain(String explain_id, String word_id, String type, String meaning) {
-        this.explain_id = explain_id;
-        this.word_id = word_id;
+    public Explain(String explainID, String wordID, String type, String meaning) {
+        this.explainID = explainID;
+        this.wordID = wordID;
         this.type = type;
         this.meaning = meaning;
     }
@@ -28,19 +28,19 @@ public class Explain {
     }
 
     public String getExplainID() {
-        return explain_id;
+        return explainID;
     }
 
-    public void setExplainID(String explain_id) {
-        this.explain_id = explain_id;
+    public void setExplainID(String explainID) {
+        this.explainID = explainID;
     }
 
     public String getWordID() {
-        return word_id;
+        return wordID;
     }
 
-    public void setWordID(String word_id) {
-        this.word_id = word_id;
+    public void setWordID(String wordID) {
+        this.wordID = wordID;
     }
 
     public String getType() {
