@@ -13,6 +13,19 @@
     <artifactId>base</artifactId>
     <packaging>jar</packaging>
 
+    <repositories>
+        <repository>
+            <id>snapshots-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- Text to speech -->
         <dependency>
@@ -51,6 +64,19 @@
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.43.2.0</version>
+        </dependency>
+
+        <!-- Text To Speech Offline -->
+        <dependency>
+            <groupId>edu.cmu.sphinx</groupId>
+            <artifactId>sphinx4-core</artifactId>
+            <version>5prealpha-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>edu.cmu.sphinx</groupId>
+            <artifactId>sphinx4-data</artifactId>
+            <version>5prealpha-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
