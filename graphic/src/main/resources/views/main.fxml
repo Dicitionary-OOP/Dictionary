@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 
@@ -9,31 +10,49 @@
             <content>
                 <fx:include source="english-vietnamese.fxml" />
             </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="SEARCH" />
+         </graphic>
         </Tab>
         <Tab text="%vietnamese_english">
             <content>
                 <fx:include source="vietnamese-english.fxml" />
             </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="SEARCH" />
+         </graphic>
         </Tab>
         <Tab text="%translate">
             <content>
                 <fx:include source="translate.fxml" />
             </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="GLOBE" />
+         </graphic>
         </Tab>
         <Tab text="%text_to_ipa">
             <content>
                 <fx:include source="text-to-ipa.fxml" />
             </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="FONT" />
+         </graphic>
         </Tab>
         <Tab text="%synonym">
             <content>
                 <fx:include source="synonym.fxml" />
             </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="BOOK" />
+         </graphic>
         </Tab>
         <Tab text="%settings">
             <content>
                 <fx:include source="settings.fxml" />
             </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="GEAR" />
+         </graphic>
         </Tab>
     </tabs>
 </TabPane>
