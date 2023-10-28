@@ -1,4 +1,11 @@
 # Dictionary
+<div align="center">
+  
+  ![dict-icon-small](https://github.com/Dicitionary-OOP/Dictionary/assets/63899044/41b2aa0f-2c2c-4243-8218-8ead17158f46)
+  
+</div>
+
+
 
 Being the students in the Object-Oriented Programming
 (OOP, INT2204 - 25) class at UET-VNU, we formed a team
