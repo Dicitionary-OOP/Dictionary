@@ -1,6 +1,7 @@
 package dictionary.graphic.controllers;
 
 import dictionary.base.api.GoogleTranslateAPI;
+import dictionary.base.utils.Utils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -43,7 +44,13 @@ public class TranslateController {
                 Platform.runLater(() -> outputTextArea.setText(finalOutput));
             } catch (final IOException e) {
                 e.printStackTrace();
-                Platform.runLater(() -> outputTextArea.setText("Error"));
+                String errorMessage;
+                if(!Utils.isNetworkConnected()) {
+                    errorMessage = "Internet is not connect.";
+                } else {
+                    errorMessage = "Error.";
+                }
+                Platform.runLater(() -> outputTextArea.setText(errorMessage));
             }
         });
 
