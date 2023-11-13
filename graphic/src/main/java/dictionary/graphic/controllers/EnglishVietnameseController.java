@@ -30,6 +30,8 @@ public class EnglishVietnameseController {
     @FXML
     private Label wordField;
     @FXML
+    private Label pronounceField;
+    @FXML
     private VBox explainField;
     @FXML
     private void initialize() {
@@ -48,6 +50,7 @@ public class EnglishVietnameseController {
                 Word word = dictionary.getDatabase().getWordByWordID(wordID);
                 DictionaryDatabase database = dictionary.getDatabase();
                 wordField.setText(word.getWord());
+                pronounceField.setText('[' + word.getPronunce() + ']');
                 ArrayList<Explain> explains = database.getExplainsByWordID(word.getWordID());
                 for (Explain explain : explains) {
                     Label type = new Label(explain.getType() + "\n");
