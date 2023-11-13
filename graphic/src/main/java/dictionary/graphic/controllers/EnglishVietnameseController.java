@@ -36,16 +36,16 @@ public class EnglishVietnameseController {
         try {
             dictionary = new Dictionary();
             // Test show word
-            Word word = new Word("1", "test", "[test-Pro]");
-            showDetail(word);
+            showDetail("1");
         }catch (Exception e) {
             outputField.setText("Đã có lỗi với từ điển");
         }
     }
 
-    private void showDetail(Word word){
+    private void showDetail(String wordID) {
         Thread thread = new Thread(() -> {
             try {
+                Word word = dictionary.getDatabase().getWordByWordID(wordID);
                 DictionaryDatabase database = dictionary.getDatabase();
                 wordField.setText(word.getWord());
                 ArrayList<Explain> explains = database.getExplainsByWordID(word.getWordID());

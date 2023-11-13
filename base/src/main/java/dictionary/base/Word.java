@@ -21,7 +21,7 @@ public class Word {
     public Word(final ResultSet resultSet) throws SQLException {
         this(resultSet.getString("word_id"),
                 resultSet.getString("word"),
-                resultSet.getString("pronunce"));
+                resultSet.getString("pronounce"));
     }
 
     public String getWordID() {
