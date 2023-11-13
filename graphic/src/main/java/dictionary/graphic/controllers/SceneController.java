@@ -31,7 +31,7 @@ public class SceneController {
     private Theme theme;
 
     private SceneController() {
-        theme = Theme.Dracula;
+        theme = Theme.PrimerLight;
     }
 
     public static SceneController getInstance() {

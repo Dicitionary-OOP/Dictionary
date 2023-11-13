@@ -14,14 +14,6 @@
             <FontAwesomeIconView glyphName="SEARCH" />
          </graphic>
         </Tab>
-        <Tab text="%vietnamese_english">
-            <content>
-                <fx:include source="vietnamese-english.fxml" />
-            </content>
-         <graphic>
-            <FontAwesomeIconView glyphName="SEARCH" />
-         </graphic>
-        </Tab>
         <Tab text="%translate">
             <content>
                 <fx:include source="translate.fxml" />

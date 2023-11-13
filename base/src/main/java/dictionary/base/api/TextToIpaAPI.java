@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import dictionary.base.utils.Utils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONObject;
 
@@ -20,8 +21,7 @@ public class TextToIpaAPI {
      * @param text The text to convert to IPA.
      * @return The IPA representation of the input text, or null if an error occurs.
      */
-    public static String textToIPA(final String text) {
-        try {
+    public static String textToIPA(final String text) throws IOException {
             final String encodedText = java.net.URLEncoder.encode(text, "UTF-8");
             final URL url = new URL(API + "?text=" + encodedText);
             final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -38,9 +38,5 @@ public class TextToIpaAPI {
                 final JSONObject json = new JSONObject(response.toString());
                 return StringEscapeUtils.unescapeJava(json.getString("ipa"));
             }
-        } catch (final IOException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 }
