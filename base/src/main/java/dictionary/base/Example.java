@@ -22,7 +22,7 @@ public class Example {
 
     public Example(final ResultSet resultSet) throws SQLException {
         this(resultSet.getString("example_id"),
-                resultSet.getString("example_id"),
+                resultSet.getString("explain_id"),
                 resultSet.getString("example"),
                 resultSet.getString("translate"));
     }

@@ -1,18 +1,13 @@
 package dictionary.base.api;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.apache.commons.text.StringEscapeUtils;
+import org.json.JSONObject;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
-
-import org.apache.commons.text.StringEscapeUtils;
-import org.json.JSONObject;
 
 public class SpeechToTextOnlineAPI {
     static final String TOKEN = "5e280d2f2b544015a8202120692f1550";
