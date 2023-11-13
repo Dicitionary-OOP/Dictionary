@@ -28,6 +28,20 @@ public class DictionaryDatabase extends Database {
         return words;
     }
 
+    public Word getWordByWordID(final String wordID) throws SQLException {
+        final StringBuilder query = new StringBuilder();
+        query.append("SELECT * ");
+        query.append("FROM words ");
+        query.append("WHERE word_id = ?");
+        final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
+        preparedStatement.setString(1, wordID);
+
+        final ResultSet resultSet = preparedStatement.executeQuery();
+        final Word word = new Word(resultSet);
+
+        return word;
+    }
+
     public ArrayList<Example> getExamples(final String explainID) throws SQLException {
         final StringBuilder query = new StringBuilder();
         query.append("SELECT * ");
