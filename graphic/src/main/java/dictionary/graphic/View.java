@@ -3,7 +3,6 @@ package dictionary.graphic;
 public enum View {
     Main("/views/main.fxml"),
     EnglishVietnamese("/views/english-vietnamese.fxml"),
-    VietnameseEnglish("/views/vietnamese-english.fxml"),
     Translate("/views/translate.fxml"),
     TextToIpa("/views/text-to-ipa.fxml"),
     Synonym("/views/synonym.fxml"),
