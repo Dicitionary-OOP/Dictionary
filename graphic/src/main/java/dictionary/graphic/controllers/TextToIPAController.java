@@ -19,24 +19,29 @@ public class TextToIPAController {
 
     @FXML
     public void onIpaButtonClick() {
-        outputTextArea.setPromptText("Dang phien am...");
-        outputTextArea.setText(null);
-
-        if(!Utils.isNetworkConnected()) {
+        if (!Utils.isNetworkConnected()) {
             Notifications.create()
-                .title("Dictionary")
-                .text("You are offline!")
-                .showWarning();
+                    .title("Dictionary")
+                    .text("You are offline!")
+                    .showWarning();
             return;
-        }        
+        }
 
-        final Thread thread = new Thread(() -> {
-            Platform.runLater(() -> outputTextArea.setText(
-                TextToIpaAPI.textToIPA(inputTextArea.getText())
-            ));
+        Thread thread = new Thread(() -> {
+            String output = null;
+            try {
+                output = TextToIpaAPI.textToIPA(inputTextArea.getText());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            String finalOutput = output;
+            Platform.runLater(() -> outputTextArea.setText(finalOutput));
         });
-
         thread.setDaemon(true);
         thread.start();
+
+        outputTextArea.setPromptText("Dang phien am...");
+        outputTextArea.setText(null);
     }
 }
