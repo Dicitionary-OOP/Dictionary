@@ -18,7 +18,7 @@ public class TextToIPAController {
     private TextArea inputTextArea, outputTextArea;
 
     @FXML
-    public void onIpaButtonClick() throws IOException {
+    public void onIpaButtonClick() {
         outputTextArea.setPromptText("Dang phien am...");
         outputTextArea.setText(null);
 
