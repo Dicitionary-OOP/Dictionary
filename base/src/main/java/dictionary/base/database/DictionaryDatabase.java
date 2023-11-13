@@ -30,14 +30,13 @@ public class DictionaryDatabase extends Database {
 
     public ArrayList<Example> getExamples(final String explainID) throws SQLException {
         final StringBuilder query = new StringBuilder();
-        query.append("SELECT *");
+        query.append("SELECT * ");
         query.append("FROM examples ");
-        query.append("GROUP BY explain_id");
         query.append("WHERE explain_id = ?");
-        final ArrayList<Example> examples = new ArrayList<>();
         final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
         preparedStatement.setString(1, explainID);
 
+        final ArrayList<Example> examples = new ArrayList<>();
         final ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             examples.add(new Example(resultSet));
