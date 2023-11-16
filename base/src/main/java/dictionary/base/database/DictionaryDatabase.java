@@ -10,6 +10,7 @@ import dictionary.base.Example;
 import dictionary.base.Word;
 import dictionary.base.Explain;
 import dictionary.base.utils.Utils;
+import edu.cmu.sphinx.fst.utils.Pair;
 
 public class DictionaryDatabase extends Database {
     private final static String DATABASE_PATH = Utils.getResource("/database/en-vi.db");
@@ -18,11 +19,17 @@ public class DictionaryDatabase extends Database {
         super(DATABASE_PATH);
     }
 
-    public ArrayList<String> getAllWords() throws SQLException {
-        final ArrayList<String> words = new ArrayList<>();
+    public ArrayList<ArrayList<String>> getAllWords() throws SQLException {
+        final ArrayList<ArrayList<String>> words = new ArrayList<ArrayList<String>>();
         final ResultSet resultSet = executeQuery("SELECT * FROM words");
         while (resultSet.next()) {
-            words.add(resultSet.getString("word"));
+            String word = resultSet.getString("word");
+            String word_id = resultSet.getString("word_id");
+            ArrayList<String> curWord = new ArrayList<>();
+            curWord.add(word);
+            curWord.add(word_id);
+            // The current word here have 2 attributes: curWord[0] mean the word, curWord[1] mean the word_id
+            words.add(curWord);
         }
 
         return words;
