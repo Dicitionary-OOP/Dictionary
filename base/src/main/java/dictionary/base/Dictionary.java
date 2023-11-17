@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import dictionary.base.algorithm.trie.Trie;
 import dictionary.base.database.DictionaryDatabase;
+import edu.cmu.sphinx.fst.utils.Pair;
 
 public class Dictionary {
     private final DictionaryDatabase database;
@@ -15,8 +17,8 @@ public class Dictionary {
     public Dictionary() throws IOException, SQLException, URISyntaxException {
         words = new Trie();
         database = new DictionaryDatabase();
-        for (String word : getDatabase().getAllWords()) {
-            words.insert(word);
+        for (ArrayList<String> word : getDatabase().getAllWords()) {
+            words.insert(word.get(0), word.get(1));
         }
     }
 
@@ -26,7 +28,7 @@ public class Dictionary {
      * @param word The Word object to add.
      */
     public void add(Word word) {
-        words.insert(word.getWord());
+        words.insert(word.getWord(), word.getWordID());
 
         try {
             database.addWord(word);
@@ -55,7 +57,7 @@ public class Dictionary {
      *
      * @return An ArrayList of all words in the dictionary.
      */
-    public ArrayList<String> getAllWords() {
+    public ArrayList<ArrayList<String>> getAllWords() {
         return lookup("");
     }
 
@@ -65,7 +67,7 @@ public class Dictionary {
      * @param lookupWord The prefix to search for.
      * @return An ArrayList of words that match the given prefix.
      */
-    public ArrayList<String> lookup(final String lookupWord) {
+    public ArrayList<ArrayList<String>> lookup(final String lookupWord) {
         return words.getAllWordsStartWith(lookupWord);
     }
 
@@ -81,4 +83,13 @@ public class Dictionary {
     public DictionaryDatabase getDatabase() {
         return database;
     }
+
+    /*public static void main(String[] args) {
+        try{
+            Dictionary dictionary = new Dictionary();
+            System.out.println(dictionary.getAllWords().get(0).get(1));
+        }catch (Exception e){
+
+        }
+    }*/
 }

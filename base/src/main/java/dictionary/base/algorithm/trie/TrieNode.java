@@ -7,6 +7,8 @@ public class TrieNode {
     private final HashMap<Character, TrieNode> childs;
     private boolean isEnd;
 
+    private String wordID;
+
     /**
      * Initializes a new TrieNode.
      */
@@ -79,5 +81,23 @@ public class TrieNode {
      */
     public void setParent(final TrieNode parentNode) {
         this.parent = parentNode;
+    }
+
+    /**
+     * Gets the wordID of the current TrieNode.
+     *
+     * @return the wordID of the current TrieNode.
+     */
+    public String getWordID() {
+        return wordID;
+    }
+
+    /**
+     * Sets the wordID of the current TrieNode.
+     *
+     * @param wordID The wordID TrieNode to set.
+     */
+    public void setWordID(String wordID) {
+        this.wordID = wordID;
     }
 }

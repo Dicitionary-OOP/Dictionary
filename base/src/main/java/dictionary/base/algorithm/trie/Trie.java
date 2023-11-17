@@ -1,5 +1,8 @@
 package dictionary.base.algorithm.trie;
 
+import dictionary.base.Word;
+import edu.cmu.sphinx.fst.utils.Pair;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,11 +20,12 @@ public class Trie {
      * 
      * @param word word to insert
      */
-    public void insert(final String word) {
+    public void insert(final String word, final String wordID) {
         TrieNode currentNode = root;
         for (final char ch : word.toCharArray()) {
             currentNode = currentNode.addChild(ch);
         }
+        currentNode.setWordID(wordID);
         currentNode.setEnd(true);
         this.size += 1;
     }
@@ -72,13 +76,13 @@ public class Trie {
      * @param prefix prefix
      * @return List of words
      */
-    public ArrayList<String> getAllWordsStartWith(final String prefix) {
+    public ArrayList<ArrayList<String>> getAllWordsStartWith(final String prefix) {
         final TrieNode node = getEndNode(prefix);
         if (node == null) {
             return null;
         }
 
-        final ArrayList<String> wordLists = new ArrayList<String>();
+        final ArrayList<ArrayList<String>> wordLists = new ArrayList<ArrayList<String>>();
         retrieveWordsStartingWith(node, prefix, wordLists);
         return wordLists;
     }
@@ -91,13 +95,16 @@ public class Trie {
      * @param wordLists wordLists to fill
      */
     private void retrieveWordsStartingWith(final TrieNode node, final String word,
-            final ArrayList<String> wordLists) {
+            final ArrayList<ArrayList<String>> wordLists) {
         if (node == null) {
             return;
         }
 
         if (node.isEnd()) {
-            wordLists.add(word);
+            ArrayList<String> curWord = new ArrayList<String>();
+            curWord.add(word);
+            curWord.add(node.getWordID());
+            wordLists.add(curWord);
         }
 
         for (final HashMap.Entry<Character, TrieNode> entry : node.getChilds().entrySet()) {

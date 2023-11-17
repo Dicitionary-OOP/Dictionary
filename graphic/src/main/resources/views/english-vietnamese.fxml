@@ -1,50 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" styleClass="pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.EnglishVietnameseController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" stylesheets="@../../java/dictionary/graphic/css/TextStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.EnglishVietnameseController">
     <children>
-        <Label layoutX="322.0" layoutY="216.0" prefWidth="156.0" text="English Vietnamese view" />
-      <Accordion layoutX="43.0" layoutY="67.0" />
-      <Pane layoutX="542.0" layoutY="8.0" prefHeight="51.0" prefWidth="243.0" AnchorPane.rightAnchor="14.799999999999955">
-         <children>
-            <TextField fx:id="searchBar" layoutY="8.0" prefHeight="36.0" prefWidth="171.0" />
-            <Button fx:id="searchButton" layoutX="180.0" layoutY="8.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="63.0" text="Search">
-               <font>
-                  <Font size="13.0" />
-               </font></Button>
-         </children>
-      </Pane>
-      <Pane layoutX="542.0" layoutY="69.0" prefHeight="366.0" prefWidth="243.0">
-         <children>
-            <ListView fx:id="recommendWords" prefHeight="366.0" prefWidth="243.0" />
-         </children>
-      </Pane>
-      <Pane layoutX="14.0" layoutY="14.0" prefHeight="419.0" prefWidth="514.0">
-         <children>
-            <TextArea fx:id="outputField" editable="false" layoutX="1.0" layoutY="1.0" prefHeight="419.0" prefWidth="514.0" />
-            <Button fx:id="speech" layoutX="338.0" layoutY="23.0" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="36.0" prefWidth="74.0" text="Speak" />
-            <Label fx:id="wordField" alignment="TOP_LEFT" layoutX="14.0" layoutY="27.0" prefHeight="27.0" prefWidth="171.0">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <VBox fx:id="explainField" layoutX="14.0" layoutY="92.0" prefHeight="313.0" prefWidth="487.0" />
-            <Label fx:id="pronounceField" alignment="TOP_LEFT" layoutX="188.0" layoutY="27.0" prefHeight="27.0" prefWidth="150.0">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
+      <TextField fx:id="searchBar" layoutX="542.0" layoutY="18.0" prefHeight="36.0" prefWidth="171.0" />
+      <Button fx:id="searchButton" layoutX="721.0" layoutY="18.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="63.0" text="Search" />
+      <ListView fx:id="recommendWords" layoutX="542.0" layoutY="67.0" prefHeight="366.0" prefWidth="243.0" />
+      <TextArea fx:id="outputField" editable="false" layoutX="18.0" layoutY="15.0" prefHeight="419.0" prefWidth="514.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextArea>
+      <Button fx:id="speech" layoutX="281.0" layoutY="36.0" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="36.0" prefWidth="74.0" text="Speak" />
+      <VBox fx:id="explainField" layoutX="32.0" layoutY="87.0" prefHeight="336.0" prefWidth="487.0" styleClass="leve3" stylesheets="@../../java/dictionary/graphic/css/TextStyle.css" />
+      <Label fx:id="pronounceField" layoutX="161.0" layoutY="40.0" onMouseEntered="#getInPronounField" prefHeight="27.0" prefWidth="120.0" styleClass="pronounce" stylesheets="@../../java/dictionary/graphic/css/TextStyle.css" wrapText="true" AnchorPane.leftAnchor="161.0" AnchorPane.rightAnchor="519.2">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="wordField" layoutX="41.0" layoutY="40.0" onMouseEntered="#getInWordField" prefHeight="27.0" prefWidth="120.0" styleClass="level1" stylesheets="@../../java/dictionary/graphic/css/TextStyle.css" wrapText="true" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="639.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="biggerWordField" editable="false" layoutX="41.0" layoutY="34.0" onMouseExited="#getOutWordField" prefHeight="40.0" prefWidth="120.0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="biggerPronounceField" editable="false" layoutX="161.0" layoutY="34.0" onMouseExited="#getOutPronounField" prefHeight="40.0" prefWidth="120.0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
     </children>
 </AnchorPane>
