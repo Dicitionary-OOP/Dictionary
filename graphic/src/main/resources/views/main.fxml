@@ -19,7 +19,7 @@
                 <fx:include source="translate.fxml" />
             </content>
          <graphic>
-            <FontAwesomeIconView glyphName="GLOBE" />
+            <FontAwesomeIconView glyphName="BOOK" />
          </graphic>
         </Tab>
         <Tab text="%text_to_ipa">
@@ -27,7 +27,7 @@
                 <fx:include source="text-to-ipa.fxml" />
             </content>
          <graphic>
-            <FontAwesomeIconView glyphName="FONT" />
+            <FontAwesomeIconView glyphName="BULLHORN" />
          </graphic>
         </Tab>
         <Tab text="%synonym">
@@ -35,7 +35,7 @@
                 <fx:include source="synonym.fxml" />
             </content>
          <graphic>
-            <FontAwesomeIconView glyphName="BOOK" />
+            <FontAwesomeIconView glyphName="GRADUATION_CAP" />
          </graphic>
         </Tab>
         <Tab text="%settings">
