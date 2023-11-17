@@ -38,9 +38,7 @@ public class EnglishVietnameseController {
     @FXML
     private void initialize() {
         try {
-            dictionary = new Dictionary();
-            // Test show word
-            showDetail(dictionary.getAllWords().get(2).get(1));
+            showDetail(Dictionary.getInstance().getAllWords().get(2).get(1));
         }catch (Exception e) {
             outputField.setText("Đã có lỗi với từ điển");
         }
@@ -49,8 +47,9 @@ public class EnglishVietnameseController {
     private void showDetail(String wordID) {
         Thread thread = new Thread(() -> {
             try {
-                Word word = dictionary.getDatabase().getWordByWordID(wordID);
-                DictionaryDatabase database = dictionary.getDatabase();
+                Word word = Dictionary.getInstance().getDatabase().getWordByWordID(wordID);
+                DictionaryDatabase database = Dictionary.getInstance().getDatabase();
+
                 wordField.setText(word.getWord());
                 biggerWordField.setText(word.getWord());
                 pronounceField.setText('[' + word.getPronunce() + ']');

@@ -1,24 +1,31 @@
 package dictionary.base;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Map;
-
 import dictionary.base.algorithm.trie.Trie;
 import dictionary.base.database.DictionaryDatabase;
-import edu.cmu.sphinx.fst.utils.Pair;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Dictionary {
-    private final DictionaryDatabase database;
-    private final Trie words;
+    private static Dictionary INSTANCE;
+    private DictionaryDatabase database;
+    private Trie words;
 
-    public Dictionary() throws IOException, SQLException, URISyntaxException {
-        words = new Trie();
-        database = new DictionaryDatabase();
-        for (ArrayList<String> word : getDatabase().getAllWords()) {
-            words.insert(word.get(0), word.get(1));
+    public static Dictionary getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new Dictionary();
+        }
+
+        return INSTANCE;
+    }
+
+    public Dictionary() {
+        try {
+            words = new Trie();
+            database = new DictionaryDatabase();
+            for (ArrayList<String> word : getDatabase().getAllWords()) {
+                words.insert(word.get(0), word.get(1));
+            }
+        } catch (Exception e) {
         }
     }
 
@@ -83,13 +90,4 @@ public class Dictionary {
     public DictionaryDatabase getDatabase() {
         return database;
     }
-
-    /*public static void main(String[] args) {
-        try{
-            Dictionary dictionary = new Dictionary();
-            System.out.println(dictionary.getAllWords().get(0).get(1));
-        }catch (Exception e){
-
-        }
-    }*/
 }
