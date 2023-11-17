@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" stylesheets="@../../java/dictionary/graphic/css/TextStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.EnglishVietnameseController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" stylesheets="@../css/TextStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.EnglishVietnameseController">
     <children>
       <TextField fx:id="searchBar" layoutX="542.0" layoutY="18.0" prefHeight="36.0" prefWidth="171.0" />
       <Button fx:id="searchButton" layoutX="721.0" layoutY="18.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="63.0" text="Search" />
@@ -20,13 +20,13 @@
          </font>
       </TextArea>
       <Button fx:id="speech" layoutX="281.0" layoutY="36.0" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="36.0" prefWidth="74.0" text="Speak" />
-      <VBox fx:id="explainField" layoutX="32.0" layoutY="87.0" prefHeight="336.0" prefWidth="487.0" styleClass="leve3" stylesheets="@../../java/dictionary/graphic/css/TextStyle.css" />
-      <Label fx:id="pronounceField" layoutX="161.0" layoutY="40.0" onMouseEntered="#getInPronounField" prefHeight="27.0" prefWidth="120.0" styleClass="pronounce" stylesheets="@../../java/dictionary/graphic/css/TextStyle.css" wrapText="true" AnchorPane.leftAnchor="161.0" AnchorPane.rightAnchor="519.2">
+      <VBox fx:id="explainField" layoutX="32.0" layoutY="87.0" prefHeight="336.0" prefWidth="487.0" styleClass="leve3"/>
+      <Label fx:id="pronounceField" layoutX="161.0" layoutY="40.0" onMouseEntered="#getInPronounField" prefHeight="27.0" prefWidth="120.0" styleClass="pronounce" wrapText="true" AnchorPane.leftAnchor="161.0" AnchorPane.rightAnchor="519.2">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="wordField" layoutX="41.0" layoutY="40.0" onMouseEntered="#getInWordField" prefHeight="27.0" prefWidth="120.0" styleClass="level1" stylesheets="@../../java/dictionary/graphic/css/TextStyle.css" wrapText="true" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="639.0">
+      <Label fx:id="wordField" layoutX="41.0" layoutY="40.0" onMouseEntered="#getInWordField" prefHeight="27.0" prefWidth="120.0" styleClass="level1"  wrapText="true" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="639.0">
          <font>
             <Font size="18.0" />
          </font>
