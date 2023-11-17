@@ -14,7 +14,7 @@ public class App extends Application
     @Override public void start(final Stage stage) throws IOException
     {
         stage.setTitle("Dictionary");
-        stage.getIcons().add(new Image(new FileInputStream((Utils.getResource("/icon/logo.png")))));
+        stage.getIcons().add(new Image(new FileInputStream((Utils.getResource("/icons/logo.png")))));
 
         SceneController.getInstance().init(stage);
         SceneController.getInstance().switchScene(View.Main.fxml());
