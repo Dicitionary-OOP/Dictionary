@@ -37,6 +37,9 @@ public class SynonymController {
                 for (String x : output) {
                     result += x + "\n";
                 }
+                if (result == "") {
+                    result = "\t\t\t\t\t\t\t No word searched.\n \t\t\t\t\t\tPlease checking searchSynonym";
+                }
                 final String resultS = result;
                 Platform.runLater(() -> outputSynonym.setText(resultS));
             } catch (Exception e) {
