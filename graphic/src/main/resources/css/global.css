@@ -1,0 +1,9 @@
+@font-face {
+    -fx-font-family: 'FiraCode';
+    src: url("font/FiraCode.ttf"),
+}
+
+.root {
+    -fx-font-family: "FiraCode";
+    -fx-background-color: blue;
+}

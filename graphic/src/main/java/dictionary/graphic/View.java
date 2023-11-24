@@ -6,6 +6,8 @@ public enum View {
     Translate("/views/translate.fxml"),
     TextToIpa("/views/text-to-ipa.fxml"),
     Synonym("/views/synonym.fxml"),
+    AddWord("/views/add-word.fxml"),
+    Game("/views/game.fxml"),
     Settings("/views/settings.fxml");
 
     private final String fxml;
