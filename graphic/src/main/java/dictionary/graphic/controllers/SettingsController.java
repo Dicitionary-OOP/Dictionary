@@ -10,6 +10,7 @@ import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
 import dictionary.graphic.Theme;
+import dictionary.graphic.Font;
 
 public class SettingsController {
     @FXML
@@ -20,6 +21,9 @@ public class SettingsController {
 
     @FXML
     private ChoiceBox<String> themeChoiceBox;
+
+    @FXML
+    private ChoiceBox<String> fontChoiceBox;
 
     @FXML
     private Button applyButton;
@@ -33,9 +37,16 @@ public class SettingsController {
         for (Theme theme : Theme.values()) {
             themeNames.add(theme.name());
         }
-
         themeChoiceBox.setItems(themeNames);
         themeChoiceBox.setValue(SceneController.getInstance().getTheme().name());
+
+        ObservableList<String> fontNames = FXCollections.observableArrayList();
+        for (Font font : Font.values()) {
+            fontNames.add(font.name());
+        }
+        fontChoiceBox.setItems(fontNames);
+        fontChoiceBox.setValue(SceneController.getInstance().getFont().name());
+
     }
 
     @FXML
@@ -48,6 +59,7 @@ public class SettingsController {
         try {
             SceneController.getInstance().setLocale(languageChoiceBox.getValue());
             SceneController.getInstance().setTheme(Theme.getTheme(themeChoiceBox.getValue()));
+            SceneController.getInstance().setFont(Font.getFont(fontChoiceBox.getValue()));
         } catch(Exception e){}
     }
 }

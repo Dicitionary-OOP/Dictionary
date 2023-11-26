@@ -5,12 +5,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" styleClass="pane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.SettingsController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" styleClass="pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.SettingsController">
    <children>
       <ChoiceBox fx:id="languageChoiceBox" layoutX="225.0" layoutY="96.0" prefWidth="150.0" />
       <Label layoutX="66.0" layoutY="96.0" text="%language" />
       <ChoiceBox fx:id="themeChoiceBox" layoutX="225.0" layoutY="141.0" prefWidth="150.0" />
       <Label layoutX="66.0" layoutY="141.0" text="%theme" />
-      <Button fx:id="applyButton" layoutX="323.0" layoutY="212.0" mnemonicParsing="false" onAction="#applySettings" text="%apply" />
+      <Button fx:id="applyButton" layoutX="317.0" layoutY="249.0" mnemonicParsing="false" onAction="#applySettings" text="%apply" />
+      <ChoiceBox fx:id="fontChoiceBox" layoutX="225.0" layoutY="179.0" prefWidth="150.0" />
+      <Label layoutX="66.0" layoutY="179.0" text="%font" />
    </children>
 </AnchorPane>
