@@ -90,4 +90,16 @@ public class Dictionary {
     public DictionaryDatabase getDatabase() {
         return database;
     }
+
+    public Boolean isExistWord(String word){
+        return words.getEndNode(word) != null;
+    }
+
+    public String getRandomWordByLength(int length) {
+        try {
+            return database.getRandomWordByLength(length);
+        } catch(Exception e) {
+            return null;
+        }
+    }
 }

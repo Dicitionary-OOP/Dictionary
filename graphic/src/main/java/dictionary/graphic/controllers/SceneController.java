@@ -11,9 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
-
 import dictionary.base.utils.Utils;
-
 import dictionary.graphic.Theme;
 
 
@@ -94,6 +92,12 @@ public class SceneController {
     private void applyTheme(Theme theme){ 
         this.scene.getStylesheets().clear();
         this.scene.getStylesheets().add(theme.style());
+        this.scene.getStylesheets()
+                .add(Objects.requireNonNull(ScoreWindow.class.getResource("/css/global.css"))
+                        .toExternalForm());
+        this.scene.getStylesheets()
+                .add(Objects.requireNonNull(ScoreWindow.class.getResource("/css/wordle.css"))
+                        .toExternalForm());
     }
 
     public void setLocale(String localeStr) {

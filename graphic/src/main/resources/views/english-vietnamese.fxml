@@ -15,7 +15,7 @@
       <TextField fx:id="searchBar" layoutX="14.0" layoutY="18.0" prefHeight="36.0" prefWidth="171.0" />
       <Button fx:id="searchButton" layoutX="193.0" layoutY="18.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="63.0">
          <graphic>
-            <FontAwesomeIconView glyphName="SEARCH" size="20" />
+            <FontAwesomeIconView glyphName="SEARCH" size="20" styleClass="ikonli-font-icon" />
          </graphic></Button>
       <ListView fx:id="recommendWords" layoutX="14.0" layoutY="67.0" prefHeight="366.0" prefWidth="243.0" />
       <TextArea fx:id="outputField" editable="false" layoutX="272.0" layoutY="16.0" prefHeight="419.0" prefWidth="514.0">
@@ -25,7 +25,7 @@
       </TextArea>
       <Button fx:id="speech" layoutX="623.0" layoutY="37.0" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="36.0" prefWidth="35.0">
          <graphic>
-            <FontAwesomeIconView glyphName="VOLUME_UP" size="20" />
+            <FontAwesomeIconView glyphName="VOLUME_UP" size="20" styleClass="ikonli-font-icon" />
          </graphic></Button>
       <VBox fx:id="explainField" layoutX="286.0" layoutY="88.0" prefHeight="336.0" prefWidth="487.0" styleClass="leve3" />
       <Label fx:id="pronounceField" layoutX="415.0" layoutY="41.0" onMouseEntered="#getInPronounField" prefHeight="27.0" prefWidth="120.0" styleClass="pronounce" wrapText="true" AnchorPane.leftAnchor="415.0" AnchorPane.rightAnchor="265.20000000000005">

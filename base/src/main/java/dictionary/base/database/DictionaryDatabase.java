@@ -28,7 +28,8 @@ public class DictionaryDatabase extends Database {
             ArrayList<String> curWord = new ArrayList<>();
             curWord.add(word);
             curWord.add(word_id);
-            // The current word here have 2 attributes: curWord[0] mean the word, curWord[1] mean the word_id
+            // The current word here have 2 attributes: curWord[0] mean the word, curWord[1]
+            // mean the word_id
             words.add(curWord);
         }
 
@@ -187,5 +188,19 @@ public class DictionaryDatabase extends Database {
                 .prepareStatement("DELETE FROM examples WHERE example_id = ?");
         preparedStatement.setString(1, exampleID);
         preparedStatement.executeUpdate();
+    }
+
+    public String getRandomWordByLength(final int length) throws SQLException {
+        final StringBuilder query = new StringBuilder();
+        query.append("SELECT * ");
+        query.append("FROM words ");
+        query.append("WHERE LENGTH(word) = ? ");
+        query.append("ORDER BY RANDOM() LIMIT 1;");
+
+        final PreparedStatement preparedStatement = connection
+                .prepareStatement(query.toString());
+        preparedStatement.setInt(1, length);
+        preparedStatement.executeQuery();
+        return preparedStatement.executeQuery().getString("word");
     }
 }

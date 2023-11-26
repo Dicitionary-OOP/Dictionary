@@ -1,9 +1,8 @@
 @font-face {
-    -fx-font-family: 'FiraCode';
-    src: url("font/FiraCode.ttf"),
+    -fx-font-family: 'JetBrainsMono';
+    src: url("../font/JetBrainsMono.ttf"),
 }
 
 .root {
-    -fx-font-family: "FiraCode";
-    -fx-background-color: blue;
+    -fx-font-family: "JetBrainsMono";
 }
