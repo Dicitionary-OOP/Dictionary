@@ -14,6 +14,9 @@ import javafx.scene.SceneAntialiasing;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import dictionary.graphic.SettingsManager;
+import java.util.Properties;
+
 
 public class SceneController
 {
@@ -28,11 +31,14 @@ public class SceneController
     private ResourceBundle bundle;
     private Theme theme;
     private Font font;
+    private Properties settings;
 
     private SceneController()
     {
-        theme = Theme.PrimerLight;
-        font = Font.Inter;
+        settings = SettingsManager.loadSettings();
+        theme = Theme.getTheme(settings.getProperty("theme"));
+        font = Font.getFont(settings.getProperty("font"));
+        locale = new Locale(settings.getProperty("language"));
     }
 
     public static SceneController getInstance()
@@ -53,7 +59,6 @@ public class SceneController
     public void init(Stage _stage) throws IOException
     {
         this.stage = _stage;
-        this.locale = new Locale("en");
         this.bundle = ResourceBundle.getBundle("languages.language", locale);
         this.scene = new Scene(new BorderPane());
         setTheme(theme);

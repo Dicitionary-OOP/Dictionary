@@ -11,6 +11,8 @@ import org.controlsfx.control.Notifications;
 
 import dictionary.graphic.Theme;
 import dictionary.graphic.Font;
+import dictionary.graphic.SettingsManager;
+import java.util.Properties;
 
 public class SettingsController {
     @FXML
@@ -28,8 +30,12 @@ public class SettingsController {
     @FXML
     private Button applyButton;
 
+    private Properties settings;
+
     @FXML
     private void initialize() {
+        settings = SettingsManager.loadSettings();
+
         languageChoiceBox.setItems(FXCollections.observableArrayList("en", "vi"));
         languageChoiceBox.setValue("vi");
 
@@ -44,6 +50,7 @@ public class SettingsController {
         for (Font font : Font.values()) {
             fontNames.add(font.name());
         }
+
         fontChoiceBox.setItems(fontNames);
         fontChoiceBox.setValue(SceneController.getInstance().getFont().name());
 
@@ -51,15 +58,24 @@ public class SettingsController {
 
     @FXML
     private void applySettings() {
-        Notifications.create()
+        try {
+            final String language = languageChoiceBox.getValue();
+            final String theme = themeChoiceBox.getValue();
+            final String font = fontChoiceBox.getValue();
+
+            SceneController.getInstance().setLocale(language);
+            SceneController.getInstance().setTheme(Theme.getTheme(theme));
+            SceneController.getInstance().setFont(Font.getFont(font));
+
+            settings.setProperty("language", language);
+            settings.setProperty("theme", theme);
+            settings.setProperty("font", font);
+            SettingsManager.saveSettings(settings);
+
+            Notifications.create()
             .title("Dictionary")
             .text("Settings have been updated")
             .showInformation();
-
-        try {
-            SceneController.getInstance().setLocale(languageChoiceBox.getValue());
-            SceneController.getInstance().setTheme(Theme.getTheme(themeChoiceBox.getValue()));
-            SceneController.getInstance().setFont(Font.getFont(fontChoiceBox.getValue()));
         } catch(Exception e){}
     }
 }
