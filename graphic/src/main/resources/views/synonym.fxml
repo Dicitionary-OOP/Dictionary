@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="764.0" styleClass="pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.SynonymController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" styleClass="pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.SynonymController">
     <children>
-      <Button fx:id="search" layoutX="341.0" layoutY="376.0" mnemonicParsing="false" onAction="#onSynonymSearchClick" prefHeight="32.0" prefWidth="82.0" text="%search" />
-      <TextField fx:id="searchSynonym" layoutX="55.0" layoutY="38.0" prefHeight="39.0" prefWidth="555.0" promptText="%searchWord">
-         <font>
-            <Font name="System Italic" size="13.0" />
-         </font>
-      </TextField>
-      <VBox layoutX="55.0" layoutY="98.0" prefHeight="261.0" prefWidth="653.0">
+      <HBox layoutX="14.0" layoutY="58.0" prefHeight="48.0" prefWidth="453.0" spacing="15.0">
          <children>
-            <TextArea fx:id="outputSynonym" editable="false" prefHeight="261.0" prefWidth="685.0">
+            <TextField fx:id="searchSynonym" prefHeight="40.0" prefWidth="363.0" promptText="%searchWord">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#onSynonymSearchClick" prefHeight="40.0" prefWidth="63.0">
+               <graphic>
+                  <FontAwesomeIconView glyphName="SEARCH" size="20" styleClass="ikonli-font-icon" />
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+      <VBox layoutX="-7.0" layoutY="94.0" prefHeight="360.0" prefWidth="900.0">
+         <children>
+            <TextArea fx:id="outputSynonym" editable="false" prefHeight="372.0" prefWidth="856.0">
                <font>
                   <Font size="14.0" />
                </font></TextArea>
          </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
       </VBox>
-      <TextField fx:id="limitSynonym" layoutX="633.0" layoutY="38.0" prefHeight="39.0" prefWidth="75.0" promptText="%limitWord">
-         <font>
-            <Font name="System Italic" size="12.0" />
-         </font>
-      </TextField>
     </children>
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
 </AnchorPane>

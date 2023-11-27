@@ -18,12 +18,17 @@ public class SynonymController {
     @FXML
     private TextArea outputSynonym;
     @FXML
-    private TextField searchSynonym, limitSynonym;
+    private TextField searchSynonym;
     @FXML
     private Button search;
 
     @FXML
     private void onSynonymSearchClick() throws IOException {
+        String input = searchSynonym.getText().trim();
+        if(input == null){
+            return;
+        }
+
         outputSynonym.setText(null);
         outputSynonym.setPromptText("Finding ....");
 
@@ -31,28 +36,22 @@ public class SynonymController {
             ArrayList<String> output = null;
             String result = "";
             try {
-                int limited = Integer.parseInt(limitSynonym.getText());
                 output = new ArrayList<String>();
-                output = SynonymAPI.getSynonyms(searchSynonym.getText(), limited);
+                output = SynonymAPI.getSynonyms(input);
                 for (String x : output) {
                     result += x + "\n";
                 }
+
                 if (result == "") {
                     result = "\t\t\t\t\t\t\t No word searched.\n \t\t\t\t\t\tPlease checking searchSynonym";
                 }
+
                 final String resultS = result;
                 Platform.runLater(() -> outputSynonym.setText(resultS));
             } catch (Exception e) {
                 e.printStackTrace();
-                String errorMessage;
                 outputSynonym.setText(null);
                 outputSynonym.setPromptText("Finding ....");
-                if(!Utils.isNetworkConnected()) {
-                    errorMessage = "Internet is not connect.";
-                } else {
-                    errorMessage = "\t\t\t\t\t WARNING...  :  You need enter enough information. \n \t\t\t\t\t\tChecking Limit and searchSynonym";
-                }
-                Platform.runLater(() -> outputSynonym.setText(errorMessage));
             }
         });
         thread.setDaemon(true);

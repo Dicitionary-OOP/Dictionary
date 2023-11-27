@@ -24,8 +24,6 @@ import java.util.ArrayList;
 public class EnglishVietnameseController {
     private Dictionary dictionary;
     @FXML
-    private TextArea outputField;
-    @FXML
     private Button speech;
     @FXML
     private Label wordField;
@@ -33,14 +31,13 @@ public class EnglishVietnameseController {
     private Label pronounceField;
     @FXML
     private VBox explainField;
-    @FXML
-    private TextField biggerPronounceField, biggerWordField;
+
     @FXML
     private void initialize() {
         try {
             showDetail(Dictionary.getInstance().getAllWords().get(2).get(1));
         }catch (Exception e) {
-            outputField.setText("Đã có lỗi với từ điển");
+            e.printStackTrace();
         }
     }
 
@@ -51,9 +48,7 @@ public class EnglishVietnameseController {
                 DictionaryDatabase database = Dictionary.getInstance().getDatabase();
 
                 wordField.setText(word.getWord());
-                biggerWordField.setText(word.getWord());
                 pronounceField.setText('[' + word.getPronunce() + ']');
-                biggerPronounceField.setText('[' + word.getPronunce() + ']');
                 ArrayList<Explain> explains = database.getExplainsByWordID(word.getWordID());
                 for (Explain explain : explains) {
                     Label type = new Label(explain.getType() + "\n");
@@ -87,22 +82,5 @@ public class EnglishVietnameseController {
         Thread thread = new Thread(() -> TextToSpeechOfflineAPI.getTextToSpeech(wordField.getText()));
         thread.setDaemon(true);
         thread.start();
-    }
-
-    @FXML
-    private void getInPronounField(){
-        biggerPronounceField.setVisible(true);
-    }
-    @FXML
-    private void getOutPronounField(){
-        biggerPronounceField.setVisible(false);
-    }
-
-    @FXML void getInWordField(){
-        biggerWordField.setVisible(true);
-    }
-
-    @FXML void getOutWordField(){
-        biggerWordField.setVisible(false);
     }
 }

@@ -12,9 +12,6 @@ import java.io.IOException;
 
 public class TextToIPAController {
     @FXML
-    private SplitPane translatePane;
-
-    @FXML
     private TextArea inputTextArea, outputTextArea;
 
     @FXML

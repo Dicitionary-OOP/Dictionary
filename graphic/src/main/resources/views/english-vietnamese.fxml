@@ -1,52 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" stylesheets="@../css/TextStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.EnglishVietnameseController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" stylesheets="@../css/TextStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.EnglishVietnameseController">
     <children>
-      <TextField fx:id="searchBar" layoutX="14.0" layoutY="18.0" prefHeight="36.0" prefWidth="171.0" />
-      <Button fx:id="searchButton" layoutX="193.0" layoutY="18.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="63.0">
-         <graphic>
-            <FontAwesomeIconView glyphName="SEARCH" size="20" styleClass="ikonli-font-icon" />
-         </graphic></Button>
-      <ListView fx:id="recommendWords" layoutX="14.0" layoutY="67.0" prefHeight="366.0" prefWidth="243.0" />
-      <TextArea fx:id="outputField" editable="false" layoutX="272.0" layoutY="16.0" prefHeight="419.0" prefWidth="514.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextArea>
-      <Button fx:id="speech" layoutX="623.0" layoutY="37.0" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="36.0" prefWidth="35.0">
-         <graphic>
-            <FontAwesomeIconView glyphName="VOLUME_UP" size="20" styleClass="ikonli-font-icon" />
-         </graphic></Button>
-      <VBox fx:id="explainField" layoutX="286.0" layoutY="88.0" prefHeight="336.0" prefWidth="487.0" styleClass="leve3" />
-      <Label fx:id="pronounceField" layoutX="415.0" layoutY="41.0" onMouseEntered="#getInPronounField" prefHeight="27.0" prefWidth="120.0" styleClass="pronounce" wrapText="true" AnchorPane.leftAnchor="415.0" AnchorPane.rightAnchor="265.20000000000005">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="wordField" layoutX="295.0" layoutY="41.0" onMouseEntered="#getInWordField" prefHeight="27.0" prefWidth="120.0" styleClass="level1" wrapText="true" AnchorPane.leftAnchor="295.0" AnchorPane.rightAnchor="385.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TextField fx:id="biggerWordField" editable="false" layoutX="41.0" layoutY="34.0" onMouseExited="#getOutWordField" prefHeight="40.0" prefWidth="120.0" visible="false">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="biggerPronounceField" editable="false" layoutX="161.0" layoutY="34.0" onMouseExited="#getOutPronounField" prefHeight="40.0" prefWidth="120.0" visible="false">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
+      <VBox layoutY="1.0" prefHeight="500.0" prefWidth="263.0" spacing="15.0" AnchorPane.leftAnchor="0.0">
+         <children>
+            <HBox prefHeight="25.0" prefWidth="261.0" spacing="15.0">
+               <children>
+                  <TextField fx:id="searchBar" prefHeight="28.0" prefWidth="210.0" />
+                  <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="63.0">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="SEARCH" size="20" styleClass="ikonli-font-icon" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <ListView fx:id="recommendWords" prefHeight="496.0" prefWidth="263.0" />
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+      <VBox layoutX="278.0" layoutY="1.0" prefHeight="494.0" prefWidth="622.0" spacing="15.0">
+         <children>
+            <HBox prefHeight="47.0" prefWidth="622.0">
+               <children>
+                  <Label fx:id="pronounceField" prefHeight="27.0" prefWidth="120.0" styleClass="pronounce" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="wordField" prefHeight="27.0" prefWidth="120.0" styleClass="level1" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="speech" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="36.0" prefWidth="35.0">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="VOLUME_UP" size="20" styleClass="ikonli-font-icon" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <VBox fx:id="explainField" prefHeight="428.0" prefWidth="622.0" styleClass="leve3" />
+         </children>
+         <padding>
+            <Insets bottom="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
     </children>
 </AnchorPane>

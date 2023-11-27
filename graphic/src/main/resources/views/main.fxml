@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="900.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="40.0" tabMinHeight="40.0" tabMinWidth="40.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="950.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="40.0" tabMinHeight="40.0" tabMinWidth="40.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
     <tabs>
         <Tab closable="false">
             <content>
