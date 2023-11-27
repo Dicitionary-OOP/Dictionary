@@ -42,7 +42,7 @@ public class TranslateController {
                         targetLanguageChoiceBox.getValue(), inputTextArea.getText());
                 final String finalOutput = output;
                 Platform.runLater(() -> outputTextArea.setText(finalOutput));
-            } catch (final IOException e) {
+            } catch (final Exception e) {
                 e.printStackTrace();
                 String errorMessage;
                 if(!Utils.isNetworkConnected()) {

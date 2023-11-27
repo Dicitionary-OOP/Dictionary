@@ -37,7 +37,7 @@ public class SettingsController {
         settings = SettingsManager.loadSettings();
 
         languageChoiceBox.setItems(FXCollections.observableArrayList("en", "vi"));
-        languageChoiceBox.setValue("vi");
+        languageChoiceBox.setValue(SceneController.getInstance().getLocale().getLanguage());
 
         ObservableList<String> themeNames = FXCollections.observableArrayList();
         for (Theme theme : Theme.values()) {
