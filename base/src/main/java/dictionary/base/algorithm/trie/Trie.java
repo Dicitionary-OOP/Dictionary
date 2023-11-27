@@ -1,8 +1,5 @@
 package dictionary.base.algorithm.trie;
 
-import dictionary.base.Word;
-import edu.cmu.sphinx.fst.utils.Pair;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,11 +12,6 @@ public class Trie {
         this.size = 0;
     }
 
-    /**
-     * Insert word to Trie.
-     * 
-     * @param word word to insert
-     */
     public void insert(final String word, final String wordID) {
         TrieNode currentNode = root;
         for (final char ch : word.toCharArray()) {
@@ -30,12 +22,6 @@ public class Trie {
         this.size += 1;
     }
 
-    /**
-     * Get end node of given word.
-     * 
-     * @param word word
-     * @return TrieNode endOfWord
-     */
     public TrieNode getEndNode(final String word) {
         TrieNode currentNode = root;
         for (final char ch : word.toCharArray()) {
@@ -47,11 +33,6 @@ public class Trie {
         return currentNode;
     }
 
-    /**
-     * Remove word from Trie.
-     * 
-     * @param word word
-     */
     public void remove(final String word) {
         TrieNode node = getEndNode(word);
         if (node == null) {
@@ -59,23 +40,18 @@ public class Trie {
         }
         node.setEnd(false);
 
-        for (int i = word.length() - 1; i >= 0; i--) {
+        for (final char ch : word.toCharArray()) {
             if (!node.getChilds().isEmpty() || node.isEnd()) {
                 break;
             }
 
             node = node.getParent();
-            node.getChilds().remove(word.charAt(i));
+            node.getChilds().remove(ch);
         }
+
         this.size -= 1;
     }
 
-    /**
-     * Get all word start with prefix.
-     * 
-     * @param prefix prefix
-     * @return List of words
-     */
     public ArrayList<ArrayList<String>> getAllWordsStartWith(final String prefix) {
         final TrieNode node = getEndNode(prefix);
         if (node == null) {
@@ -87,13 +63,6 @@ public class Trie {
         return wordLists;
     }
 
-    /**
-     * Sub method for getAllWordsStartWith(),
-     * 
-     * @param node      TrieNode
-     * @param word      currentWord
-     * @param wordLists wordLists to fill
-     */
     private void retrieveWordsStartingWith(final TrieNode node, final String word,
             final ArrayList<ArrayList<String>> wordLists) {
         if (node == null) {
@@ -101,7 +70,7 @@ public class Trie {
         }
 
         if (node.isEnd()) {
-            ArrayList<String> curWord = new ArrayList<String>();
+            final ArrayList<String> curWord = new ArrayList<String>();
             curWord.add(word);
             curWord.add(node.getWordID());
             wordLists.add(curWord);

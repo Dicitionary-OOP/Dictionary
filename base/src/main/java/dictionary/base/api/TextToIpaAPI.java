@@ -1,42 +1,37 @@
 package dictionary.base.api;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
-import dictionary.base.utils.Utils;
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.json.JSONObject;
 
 public class TextToIpaAPI {
-
     private static final String API = "https://png-text-to-ipa.onrender.com";
 
-    /**
-     * Converts the given text to its IPA representation using an API.
-     *
-     * @param text The text to convert to IPA.
-     * @return The IPA representation of the input text, or null if an error occurs.
-     */
     public static String textToIPA(final String text) throws IOException {
-            final String encodedText = java.net.URLEncoder.encode(text, "UTF-8");
-            final URL url = new URL(API + "?text=" + encodedText);
-            final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
+        final String encodedText = URLEncoder.encode(text, StandardCharsets.UTF_8);
+        final URI uri = URI.create(String.format("%s?text=%s", API, encodedText));
 
-            try (BufferedReader br = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
-                final StringBuilder response = new StringBuilder();
-                String responseLine;
-                while ((responseLine = br.readLine()) != null) {
-                    response.append(responseLine.trim());
-                }
+        final HttpClient client = HttpClient.newHttpClient();
+        final HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .GET()
+                .build();
 
-                final JSONObject json = new JSONObject(response.toString());
-                return StringEscapeUtils.unescapeJava(json.getString("ipa"));
-            }
+        try {
+            final HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            final JSONObject json = new JSONObject(response.body());
+            return StringEscapeUtils.unescapeJava(json.getString("ipa"));
+        } catch (final Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

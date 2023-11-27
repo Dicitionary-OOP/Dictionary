@@ -2,47 +2,45 @@ package dictionary.base.api;
 
 import org.apache.commons.text.StringEscapeUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
 import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
 public class GoogleTranslateAPI {
-    /**
-     * Translates text from one language to another using the Google Translate API.
-     *
-     * @param sourceLanguage The language to translate from.
-     * @param targetLanguage The language to translate to.
-     * @param text           The text to be translated.
-     * @return The translated text.
-     * @throws IOException If an error occurs during the translation process.
-     */
-    public static String translate(final String sourceLanguage, final String targetLanguage, final String text)
-            throws IOException {
+    private final static String SCRIPT_WEB_APP = "https://script.google.com/macros/s/AKfycbzS8OiTKVPtZnUecN3oWzVCHLpAHxdyI2j01W_ZoP_byBqVRfnEIaGwaWmtV2WVrrRi3g/exec";
 
-        if(sourceLanguage.equals(targetLanguage)) {
+    public static String translate(final String source, final String target, final String text)
+            throws IOException, InterruptedException {
+        if (source.equals(target)) {
             return text;
         }
 
-        final String DEPLOYMENT_ID = "AKfycbzS8OiTKVPtZnUecN3oWzVCHLpAHxdyI2j01W_ZoP_byBqVRfnEIaGwaWmtV2WVrrRi3g";
-        final URL GOOGLE_SCRIPT_WEB_APP = new URL(String.format(
-                "https://script.google.com/macros/s/%s/exec?q=%s&target=%s&source=%s",
-                DEPLOYMENT_ID, URLEncoder.encode(text, StandardCharsets.UTF_8), targetLanguage, sourceLanguage));
+        final String scriptUrl = String.format("%s?q=%s&target=%s&source=%s", SCRIPT_WEB_APP,
+                URLEncoder.encode(text, StandardCharsets.UTF_8), target, source);
 
-        final HttpURLConnection request = (HttpURLConnection) GOOGLE_SCRIPT_WEB_APP.openConnection();
-        request.setRequestProperty("User-Agent", "Mozilla/5.0");
+        final HttpClient httpClient = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(scriptUrl))
+                .header("User-Agent", "Mozilla/5.0")
+                .build();
 
-        final BufferedReader inputStream = new BufferedReader(new InputStreamReader(request.getInputStream()));
-        String inputLine;
-        final StringBuilder response = new StringBuilder();
-        while ((inputLine = inputStream.readLine()) != null) {
-            response.append(inputLine);
+        HttpResponse<String> httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (httpResponse.statusCode() == 302) {
+            final String redirectUrl = httpResponse.headers().firstValue("Location").orElse(null);
+            if (redirectUrl != null) {
+                request = HttpRequest.newBuilder()
+                        .uri(URI.create(redirectUrl))
+                        .header("User-Agent", "Mozilla/5.0")
+                        .build();
+                httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            }
         }
-        inputStream.close();
 
-        return StringEscapeUtils.unescapeHtml4(response.toString());
+        return StringEscapeUtils.unescapeHtml4(httpResponse.body());
     }
 }

@@ -1,88 +1,70 @@
 package dictionary.base;
 
-import dictionary.base.algorithm.trie.Trie;
-import dictionary.base.database.DictionaryDatabase;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import dictionary.base.algorithm.trie.Trie;
+import dictionary.base.database.DictionaryDatabase;
+
 public class Dictionary {
     private static Dictionary INSTANCE;
-    private DictionaryDatabase database;
-    private Trie words;
+    private final DictionaryDatabase database;
+    private final Trie words;
 
     public static Dictionary getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new Dictionary();
+            synchronized (Dictionary.class) {
+                if (INSTANCE == null) {
+                    try {
+                        INSTANCE = new Dictionary();
+                    } catch (final Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
 
         return INSTANCE;
     }
 
-    public Dictionary() {
-        try {
-            words = new Trie();
-            database = new DictionaryDatabase();
-            for (ArrayList<String> word : getDatabase().getAllWords()) {
-                words.insert(word.get(0), word.get(1));
-            }
-        } catch (Exception e) {
+    private Dictionary() throws SQLException, URISyntaxException  {
+        words = new Trie();
+        database = new DictionaryDatabase();
+
+        for (final ArrayList<String> word : getDatabase().getAllWords()) {
+            words.insert(word.get(0), word.get(1));
         }
     }
 
-    /**
-     * Adds a word to the dictionary.
-     *
-     * @param word The Word object to add.
-     */
-    public void add(Word word) {
+    public void add(final Word word) {
         words.insert(word.getWord(), word.getWordID());
 
         try {
             database.addWord(word);
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Removes a word from the dictionary.
-     *
-     * @param word The Word object to remove.
-     */
-    public void remove(Word word) {
+    public void remove(final Word word) {
         words.remove(word.getWord());
 
         try {
             database.removeWord(word.getWordID());
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Retrieves a list of all words in the dictionary.
-     *
-     * @return An ArrayList of all words in the dictionary.
-     */
     public ArrayList<ArrayList<String>> getAllWords() {
         return lookup("");
     }
 
-    /**
-     * Looks up words in the dictionary with a given prefix.
-     *
-     * @param lookupWord The prefix to search for.
-     * @return An ArrayList of words that match the given prefix.
-     */
     public ArrayList<ArrayList<String>> lookup(final String lookupWord) {
         return words.getAllWordsStartWith(lookupWord);
     }
 
-    /**
-     * Removes a word from the dictionary.
-     *
-     * @param word The Word object to remove.
-     */
     public void removeWord(final String word) {
         words.remove(word);
     }
@@ -91,14 +73,14 @@ public class Dictionary {
         return database;
     }
 
-    public Boolean isExistWord(String word){
+    public Boolean isExistWord(final String word) {
         return words.getEndNode(word) != null;
     }
 
-    public String getRandomWordByLength(int length) {
+    public String getRandomWordByLength(final int length) {
         try {
             return database.getRandomWordByLength(length);
-        } catch(Exception e) {
+        } catch (final Exception e) {
             return null;
         }
     }

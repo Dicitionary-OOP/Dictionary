@@ -10,7 +10,6 @@ import dictionary.base.Example;
 import dictionary.base.Word;
 import dictionary.base.Explain;
 import dictionary.base.utils.Utils;
-import edu.cmu.sphinx.fst.utils.Pair;
 
 public class DictionaryDatabase extends Database {
     private final static String DATABASE_PATH = Utils.getResource("/database/en-vi.db");
@@ -23,13 +22,11 @@ public class DictionaryDatabase extends Database {
         final ArrayList<ArrayList<String>> words = new ArrayList<ArrayList<String>>();
         final ResultSet resultSet = executeQuery("SELECT * FROM words");
         while (resultSet.next()) {
-            String word = resultSet.getString("word");
-            String word_id = resultSet.getString("word_id");
-            ArrayList<String> curWord = new ArrayList<>();
+            final String word = resultSet.getString("word");
+            final String word_id = resultSet.getString("word_id");
+            final ArrayList<String> curWord = new ArrayList<>();
             curWord.add(word);
             curWord.add(word_id);
-            // The current word here have 2 attributes: curWord[0] mean the word, curWord[1]
-            // mean the word_id
             words.add(curWord);
         }
 
@@ -120,15 +117,6 @@ public class DictionaryDatabase extends Database {
         preparedStatement.executeUpdate();
     }
 
-    /**
-     * Add explain of the word.
-     *
-     * @param explain - the new explain(giải thích của từ).
-     * @param wordID  - wordID (id từ được giải thích).
-     *
-     * @throws SQLException
-     */
-
     public void addExplain(final Explain explain, final String wordID) throws SQLException {
         final StringBuilder query = new StringBuilder();
         query.append("INSERT INTO explains (word_id, type, meaning) ");
@@ -140,13 +128,6 @@ public class DictionaryDatabase extends Database {
         preparedStatement.executeUpdate();
     }
 
-    /**
-     * Remove the explain.
-     *
-     * @param explainID - the removed explain(từ bị xóa)
-     *
-     * @throws SQLException
-     */
     public void removeExplain(final String explainID) throws SQLException {
         final StringBuilder query = new StringBuilder();
         query.append("DELETE FROM explains ");
@@ -156,17 +137,6 @@ public class DictionaryDatabase extends Database {
         preparedStatement.executeUpdate();
     }
 
-    /**
-     * Adds a new example to an existing explanation (explain).
-     * / Thêm một ví dụ vào một giải thích từ.
-     * Note that the example's ID must be null. If it is not,
-     * that implies the example already exists in the database,
-     * and thus should be updated, NOT added.
-     * / Chú ý ID của đối tượng example phải là null.
-     *
-     * @param example - An Example object.
-     * @throws SQLException
-     */
     public void addExample(final Example example) throws SQLException {
         final PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO examples (explain_id, example, translate) VALUES (?, ?, ?)");
@@ -176,13 +146,6 @@ public class DictionaryDatabase extends Database {
         preparedStatement.executeUpdate();
     }
 
-    /**
-     * Removes an example from the database.
-     * / Xoá một ví dụ khỏi CSDL.
-     *
-     * @param exampleID - The ID of the example to be removed.
-     * @throws SQLException
-     */
     public void removeExample(final String exampleID) throws SQLException {
         final PreparedStatement preparedStatement = connection
                 .prepareStatement("DELETE FROM examples WHERE example_id = ?");
