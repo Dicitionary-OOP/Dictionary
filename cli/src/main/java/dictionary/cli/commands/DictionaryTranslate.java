@@ -27,7 +27,7 @@ public class DictionaryTranslate implements Runnable {
     public void run() {
         try {
             System.out.println(GoogleTranslateAPI.translate(sourceLanguage, targetLanguage, textToTranslate));
-        } catch (IOException ex) {
+        } catch (Exception ex) {
         }
     }
 }
