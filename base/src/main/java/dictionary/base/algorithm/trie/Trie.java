@@ -1,5 +1,7 @@
 package dictionary.base.algorithm.trie;
 
+import org.apache.commons.math3.util.Pair;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -52,27 +54,25 @@ public class Trie {
         this.size -= 1;
     }
 
-    public ArrayList<ArrayList<String>> getAllWordsStartWith(final String prefix) {
+    public ArrayList<Pair<String, String>> getAllWordsStartWith(final String prefix) {
         final TrieNode node = getEndNode(prefix);
         if (node == null) {
-            return null;
+            return new ArrayList<>();
         }
 
-        final ArrayList<ArrayList<String>> wordLists = new ArrayList<ArrayList<String>>();
+        final ArrayList<Pair<String, String>> wordLists = new ArrayList<Pair<String, String>>();
         retrieveWordsStartingWith(node, prefix, wordLists);
         return wordLists;
     }
 
     private void retrieveWordsStartingWith(final TrieNode node, final String word,
-            final ArrayList<ArrayList<String>> wordLists) {
+            final ArrayList<Pair<String, String>> wordLists) {
         if (node == null) {
             return;
         }
 
         if (node.isEnd()) {
-            final ArrayList<String> curWord = new ArrayList<String>();
-            curWord.add(word);
-            curWord.add(node.getWordID());
+            final Pair<String, String> curWord = new Pair<String, String>(word, node.getWordID());
             wordLists.add(curWord);
         }
 
