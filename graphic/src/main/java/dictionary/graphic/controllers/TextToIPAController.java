@@ -16,6 +16,9 @@ public class TextToIPAController {
 
     @FXML
     public void onIpaButtonClick() {
+        outputTextArea.setPromptText("Dang phien am...");
+        outputTextArea.setText(null);
+
         if (!Utils.isNetworkConnected()) {
             Notifications.create()
                     .title("Dictionary")
@@ -37,8 +40,5 @@ public class TextToIPAController {
         });
         thread.setDaemon(true);
         thread.start();
-
-        outputTextArea.setPromptText("Dang phien am...");
-        outputTextArea.setText(null);
     }
 }

@@ -251,7 +251,11 @@ public class GameController {
     }
 
     public void getRandomWord() {
-        winningWord = Dictionary.getInstance().getRandomWordByLength(MAX_COLUMN);
+        try {
+            winningWord = Dictionary.getInstance().getRandomWordByLength(MAX_COLUMN);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     private boolean isValidGuess(String guess) {

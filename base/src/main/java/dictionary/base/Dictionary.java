@@ -28,7 +28,7 @@ public class Dictionary {
         return INSTANCE;
     }
 
-    private Dictionary() throws SQLException, URISyntaxException  {
+    private Dictionary() throws SQLException, URISyntaxException {
         words = new Trie();
         database = new DictionaryDatabase();
 
@@ -37,24 +37,31 @@ public class Dictionary {
         }
     }
 
-    public void add(final Word word) {
-        words.insert(word.getWord(), word.getWordID());
-
-        try {
-            database.addWord(word);
-        } catch (final SQLException e) {
-            e.printStackTrace();
-        }
+    public String addWord(final Word word) throws SQLException {
+        final String wordID = database.addWord(word);
+        words.insert(word.getWord(), wordID);
+        return wordID;
     }
 
-    public void remove(final Word word) {
+    public void removeWord(final Word word) throws SQLException {
         words.remove(word.getWord());
+        database.removeWord(word.getWordID());
+    }
 
-        try {
-            database.removeWord(word.getWordID());
-        } catch (final SQLException e) {
-            e.printStackTrace();
-        }
+    public String addExplain(final Explain explain) throws SQLException {
+        return database.addExplain(explain);
+    }
+
+    public void removeExplain(final String explainID) throws SQLException {
+        database.removeExplain(explainID);
+    }
+
+    public void addExample(final Example example) throws SQLException {
+        database.addExample(example);
+    }
+
+    public void removeExample(final String exampleID) throws SQLException {
+        database.removeExplain(exampleID);
     }
 
     public ArrayList<ArrayList<String>> getAllWords() {
@@ -77,11 +84,7 @@ public class Dictionary {
         return words.getEndNode(word) != null;
     }
 
-    public String getRandomWordByLength(final int length) {
-        try {
-            return database.getRandomWordByLength(length);
-        } catch (final Exception e) {
-            return null;
-        }
+    public String getRandomWordByLength(final int length) throws SQLException {
+        return database.getRandomWordByLength(length);
     }
 }

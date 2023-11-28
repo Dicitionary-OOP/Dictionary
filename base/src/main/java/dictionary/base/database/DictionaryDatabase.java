@@ -98,14 +98,21 @@ public class DictionaryDatabase extends Database {
         return words;
     }
 
-    public void addWord(final Word word) throws SQLException {
+    public String addWord(final Word word) throws SQLException {
         final StringBuilder query = new StringBuilder();
         query.append("INSERT INTO words (word, pronounce) ");
-        query.append("VALUES (?, ?)");
+        query.append("VALUES (?, ?) ");
+
         final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
         preparedStatement.setString(1, word.getWord());
         preparedStatement.setString(2, word.getPronunce());
-        preparedStatement.executeUpdate();
+        final int rowEffect = preparedStatement.executeUpdate();
+        if (rowEffect == 0) {
+            return null;
+        }
+
+        final ResultSet resultSet = executeQuery("SELECT MAX(word_id) as word_id FROM words LIMIT 1 ");
+        return resultSet.getString("word_id");
     }
 
     public void removeWord(final String wordID) throws SQLException {
@@ -117,15 +124,21 @@ public class DictionaryDatabase extends Database {
         preparedStatement.executeUpdate();
     }
 
-    public void addExplain(final Explain explain, final String wordID) throws SQLException {
+    public String addExplain(final Explain explain) throws SQLException {
         final StringBuilder query = new StringBuilder();
         query.append("INSERT INTO explains (word_id, type, meaning) ");
         query.append("VALUES (?, ?, ?)");
         final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
-        preparedStatement.setString(1, wordID);
+        preparedStatement.setString(1, explain.getWordID());
         preparedStatement.setString(2, explain.getType());
         preparedStatement.setString(3, explain.getMeaning());
-        preparedStatement.executeUpdate();
+        final int rowEffect = preparedStatement.executeUpdate();
+        if (rowEffect == 0) {
+            return null;
+        }
+
+        final ResultSet resultSet = executeQuery("SELECT MAX(explain_id) as explain_id FROM explains LIMIT 1 ");
+        return resultSet.getString("explain_id");
     }
 
     public void removeExplain(final String explainID) throws SQLException {
