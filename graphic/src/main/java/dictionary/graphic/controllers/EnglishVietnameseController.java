@@ -5,6 +5,7 @@ import dictionary.base.database.DictionaryDatabase;
 import dictionary.base.Example;
 import dictionary.base.Explain;
 import dictionary.base.Word;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 
@@ -18,6 +19,9 @@ import javafx.scene.layout.VBox;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class EnglishVietnameseController {
     @FXML
@@ -34,6 +38,10 @@ public class EnglishVietnameseController {
 
     @FXML
     private ListView<String> suggestedWords;
+
+    private ExecutorService searchWordExecutor = Executors.newSingleThreadExecutor();
+
+    private Future searchWordFuture = null;
 
     @FXML
     private void initialize() {
@@ -135,15 +143,23 @@ public class EnglishVietnameseController {
      * Updates word suggestions.
      */
     private void updateSuggestions() {
-        try {
-            DictionaryDatabase database = Dictionary.getInstance().getDatabase();
-            List<String> words = database.getWordsStartWith(searchBar.getText());
-            suggestedWords.setItems(
-                FXCollections.observableList(words)
-            );
-        } catch (SQLException e) {
-            handleSQLException(e);
+        if (searchWordFuture != null && !searchWordFuture.isDone()) {
+            searchWordFuture.cancel(true);
         }
+        final String searchString = searchBar.getText();
+        searchWordFuture = searchWordExecutor.submit(() -> {
+            try {
+                DictionaryDatabase database = Dictionary.getInstance().getDatabase();
+                List<String> words = database.getWordsStartWith(searchString);
+                Platform.runLater(() -> {
+                    suggestedWords.setItems(
+                            FXCollections.observableList(words)
+                    );
+                });
+            } catch (SQLException e) {
+                Platform.runLater(() -> handleSQLException(e));
+            }
+        });
     }
 
     /**
