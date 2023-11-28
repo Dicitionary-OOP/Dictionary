@@ -10,6 +10,7 @@ import dictionary.base.Example;
 import dictionary.base.Word;
 import dictionary.base.Explain;
 import dictionary.base.utils.Utils;
+import org.apache.commons.math3.util.Pair;
 
 public class DictionaryDatabase extends Database {
     private final static String DATABASE_PATH = Utils.getResource("/database/en-vi.db");
@@ -18,15 +19,13 @@ public class DictionaryDatabase extends Database {
         super(DATABASE_PATH);
     }
 
-    public ArrayList<ArrayList<String>> getAllWords() throws SQLException {
-        final ArrayList<ArrayList<String>> words = new ArrayList<ArrayList<String>>();
+    public ArrayList<Pair<String, String>> getAllWords() throws SQLException {
+        final ArrayList<Pair<String, String>> words = new ArrayList<Pair<String, String>>();
         final ResultSet resultSet = executeQuery("SELECT * FROM words");
         while (resultSet.next()) {
             final String word = resultSet.getString("word");
             final String word_id = resultSet.getString("word_id");
-            final ArrayList<String> curWord = new ArrayList<>();
-            curWord.add(word);
-            curWord.add(word_id);
+            final Pair<String, String> curWord = new Pair<>(word, word_id);
             words.add(curWord);
         }
 

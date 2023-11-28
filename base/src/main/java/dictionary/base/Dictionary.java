@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import dictionary.base.algorithm.trie.Trie;
 import dictionary.base.database.DictionaryDatabase;
+import org.apache.commons.math3.util.Pair;
 
 public class Dictionary {
     private static Dictionary INSTANCE;
@@ -32,8 +33,8 @@ public class Dictionary {
         words = new Trie();
         database = new DictionaryDatabase();
 
-        for (final ArrayList<String> word : getDatabase().getAllWords()) {
-            words.insert(word.get(0), word.get(1));
+        for (final Pair<String, String> word : getDatabase().getAllWords()) {
+            words.insert(word.getKey(), word.getValue());
         }
     }
 
@@ -64,11 +65,11 @@ public class Dictionary {
         database.removeExplain(exampleID);
     }
 
-    public ArrayList<ArrayList<String>> getAllWords() {
+    public ArrayList<Pair<String, String>> getAllWords() {
         return lookup("");
     }
 
-    public ArrayList<ArrayList<String>> lookup(final String lookupWord) {
+    public ArrayList<Pair<String, String>> lookup(final String lookupWord) {
         return words.getAllWordsStartWith(lookupWord);
     }
 
@@ -87,4 +88,5 @@ public class Dictionary {
     public String getRandomWordByLength(final int length) throws SQLException {
         return database.getRandomWordByLength(length);
     }
+
 }
