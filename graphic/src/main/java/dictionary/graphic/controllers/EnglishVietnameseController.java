@@ -1,5 +1,8 @@
 package dictionary.graphic.controllers;
 
+import javafx.scene.input.ScrollEvent;
+import org.apache.commons.math3.util.Pair;
+
 import dictionary.base.api.TextToSpeechOfflineAPI;
 import dictionary.base.database.DictionaryDatabase;
 import dictionary.base.Example;
@@ -18,10 +21,79 @@ import javafx.scene.layout.VBox;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
+class LazyLoadManager {
+    /**
+     * If the number of suggestions is higher than this constant,
+     * the suggestions will be lazy-loaded.
+     */
+    public static final int LAZY_LOAD_THRESHOLD = 50;
+
+    private final ListView<Pair<String, String>> suggestedWords;
+
+    private ArrayList<Pair<String, String>> allSuggestions;
+
+    private boolean isLazyLoadInEffect;
+
+    public LazyLoadManager(ListView<Pair<String, String>> suggestedWords) {
+        this.suggestedWords = suggestedWords;
+        this.allSuggestions = new ArrayList<>();
+        this.isLazyLoadInEffect = false;
+    }
+
+    /**
+     * Call this function to update the suggestions,
+     * and perform lazy load when necessary.
+     *
+     * @param _allSuggestions All suggestions looked up.
+     */
+    public void updateSuggestionsFromNonGUIThread(ArrayList<Pair<String, String>> _allSuggestions) {
+        Platform.runLater(() -> {
+            updateSuggestionsFromGUIThread(_allSuggestions);
+        });
+    }
+
+    /**
+     * Force the suggestion list view to contain
+     * all entries which was previously set by
+     * `updateSuggestionsThreadSafe()`. This is
+     * the "load" step in "lazy load".
+     */
+    public void loadAllSuggestionsFromNonGUIThread() {
+        Platform.runLater(() -> {
+            loadAllSuggestionsFromGUIThread();
+        });
+    }
+
+    public void updateSuggestionsFromGUIThread(ArrayList<Pair<String, String>> _allSuggestions) {
+        allSuggestions = _allSuggestions;
+        if (allSuggestions.size() > LAZY_LOAD_THRESHOLD) {
+            isLazyLoadInEffect = true;
+            updateSuggestionsInView(
+                    new ArrayList<Pair<String, String>>(
+                            // list.subList() create a VIEW in the list, not an actual new list.
+                            allSuggestions.subList(0, LAZY_LOAD_THRESHOLD)
+                    )
+            );
+        } else {
+            loadAllSuggestionsFromGUIThread();
+        }
+    }
+
+    public void loadAllSuggestionsFromGUIThread() {
+        isLazyLoadInEffect = false;
+        updateSuggestionsInView(allSuggestions);
+    }
+
+    private void updateSuggestionsInView(ArrayList<Pair<String, String>> suggestions) {
+        suggestedWords.setItems(
+                FXCollections.observableList(suggestions)
+        );
+    }
+}
 
 public class EnglishVietnameseController {
     @FXML
@@ -37,20 +109,31 @@ public class EnglishVietnameseController {
     private TextField searchBar;
 
     @FXML
-    private ListView<String> suggestedWords;
+    private ListView<Pair<String, String>> suggestedWords;
 
-    private ExecutorService searchWordExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService searchWordExecutor = Executors.newSingleThreadExecutor();
 
-    private Future searchWordFuture = null;
+    private Future<?> searchWordFuture = null;
+
+    private LazyLoadManager lazyLoadManager;
 
     @FXML
     private void initialize() {
-        suggestedWords.setCellFactory((ListView<String> list) -> {
-            ListCell<String> cell = new ListCell<String>() {
+        // suggestedWords is invalid until this function is called.
+        // Therefore, we don't instantiate LazyLoadManager in the
+        // constructor nor in its in-class definition, but here.
+        lazyLoadManager = new LazyLoadManager(suggestedWords);
+
+        suggestedWords.setCellFactory((ListView<Pair<String, String>> list) -> {
+            ListCell<Pair<String, String>> cell = new ListCell<>() {
                 @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    setText(item);
+                public void updateItem(Pair<String, String> p, boolean empty) {
+                    super.updateItem(p, empty);
+                    if (!empty) {
+                        setText(p.getFirst());
+                    } else {
+                        setText("");
+                    }
                 }
             };
 
@@ -78,13 +161,36 @@ public class EnglishVietnameseController {
                         suggestedWords.getSelectionModel().clearSelection();
                     }
                     break;
+
+                case DOWN:
+                case KP_DOWN:
+                    if (suggestedWords.getSelectionModel().getSelectedIndex() == suggestedWords.getItems().size() - 1) {
+                        lazyLoadManager.loadAllSuggestionsFromGUIThread();
+                    }
+            }
+        });
+
+        suggestedWords.addEventHandler(ScrollEvent.SCROLL, (ScrollEvent event) -> {
+            // suggestedWords is a ListView object, which, under our investigation,
+            // seems to capture ALL mouse scroll events and handle them itself
+            // internally. However, when the scrolling exceeds boundary (i.e. when
+            // the user continue to scroll up when the list is already at top, or
+            // when the user continue to scroll down when the list is already at
+            // bottom), the scroll event is no longer handled as such, and instead,
+            // we could capture the event here. By getting deltaY, we can tell whether
+            // we are at the top or bottom of the list. A negative deltaY tells us
+            // that the list is reached bottom, so lazy-loading should be performed
+            // then.
+            if (event.getDeltaY() < 0) {
+                lazyLoadManager.loadAllSuggestionsFromGUIThread();
             }
         });
     }
 
-    private void showDetail(Word word) {
+    private void showDetail(String wordID) {
         try {
             DictionaryDatabase database = Dictionary.getInstance().getDatabase();
+            Word word = database.getWordByWordID(wordID);
 
             wordField.setText(word.getWord());
             pronounceField.setText('[' + word.getPronunce() + ']');
@@ -149,15 +255,10 @@ public class EnglishVietnameseController {
         final String searchString = searchBar.getText();
         searchWordFuture = searchWordExecutor.submit(() -> {
             try {
-                DictionaryDatabase database = Dictionary.getInstance().getDatabase();
-                List<String> words = database.getWordsStartWith(searchString);
-                Platform.runLater(() -> {
-                    suggestedWords.setItems(
-                            FXCollections.observableList(words)
-                    );
-                });
-            } catch (SQLException e) {
-                Platform.runLater(() -> handleSQLException(e));
+                final ArrayList<Pair<String, String>> wordPairs = Dictionary.getInstance().lookup(searchString);
+                lazyLoadManager.updateSuggestionsFromNonGUIThread(wordPairs);
+            } catch (Exception e) {
+                Platform.runLater(() -> handleException(e));
             }
         });
     }
@@ -180,17 +281,15 @@ public class EnglishVietnameseController {
      * search bar, and display its word's details.
      */
     private void pickCurrentSuggestion() {
-        String wordString = suggestedWords.getSelectionModel().getSelectedItem();
+        Pair<String, String> p = suggestedWords.getSelectionModel().getSelectedItem();
 
         try {
-            DictionaryDatabase database = Dictionary.getInstance().getDatabase();
-            Word word = database.getWordObjectByWord(wordString);
-            showDetail(word);
-        } catch (SQLException e) {
-            handleSQLException(e);
+            showDetail(p.getSecond());
+        } catch (Exception e) {
+            handleException(e);
         }
 
-        searchBar.setText(wordString);
+        searchBar.setText(p.getFirst());
         focusOnSearchBar();
     }
 
@@ -217,10 +316,10 @@ public class EnglishVietnameseController {
         searchBar.positionCaret(searchBar.getText().length());
     }
 
-    private static void handleSQLException(SQLException e) {
+    private static void handleException(Exception e) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Lỗi");
-        alert.setHeaderText("Không thể truy cập dữ liệu");
+        alert.setHeaderText("Lỗi: " + e.getMessage());
         alert.setContentText("Vui lòng thử lại sau");
         alert.showAndWait();
     }
