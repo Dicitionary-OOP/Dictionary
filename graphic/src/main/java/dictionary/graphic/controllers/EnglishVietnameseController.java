@@ -282,6 +282,9 @@ public class EnglishVietnameseController {
      */
     private void pickCurrentSuggestion() {
         Pair<String, String> p = suggestedWords.getSelectionModel().getSelectedItem();
+        if (p == null) {
+            return;
+        }
 
         try {
             showDetail(p.getSecond());
