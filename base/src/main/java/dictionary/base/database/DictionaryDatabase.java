@@ -47,6 +47,24 @@ public class DictionaryDatabase extends Database {
         return word;
     }
 
+    /**
+     * Returns the whole Word object that corresponds to the
+     * given word string.
+     *
+     * @param wordString The word string.
+     * @return A Word instance.
+     * @throws SQLException in case of database access failure.
+     */
+    public Word getWordObjectByWord(final String wordString) throws SQLException {
+        final String sql = "SELECT * FROM words WHERE word = ?";
+        final PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, wordString);
+
+        final ResultSet resultSet = preparedStatement.executeQuery();
+        final Word word = new Word(resultSet);
+        return word;
+    }
+
     public ArrayList<Example> getExamples(final String explainID) throws SQLException {
         final StringBuilder query = new StringBuilder();
         query.append("SELECT * ");
@@ -82,11 +100,8 @@ public class DictionaryDatabase extends Database {
     }
 
     public ArrayList<String> getWordsStartWith(final String prefix) throws SQLException {
-        final StringBuilder query = new StringBuilder();
-        query.append("SELECT * ");
-        query.append("FROM words ");
-        query.append("WHERE words.word LIKE ?");
-        final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
+        String sql = "SELECT * FROM words WHERE words.word LIKE ? ORDER BY words.word;";
+        final PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, prefix + "%");
 
         final ArrayList<String> words = new ArrayList<>();
