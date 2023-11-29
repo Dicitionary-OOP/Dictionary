@@ -189,21 +189,27 @@ public class EnglishVietnameseController {
 
     private void showDetail(String wordID) {
         try {
+
             DictionaryDatabase database = Dictionary.getInstance().getDatabase();
             Word word = database.getWordByWordID(wordID);
+            explainField.getChildren().clear();
+            speech.setDisable(false);
+            speech.setVisible(true);
 
             wordField.setText(word.getWord());
             pronounceField.setText('[' + word.getPronunce() + ']');
+
             ArrayList<Explain> explains = database.getExplainsByWordID(word.getWordID());
             for (Explain explain : explains) {
                 Label type = new Label(explain.getType() + "\n");
                 Label meaning = new Label("\t" + explain.getMeaning() + "\n");
                 type.getStyleClass().add("level1");
                 type.setWrapText(true);
-                explainField.getChildren().add(type);
                 meaning.getStyleClass().add("level2");
                 meaning.setWrapText(true);
+                explainField.getChildren().add(type);
                 explainField.getChildren().add(meaning);
+
                 ArrayList<Example> examples = database.getExamples(explain.getExplainID());
                 for (Example example : examples) {
                     Label exampleText = new Label("\t\t" + example.getExample() + "\n");
@@ -282,6 +288,9 @@ public class EnglishVietnameseController {
      */
     private void pickCurrentSuggestion() {
         Pair<String, String> p = suggestedWords.getSelectionModel().getSelectedItem();
+        if (p == null) {
+            return;
+        }
 
         try {
             showDetail(p.getSecond());

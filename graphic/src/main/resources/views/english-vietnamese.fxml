@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,9 +14,9 @@
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" stylesheets="@../css/TextStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.EnglishVietnameseController" style="-fx-background-color: #D3D3D3;">
     <children>
-      <VBox layoutY="1.0" prefHeight="500.0" prefWidth="263.0" spacing="15.0" AnchorPane.leftAnchor="0.0">
+      <VBox layoutY="1.0" prefWidth="263.0" spacing="15.0" AnchorPane.leftAnchor="0.0">
          <children>
-            <HBox prefHeight="25.0" prefWidth="261.0" spacing="15.0">
+            <HBox prefHeight="25.0" prefWidth="261.0">
                <children>
                   <TextField fx:id="searchBar" onKeyPressed="#onSearchBarKeyPressed" onKeyTyped="#onSearchBarInputTextChanged" prefHeight="28.0" prefWidth="210.0" />
                   <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="63.0" style="-fx-background-color: #4876FF;">
@@ -25,34 +26,44 @@
                   </Button>
                </children>
             </HBox>
-            <ListView fx:id="suggestedWords" prefHeight="496.0" prefWidth="263.0" />
+            <ListView fx:id="suggestedWords" prefWidth="263.0" />
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
       </VBox>
-      <VBox layoutX="278.0" layoutY="1.0" prefHeight="494.0" prefWidth="622.0" spacing="15.0">
+      <VBox layoutX="278.0" layoutY="1.0" prefHeight="474.0" prefWidth="622.0" spacing="15.0">
          <children>
-            <HBox prefHeight="47.0" prefWidth="622.0">
+            <HBox prefWidth="622.0" spacing="20.0">
                <children>
-                  <Label fx:id="pronounceField" prefHeight="27.0" prefWidth="120.0" styleClass="pronounce" wrapText="true">
+                  <Label fx:id="pronounceField" styleClass="pronounce" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
                   </Label>
-                  <Label fx:id="wordField" prefHeight="27.0" prefWidth="120.0" styleClass="level1" wrapText="true">
+                  <Label fx:id="wordField" styleClass="level1" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
                   </Label>
-                  <Button fx:id="speech" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="36.0" prefWidth="35.0" style="-fx-background-color: #FFC125;">
+                  <Button fx:id="speech" disable="true" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="36.0" prefWidth="35.0" visible="false" style="-fx-background-color: #FFC125;">
                      <graphic>
                         <FontAwesomeIconView glyphName="VOLUME_UP" size="20" styleClass="ikonli-font-icon" />
                      </graphic>
                   </Button>
                </children>
             </HBox>
-            <VBox fx:id="explainField" prefHeight="428.0" prefWidth="622.0" styleClass="leve3" />
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="607.0">
+               <content>
+                  <VBox fx:id="explainField" prefHeight="666.0" prefWidth="606.0" styleClass="leve3" />
+               </content>
+            </ScrollPane>
          </children>
          <padding>
             <Insets bottom="15.0" right="15.0" top="15.0" />

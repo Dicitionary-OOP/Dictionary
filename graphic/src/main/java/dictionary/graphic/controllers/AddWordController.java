@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,6 +23,7 @@ import java.util.ResourceBundle;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import org.controlsfx.control.Notifications;
 
 public class AddWordController {
     private String typeText = null;
@@ -31,48 +33,50 @@ public class AddWordController {
     ResourceBundle bundle = ResourceBundle.getBundle("languages.language", SceneController.getInstance().getLocale());
 
     @FXML
+    private AnchorPane root;
+    @FXML
     private TextField wordTextField, pronounTextField;
     @FXML
     private VBox editVbox, currentTypeParentVBox, currentExplainParentVBox;
 
-    public void setWordTextField(String word) {
+    private void setWordTextField(String word) {
         wordTextField.setText(word);
     }
 
-    public void setPronounTextField(String word) {
+    private void setPronounTextField(String word) {
         pronounTextField.setText(word);
     }
 
-    public void setTypeText(String typeText) {
+    private void setTypeText(String typeText) {
         this.typeText = typeText;
     }
 
-    public void setExplainText(String explainText) {
+    private void setExplainText(String explainText) {
         this.explainText = explainText;
     }
 
-    public void setExampleText1(String exampleText1) {
+    private void setExampleText1(String exampleText1) {
         this.exampleText1 = exampleText1;
     }
 
-    public void setExampleText2(String exampleText2) {
+    private void setExampleText2(String exampleText2) {
         this.exampleText2 = exampleText2;
     }
 
-    public TextField getWordTextField() {
+    private TextField getWordTextField() {
         return wordTextField;
     }
 
-    public VBox getCurrentTypeParentVBox() {
+    private VBox getCurrentTypeParentVBox() {
         return currentTypeParentVBox;
     }
 
-    public VBox getCurrentExplainParentVBox() {
+    private VBox getCurrentExplainParentVBox() {
         return currentExplainParentVBox;
     }
 
-        @FXML
-    public void onClickAddTypeButton() {
+    @FXML
+    private void onClickAddTypeButton() {
         VBox typeParentVBox = new VBox();
         currentTypeParentVBox = typeParentVBox;
         HBox typeHbox = new HBox();
@@ -106,7 +110,7 @@ public class AddWordController {
         editVbox.getChildren().add(typeParentVBox);
     }
 
-    public void onClickAddExplainButton(VBox parentVBox) {
+    private void onClickAddExplainButton(VBox parentVBox) {
         VBox explainParentVBox = new VBox();
         currentExplainParentVBox = explainParentVBox;
         HBox explainHbox = new HBox();
@@ -142,7 +146,7 @@ public class AddWordController {
         parentVBox.getChildren().add(explainParentVBox);
     }
 
-    public void onClickAddExampleButton(VBox parentVBox) {
+    private void onClickAddExampleButton(VBox parentVBox) {
         VBox exampleParentVbox = new VBox();
         HBox exampleHbox = new HBox();
         TextField exampleField1 = new TextField();
@@ -178,10 +182,27 @@ public class AddWordController {
     }
 
     @FXML
-    public void onClickSaveButton() {
+    private void reset() {
+        editVbox.getChildren().clear();
+        wordTextField.clear();
+        pronounTextField.clear();
+    }
+
+    @FXML
+    private void save() {
+        if(Dictionary.getInstance().isExistWord(wordTextField.getText())) {
+            System.out.println("existed");
+            System.out.println(wordTextField.getText());
+            Notifications.create()
+            .owner(root)
+            .title("Dictionary")
+            .text("Word has been existed")
+            .showError();
+            return;
+        }
+
         try {
             final String wordID = Dictionary.getInstance().addWord(new Word(wordTextField.getText(), pronounTextField.getText()));
-            System.out.println(wordID);
 
             for (int i = 0; i < editVbox.getChildren().size(); i++) {
                 VBox typeVBox = (VBox) editVbox.getChildren().get(i);
@@ -203,9 +224,11 @@ public class AddWordController {
                     }
                 }
             }
+
+            reset();
         } catch(Exception e ) {
             e.printStackTrace();
-        }
+        } 
     }
 }
 
