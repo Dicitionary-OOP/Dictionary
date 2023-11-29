@@ -16,7 +16,7 @@ public class TextToIPAController {
 
     @FXML
     public void onIpaButtonClick() {
-        outputTextArea.setPromptText("Dang phien am...");
+        outputTextArea.setPromptText("Đang phiên âm...");
         outputTextArea.setText(null);
 
         if (!Utils.isNetworkConnected()) {

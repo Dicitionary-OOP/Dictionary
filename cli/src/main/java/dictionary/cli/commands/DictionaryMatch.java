@@ -6,5 +6,6 @@ import picocli.CommandLine.Command;
 public class DictionaryMatch implements Runnable {
     @Override
     public void run() {
+
     }
 }

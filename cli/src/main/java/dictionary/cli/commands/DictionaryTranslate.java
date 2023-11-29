@@ -1,14 +1,12 @@
 package dictionary.cli.commands;
 
+import dictionary.base.api.GoogleTranslateAPI;
+import dictionary.base.Language;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import java.io.IOException;
 
-import dictionary.base.api.GoogleTranslateAPI;
-
-import dictionary.base.Language;
 
 @Command(name = "translate", description = "Translate text from one language to another")
 public class DictionaryTranslate implements Runnable {

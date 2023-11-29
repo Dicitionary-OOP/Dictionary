@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" stylesheets="@../css/TextStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.EnglishVietnameseController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" stylesheets="@../css/TextStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.EnglishVietnameseController" style="-fx-background-color: #D3D3D3;">
     <children>
       <VBox layoutY="1.0" prefHeight="500.0" prefWidth="263.0" spacing="15.0" AnchorPane.leftAnchor="0.0">
          <children>
             <HBox prefHeight="25.0" prefWidth="261.0" spacing="15.0">
                <children>
                   <TextField fx:id="searchBar" onKeyPressed="#onSearchBarKeyPressed" onKeyTyped="#onSearchBarInputTextChanged" prefHeight="28.0" prefWidth="210.0" />
-                  <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="63.0">
+                  <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="63.0" style="-fx-background-color: #4876FF;">
                      <graphic>
                         <FontAwesomeIconView glyphName="SEARCH" size="20" styleClass="ikonli-font-icon" />
                      </graphic>
@@ -45,7 +45,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="speech" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="36.0" prefWidth="35.0">
+                  <Button fx:id="speech" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="36.0" prefWidth="35.0" style="-fx-background-color: #FFC125;">
                      <graphic>
                         <FontAwesomeIconView glyphName="VOLUME_UP" size="20" styleClass="ikonli-font-icon" />
                      </graphic>

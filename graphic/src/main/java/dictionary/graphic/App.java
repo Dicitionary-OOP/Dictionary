@@ -16,6 +16,7 @@ public class App extends Application
     @Override public void start(final Stage stage) throws IOException
     {
         stage.setTitle("Dictionary");
+        stage.setResizable(false);
         stage.getIcons().add(
             new Image(new FileInputStream((Utils.getResource("/icons/logo.png")))));
 

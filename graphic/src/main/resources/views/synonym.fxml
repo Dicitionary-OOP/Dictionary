@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" styleClass="pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.SynonymController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" styleClass="pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.SynonymController" style="-fx-background-color: #D3D3D3;">
     <children>
       <HBox layoutX="14.0" layoutY="58.0" prefHeight="48.0" prefWidth="453.0" spacing="15.0">
          <children>
@@ -19,7 +19,7 @@
                   <Font name="System Italic" size="13.0" />
                </font>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#onSynonymSearchClick" prefHeight="40.0" prefWidth="63.0">
+            <Button mnemonicParsing="false" onAction="#onSynonymSearchClick" prefHeight="40.0" prefWidth="63.0" style="-fx-background-color: #4876FF;">
                <graphic>
                   <FontAwesomeIconView glyphName="SEARCH" size="20" styleClass="ikonli-font-icon" />
                </graphic>
