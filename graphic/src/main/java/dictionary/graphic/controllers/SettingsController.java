@@ -73,6 +73,7 @@ public class SettingsController {
             SettingsManager.saveSettings(settings);
 
             Notifications.create()
+            .owner(rootPane)
             .title("Dictionary")
             .text("Settings have been updated")
             .showInformation();
