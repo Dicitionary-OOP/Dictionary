@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: #D3D3D3;" styleClass="pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.SettingsController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" styleClass="pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.SettingsController">
    <children>
       <VBox layoutX="108.0" layoutY="32.0" prefHeight="232.0" prefWidth="327.0" spacing="20.0">
          <children>
@@ -18,13 +18,13 @@
                   <Label prefWidth="150.0" text="%language" />
                </children>
             </HBox>
-            <ChoiceBox fx:id="languageChoiceBox" prefWidth="150.0" style="-fx-background-color: #9C9C9C;" />
+            <ChoiceBox fx:id="languageChoiceBox" prefWidth="150.0" />
             <HBox alignment="CENTER_LEFT" prefHeight="14.0" prefWidth="482.0">
                <children>
                   <Label prefHeight="14.0" prefWidth="150.0" text="%theme" />
                </children>
             </HBox>
-            <ChoiceBox fx:id="themeChoiceBox" prefWidth="150.0" style="-fx-background-color: #9C9C9C;" />
+            <ChoiceBox fx:id="themeChoiceBox" prefWidth="150.0" />
             <HBox alignment="CENTER_LEFT" prefHeight="4.0" prefWidth="482.0">
                <children>
                   <Label prefWidth="150.0" text="%font" />
@@ -32,7 +32,7 @@
             </HBox>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ChoiceBox fx:id="fontChoiceBox" layoutY="1.0" prefWidth="150.0" style="-fx-background-color: #9C9C9C;" />
+                  <ChoiceBox fx:id="fontChoiceBox" layoutY="1.0" prefWidth="150.0" />
                </children>
             </AnchorPane>
          </children>

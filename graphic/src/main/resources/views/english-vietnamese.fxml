@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" stylesheets="@../css/TextStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.EnglishVietnameseController" style="-fx-background-color: #D3D3D3;">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" stylesheets="@../css/TextStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.EnglishVietnameseController">
     <children>
       <VBox layoutY="1.0" prefWidth="263.0" spacing="15.0" AnchorPane.leftAnchor="0.0">
          <children>
@@ -52,7 +52,7 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="speech" disable="true" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="36.0" prefWidth="35.0" visible="false" style="-fx-background-color: #FFC125;">
+                  <Button fx:id="speech" disable="true" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="36.0" prefWidth="35.0" style="-fx-background-color: #FFC125;" visible="false">
                      <graphic>
                         <FontAwesomeIconView glyphName="VOLUME_UP" size="20" styleClass="ikonli-font-icon" />
                      </graphic>
