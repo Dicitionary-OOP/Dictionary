@@ -79,6 +79,17 @@
         </Tab>
         <Tab closable="false">
             <content>
+                <fx:include source="chatbot.fxml" />
+            </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="COMMENTS" size="24" />
+         </graphic>
+         <tooltip>
+            <Tooltip text="%chatbot" />
+         </tooltip>
+        </Tab>
+        <Tab closable="false">
+            <content>
                 <fx:include source="settings.fxml" />
             </content>
          <graphic>
