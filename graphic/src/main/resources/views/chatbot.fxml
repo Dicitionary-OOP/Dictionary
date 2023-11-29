@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" styleClass="pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.ChatbotController">
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
+   <children>
+      <VBox prefHeight="500.0" prefWidth="900.0" spacing="15.0">
+         <children>
+            <WebView fx:id="output" prefHeight="344.0" prefWidth="870.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <TextArea fx:id="input" prefHeight="62.0" prefWidth="788.0" promptText="%type_here" />
+                  <Button mnemonicParsing="false" onAction="#chat" prefHeight="35.0" prefWidth="80.0">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="PAPER_PLANE" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -18,6 +18,7 @@ public class App extends Application
         stage.setTitle("Dictionary");
         stage.getIcons().add(
             new Image(new FileInputStream((Utils.getResource("/icons/logo.png")))));
+        stage.setResizable(false);
 
         SceneController.getInstance().init(stage);
         SceneController.getInstance().switchScene(View.Main.fxml());
