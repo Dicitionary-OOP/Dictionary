@@ -42,7 +42,7 @@ public class ChatbotController {
     @FXML
     private void initialize() {
          chatGPT = ChatGPT.builder()
-                .apiKey("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")
+                .apiKey("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")
                 .build()
                 .init();
          parserMarkdown = Parser.builder().build();
