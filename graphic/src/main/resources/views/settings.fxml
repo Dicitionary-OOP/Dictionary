@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -15,7 +16,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="9.0" prefWidth="482.0">
                <children>
-                  <Label prefWidth="150.0" text="%language" />
+                  <Label prefHeight="14.0" prefWidth="300.0" text="%language" />
                   <ChoiceBox fx:id="languageChoiceBox" prefWidth="150.0">
                      <HBox.margin>
                         <Insets />
@@ -30,19 +31,25 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="14.0" prefWidth="482.0">
                <children>
-                  <Label prefHeight="14.0" prefWidth="150.0" text="%theme" />
+                  <Label prefHeight="14.0" prefWidth="300.0" text="%theme" />
                   <ChoiceBox fx:id="themeChoiceBox" prefWidth="150.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="4.0" prefWidth="482.0">
                <children>
-                  <Label prefWidth="150.0" text="%font" />
+                  <Label prefWidth="300.0" text="%font" />
                   <ChoiceBox fx:id="fontChoiceBox" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="14.0" prefWidth="300.0" text="ChatGPT_API_KEY(Optional)" />
+                  <TextField fx:id="chatGPTApiKey" prefHeight="22.0" prefWidth="151.0" />
                </children>
             </HBox>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="applyButton" layoutX="199.0" mnemonicParsing="false" onAction="#applySettings" prefHeight="22.0" prefWidth="99.0" text="%apply" />
+                  <Button fx:id="applyButton" layoutX="351.0" mnemonicParsing="false" onAction="#applySettings" prefHeight="22.0" prefWidth="99.0" text="%apply" />
                </children>
             </AnchorPane>
          </children>

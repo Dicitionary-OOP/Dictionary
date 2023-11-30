@@ -6,13 +6,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
 import dictionary.graphic.Theme;
 import dictionary.graphic.Font;
 import dictionary.graphic.SettingsManager;
-import java.util.Properties;
+import javafx.scene.control.TextField;
 
 public class SettingsController {
     @FXML
@@ -28,14 +27,13 @@ public class SettingsController {
     private ChoiceBox<String> fontChoiceBox;
 
     @FXML
-    private Button applyButton;
+    private TextField chatGPTApiKey;
 
-    private Properties settings;
+    @FXML
+    private Button applyButton;
 
     @FXML
     private void initialize() {
-        settings = SettingsManager.loadSettings();
-
         languageChoiceBox.setItems(FXCollections.observableArrayList("en", "vi"));
         languageChoiceBox.setValue(SceneController.getInstance().getLocale().getLanguage());
 
@@ -53,7 +51,7 @@ public class SettingsController {
 
         fontChoiceBox.setItems(fontNames);
         fontChoiceBox.setValue(SceneController.getInstance().getFont().name());
-
+        chatGPTApiKey.setText(SettingsManager.getInstance().getProperty("chatgpt_api_key"));
     }
 
     @FXML
@@ -67,10 +65,11 @@ public class SettingsController {
             SceneController.getInstance().setTheme(Theme.getTheme(theme));
             SceneController.getInstance().setFont(Font.getFont(font));
 
-            settings.setProperty("language", language);
-            settings.setProperty("theme", theme);
-            settings.setProperty("font", font);
-            SettingsManager.saveSettings(settings);
+            SettingsManager.getInstance().setProperty("language", language);
+            SettingsManager.getInstance().setProperty("theme", theme);
+            SettingsManager.getInstance().setProperty("font", font);
+            SettingsManager.getInstance().setProperty("chatgpt_api_key", chatGPTApiKey.getText());
+            SettingsManager.getInstance().saveSettings();
 
             Notifications.create()
             .owner(rootPane)

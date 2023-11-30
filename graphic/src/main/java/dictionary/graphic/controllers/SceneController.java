@@ -10,16 +10,12 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import dictionary.graphic.SettingsManager;
-import java.util.Properties;
 
-
-public class SceneController
-{
+public class SceneController {
     private static SceneController INSTANCE;
 
     private Stage stage;
@@ -31,18 +27,14 @@ public class SceneController
     private ResourceBundle bundle;
     private Theme theme;
     private Font font;
-    private Properties settings;
 
-    private SceneController()
-    {
-        settings = SettingsManager.loadSettings();
-        theme = Theme.getTheme(settings.getProperty("theme"));
-        font = Font.getFont(settings.getProperty("font"));
-        locale = new Locale(settings.getProperty("language"));
+    private SceneController() {
+        theme = Theme.getTheme(SettingsManager.getInstance().getProperty("theme"));
+        font = Font.getFont(SettingsManager.getInstance().getProperty("font"));
+        locale = new Locale(SettingsManager.getInstance().getProperty("language"));
     }
 
-    public static SceneController getInstance()
-    {
+    public static SceneController getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new SceneController();
         }
@@ -50,22 +42,26 @@ public class SceneController
         return INSTANCE;
     }
 
-    public Stage getStage() { return stage; }
+    public Stage getStage() {
+        return stage;
+    }
 
-    public Scene getScene() { return scene; }
+    public Scene getScene() {
+        return scene;
+    }
 
-    public FXMLLoader getRoot() { return root; }
+    public FXMLLoader getRoot() {
+        return root;
+    }
 
-    public void init(Stage _stage) throws IOException
-    {
+    public void init(Stage _stage) throws IOException {
         this.stage = _stage;
         this.bundle = ResourceBundle.getBundle("languages.language", locale);
         this.scene = new Scene(new BorderPane());
         setTheme(theme);
     }
 
-    public void switchScene(String scene)
-    {
+    public void switchScene(String scene) {
         try {
             this.root = new FXMLLoader(SceneController.class.getResource(scene), bundle);
             this.parent = root.load();
@@ -75,46 +71,47 @@ public class SceneController
         }
     }
 
-    private void renderScene()
-    {
+    private void renderScene() {
         this.scene.setRoot(parent);
         this.stage.setScene(scene);
         this.stage.show();
     }
 
-    public Locale getLocale() { return locale; }
+    public Locale getLocale() {
+        return locale;
+    }
 
-    public Theme getTheme() { return theme; }
+    public Theme getTheme() {
+        return theme;
+    }
 
-    public void setTheme(Theme theme)
-    {
+    public void setTheme(Theme theme) {
         this.theme = theme;
         applyCss();
     }
 
-    public Font getFont() { return font; }
+    public Font getFont() {
+        return font;
+    }
 
-    public void setFont(Font font)
-    {
+    public void setFont(Font font) {
         this.font = font;
         applyCss();
     }
 
-    private void applyCss()
-    {
+    private void applyCss() {
         this.scene.getStylesheets().clear();
         this.scene.getStylesheets().add(theme.style());
         this.scene.getStylesheets().add(
-            Objects.requireNonNull(SceneController.class.getResource("/css/global.css"))
-                .toExternalForm());
+                Objects.requireNonNull(SceneController.class.getResource("/css/global.css"))
+                        .toExternalForm());
         this.scene.getStylesheets().add(
-            Objects.requireNonNull(SceneController.class.getResource("/css/wordle.css"))
-                .toExternalForm());
+                Objects.requireNonNull(SceneController.class.getResource("/css/wordle.css"))
+                        .toExternalForm());
         this.scene.getStylesheets().add(font.path());
     }
 
-    public void setLocale(String localeStr)
-    {
+    public void setLocale(String localeStr) {
         this.locale = new Locale(localeStr);
         this.bundle = ResourceBundle.getBundle("languages.language", this.locale);
     }
