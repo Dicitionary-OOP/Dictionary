@@ -1,23 +1,22 @@
 package dictionary.graphic;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import atlantafx.base.theme.PrimerDark;
 import atlantafx.base.theme.PrimerLight;
 import dictionary.base.utils.Utils;
 import dictionary.graphic.controllers.SceneController;
-import java.io.FileInputStream;
-import java.io.IOException;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-public class App extends Application
-{
-    @Override public void start(final Stage stage) throws IOException
-    {
+public class App extends Application {
+    @Override
+    public void start(final Stage stage) throws IOException {
         stage.setTitle("Dictionary");
         stage.getIcons().add(
-            new Image(new FileInputStream((Utils.getResource("/icons/logo.png")))));
+                new Image(new FileInputStream((Utils.getResource("/icons/logo.png")))));
         stage.setResizable(false);
 
         SceneController.getInstance().init(stage);
@@ -26,5 +25,7 @@ public class App extends Application
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
     }
 
-    public static void main(final String[] args) { launch(args); }
+    public static void main(final String[] args) {
+        launch(args);
+    }
 }

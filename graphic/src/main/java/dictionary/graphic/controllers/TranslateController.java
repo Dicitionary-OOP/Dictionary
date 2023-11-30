@@ -45,7 +45,7 @@ public class TranslateController {
             } catch (final Exception e) {
                 e.printStackTrace();
                 String errorMessage;
-                if(!Utils.isNetworkConnected()) {
+                if (!Utils.isNetworkConnected()) {
                     errorMessage = "Internet is not connect.";
                 } else {
                     errorMessage = "Error.";
@@ -57,23 +57,22 @@ public class TranslateController {
         thread.setDaemon(true);
         thread.start();
     }
-    
+
     @FXML
     public void onSwitchSourceLanguage() {
-        if (sourceLanguageChoiceBox.getValue().equals("en"))  {
+        if (sourceLanguageChoiceBox.getValue().equals("en")) {
             targetLanguageChoiceBox.setValue("vi");
-        } else{
+        } else {
             targetLanguageChoiceBox.setValue("en");
-        };
+        }
     }
 
     @FXML
     public void onSwitchTargetLanguage() {
-        if (targetLanguageChoiceBox.getValue().equals("en")){
+        if (targetLanguageChoiceBox.getValue().equals("en")) {
             sourceLanguageChoiceBox.setValue("vi");
         } else {
             sourceLanguageChoiceBox.setValue("en");
-        };
-
+        }
     }
 }

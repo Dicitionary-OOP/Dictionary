@@ -1,12 +1,10 @@
 package dictionary.cli.commands;
 
-import dictionary.base.Language;
+import java.util.ArrayList;
+
 import dictionary.base.api.SynonymAPI;
-import dictionary.base.utils.Utils;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
-
-import java.util.ArrayList;
 
 @Command(name = "synonym", description = "Get synonym")
 public class DictionarySynonym implements Runnable {

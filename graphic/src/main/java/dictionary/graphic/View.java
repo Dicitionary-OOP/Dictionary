@@ -16,8 +16,7 @@ public enum View {
         this.fxml = fxml;
     }
 
-    public String fxml(){
+    public String fxml() {
         return this.fxml;
     }
 }
-

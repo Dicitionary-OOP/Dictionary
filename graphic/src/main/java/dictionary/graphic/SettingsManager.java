@@ -1,9 +1,12 @@
 package dictionary.graphic;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
 
-import dictionary.graphic.SettingsManager;
 import dictionary.base.utils.Utils;
 
 public class SettingsManager {

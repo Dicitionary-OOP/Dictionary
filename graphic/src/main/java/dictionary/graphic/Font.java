@@ -1,13 +1,14 @@
 package dictionary.graphic;
+
 import java.util.Objects;
 
 public enum Font {
     JetBrainsMono(Objects.requireNonNull(Font.class.getResource("/font/JetBrainsMono.css"))
-                        .toExternalForm()),
+            .toExternalForm()),
     Inter(Objects.requireNonNull(Font.class.getResource("/font/Inter.css"))
-                        .toExternalForm()),
+            .toExternalForm()),
     Roboto(Objects.requireNonNull(Font.class.getResource("/font/Roboto.css"))
-                        .toExternalForm());
+            .toExternalForm());
 
     private final String path;
 
@@ -21,11 +22,10 @@ public enum Font {
                 return font;
             }
         }
-        return null; 
+        return null;
     }
 
     public String path() {
         return this.path;
     }
 }
-

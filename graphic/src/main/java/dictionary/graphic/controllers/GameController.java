@@ -1,26 +1,19 @@
 package dictionary.graphic.controllers;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Random;
-import java.util.stream.Stream;
-import javafx.animation.*;
-import javafx.application.Platform;
+
+import dictionary.base.Dictionary;
+import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
+import javafx.animation.SequentialTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.util.Duration;
-
-import dictionary.base.Dictionary;
 
 public class GameController {
     @FXML
@@ -54,7 +47,7 @@ public class GameController {
     }
 
     @FXML
-    private void onKeyPressed(KeyEvent keyEvent) {
+    private void onKeyPressed(final KeyEvent keyEvent) {
         onKeyPressed(gridPane, keyEvent);
     }
 
@@ -67,77 +60,64 @@ public class GameController {
         resetGame(gridPane);
     }
 
-    public void createGrid(GridPane gridPane) {
+    public void createGrid(final GridPane gridPane) {
         for (int i = 1; i <= MAX_ROW; i++) {
             for (int j = 1; j <= MAX_COLUMN; j++) {
-                Label label = new Label();
+                final Label label = new Label();
                 label.getStyleClass().add("default-tile");
                 gridPane.add(label, j, i);
             }
         }
     }
 
-    private void setLabelText(GridPane gridPane, int searchRow, int searchColumn, String input) {
-        Label label = getLabel(gridPane, searchRow, searchColumn);
+    private void setLabelText(final GridPane gridPane, final int searchRow, final int searchColumn, final String input) {
+        final Label label = getLabel(gridPane, searchRow, searchColumn);
         if (label != null) {
             label.setText(input.toUpperCase());
         }
     }
 
-    private Label getLabel(GridPane gridPane, int searchRow, int searchColumn) {
-        for (Node child : gridPane.getChildren()) {
-            Integer r = GridPane.getRowIndex(child);
-            Integer c = GridPane.getColumnIndex(child);
-            int row = r == null ? 0 : r;
-            int column = c == null ? 0 : c;
+    private Label getLabel(final GridPane gridPane, final int searchRow, final int searchColumn) {
+        for (final Node child : gridPane.getChildren()) {
+            final Integer r = GridPane.getRowIndex(child);
+            final Integer c = GridPane.getColumnIndex(child);
+            final int row = r == null ? 0 : r;
+            final int column = c == null ? 0 : c;
             if (row == searchRow && column == searchColumn && (child instanceof Label)) {
-                return (Label) child; 
+                return (Label) child;
             }
         }
         return null;
     }
 
-    private Label getLabel(GridPane gridPane, String letter) {
-        Label label;
-        for (Node child : gridPane.getChildren()) {
-            if (child instanceof Label) {
-                label = (Label) child;
-                if (letter.equalsIgnoreCase(label.getText())) {
-                    return label; 
-                }
-            }
-        }
-        return null;
-    }
-
-    private String getLabelText(GridPane gridPane, int searchRow, int searchColumn) {
-        Label label = getLabel(gridPane, searchRow, searchColumn);
-        if (label != null) { 
+    private String getLabelText(final GridPane gridPane, final int searchRow, final int searchColumn) {
+        final Label label = getLabel(gridPane, searchRow, searchColumn);
+        if (label != null) {
             return label.getText().toLowerCase();
         }
         return null;
     }
 
-    private void setLabelStyleClass(GridPane gridPane, int searchRow, int searchColumn, String styleclass) {
-        Label label = getLabel(gridPane, searchRow, searchColumn);
+    private void setLabelStyleClass(final GridPane gridPane, final int searchRow, final int searchColumn, final String styleclass) {
+        final Label label = getLabel(gridPane, searchRow, searchColumn);
         if (label != null) {
             label.getStyleClass().add(styleclass);
         }
     }
 
-    private void clearLabelStyleClass(GridPane gridPane, int searchRow, int searchColumn) {
-        Label label = getLabel(gridPane, searchRow, searchColumn);
+    private void clearLabelStyleClass(final GridPane gridPane, final int searchRow, final int searchColumn) {
+        final Label label = getLabel(gridPane, searchRow, searchColumn);
         if (label != null) {
             label.getStyleClass().clear();
         }
     }
 
-    private void updateRowColors(GridPane gridPane, int searchRow) {
+    private void updateRowColors(final GridPane gridPane, final int searchRow) {
         for (int i = 1; i <= MAX_COLUMN; i++) {
-            Label label = getLabel(gridPane, searchRow, i);
+            final Label label = getLabel(gridPane, searchRow, i);
             String styleClass;
             if (label != null) {
-                String currentCharacter = String.valueOf(label.getText().charAt(0)).toLowerCase();
+                final String currentCharacter = String.valueOf(label.getText().charAt(0)).toLowerCase();
                 if (String.valueOf(winningWord.charAt(i - 1))
                         .toLowerCase()
                         .equals(currentCharacter)) {
@@ -148,7 +128,7 @@ public class GameController {
                     styleClass = "wrong-letter";
                 }
 
-                FadeTransition firstFadeTransition = new FadeTransition(Duration.millis(300), label);
+                final FadeTransition firstFadeTransition = new FadeTransition(Duration.millis(300), label);
                 firstFadeTransition.setFromValue(1);
                 firstFadeTransition.setToValue(0.2);
                 firstFadeTransition.setOnFinished(e -> {
@@ -156,7 +136,7 @@ public class GameController {
                     label.getStyleClass().setAll(styleClass);
                 });
 
-                FadeTransition secondFadeTransition = new FadeTransition(Duration.millis(300), label);
+                final FadeTransition secondFadeTransition = new FadeTransition(Duration.millis(300), label);
                 secondFadeTransition.setFromValue(0.2);
                 secondFadeTransition.setToValue(1);
 
@@ -165,17 +145,17 @@ public class GameController {
         }
     }
 
-    private String getWordFromCurrentRow(GridPane gridPane) {
-        StringBuilder input = new StringBuilder();
+    private String getWordFromCurrentRow(final GridPane gridPane) {
+        final StringBuilder input = new StringBuilder();
         for (int j = 1; j <= MAX_COLUMN; j++) {
-            input.append(getLabelText(gridPane, CURRENT_ROW, j)); 
+            input.append(getLabelText(gridPane, CURRENT_ROW, j));
         }
         return input.toString();
     }
 
     public void onKeyPressed(
-            GridPane gridPane,
-            KeyEvent keyEvent) {
+            final GridPane gridPane,
+            final KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.BACK_SPACE) {
             onBackspacePressed(gridPane);
         } else if (keyEvent.getCode().isLetterKey()) {
@@ -184,9 +164,9 @@ public class GameController {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             onEnterPressed(gridPane);
         }
-            }
+    }
 
-    private void onBackspacePressed(GridPane gridPane) {
+    private void onBackspacePressed(final GridPane gridPane) {
         if ((CURRENT_COLUMN == MAX_COLUMN || CURRENT_COLUMN == 1)
                 && !Objects.equals(getLabelText(gridPane, CURRENT_ROW, CURRENT_COLUMN), "")) {
             setLabelText(gridPane, CURRENT_ROW, CURRENT_COLUMN, "");
@@ -194,24 +174,24 @@ public class GameController {
             setLabelStyleClass(gridPane, CURRENT_ROW, CURRENT_COLUMN, "default-tile");
         } else if ((CURRENT_COLUMN > 1 && CURRENT_COLUMN < MAX_COLUMN)
                 || (CURRENT_COLUMN == MAX_COLUMN
-                    && Objects.equals(getLabelText(gridPane, CURRENT_ROW, CURRENT_COLUMN), ""))) {
+                        && Objects.equals(getLabelText(gridPane, CURRENT_ROW, CURRENT_COLUMN), ""))) {
             CURRENT_COLUMN--;
             setLabelText(gridPane, CURRENT_ROW, CURRENT_COLUMN, "");
             clearLabelStyleClass(gridPane, CURRENT_ROW, CURRENT_COLUMN);
             setLabelStyleClass(gridPane, CURRENT_ROW, CURRENT_COLUMN, "default-tile");
-                    }
+        }
     }
 
-    private void onLetterPressed(GridPane gridPane, KeyEvent keyEvent) {
+    private void onLetterPressed(final GridPane gridPane, final KeyEvent keyEvent) {
         if (Objects.equals(getLabelText(gridPane, CURRENT_ROW, CURRENT_COLUMN), "")) {
             setLabelText(gridPane, CURRENT_ROW, CURRENT_COLUMN, keyEvent.getText());
-            Label label = getLabel(gridPane, CURRENT_ROW, CURRENT_COLUMN);
-            ScaleTransition firstScaleTransition = new ScaleTransition(Duration.millis(100), label);
+            final Label label = getLabel(gridPane, CURRENT_ROW, CURRENT_COLUMN);
+            final ScaleTransition firstScaleTransition = new ScaleTransition(Duration.millis(100), label);
             firstScaleTransition.fromXProperty().setValue(1);
             firstScaleTransition.toXProperty().setValue(1.1);
             firstScaleTransition.fromYProperty().setValue(1);
             firstScaleTransition.toYProperty().setValue(1.1);
-            ScaleTransition secondScaleTransition = new ScaleTransition(Duration.millis(100), label);
+            final ScaleTransition secondScaleTransition = new ScaleTransition(Duration.millis(100), label);
             secondScaleTransition.fromXProperty().setValue(1.1);
             secondScaleTransition.toXProperty().setValue(1);
             secondScaleTransition.fromYProperty().setValue(1.1);
@@ -220,14 +200,14 @@ public class GameController {
 
             setLabelStyleClass(gridPane, CURRENT_ROW, CURRENT_COLUMN, "tile-with-letter");
             if (CURRENT_COLUMN < MAX_COLUMN) {
-                CURRENT_COLUMN++; 
+                CURRENT_COLUMN++;
             }
         }
     }
 
-    private void onEnterPressed(GridPane gridPane) {
+    private void onEnterPressed(final GridPane gridPane) {
         if (CURRENT_ROW <= MAX_ROW && CURRENT_COLUMN == MAX_COLUMN) {
-            String guess = getWordFromCurrentRow(gridPane).toLowerCase();
+            final String guess = getWordFromCurrentRow(gridPane).toLowerCase();
             if (guess.equals(winningWord)) {
                 updateRowColors(gridPane, CURRENT_ROW);
                 ScoreWindow.display(true, winningWord);
@@ -236,12 +216,12 @@ public class GameController {
                 if (CURRENT_ROW == MAX_ROW) {
                     ScoreWindow.display(false, winningWord);
                     if (ScoreWindow.resetGame.get()) {
-                        resetGame(gridPane); 
+                        resetGame(gridPane);
                     }
                 }
                 CURRENT_ROW++;
                 CURRENT_COLUMN = 1;
-            } 
+            }
 
             if (ScoreWindow.resetGame.get()) {
                 resetGame(gridPane);
@@ -253,19 +233,19 @@ public class GameController {
     public void getRandomWord() {
         try {
             winningWord = Dictionary.getInstance().getRandomWordByLength(MAX_COLUMN);
-        } catch(Exception e){
+        } catch (final Exception e) {
             e.printStackTrace();
         }
     }
 
-    private boolean isValidGuess(String guess) {
+    private boolean isValidGuess(final String guess) {
         return Dictionary.getInstance().isExistWord(guess);
     }
 
-    public void resetGame(GridPane gridPane) {
+    public void resetGame(final GridPane gridPane) {
         getRandomWord();
         Label label;
-        for (Node child : gridPane.getChildren())
+        for (final Node child : gridPane.getChildren())
             if (child instanceof Label) {
                 label = (Label) child;
                 label.getStyleClass().clear();
@@ -276,14 +256,4 @@ public class GameController {
         CURRENT_COLUMN = 1;
         CURRENT_ROW = 1;
     }
-
-    private boolean contains(String[] array, String letter) {
-        for (String string : array) {
-            if (string.equalsIgnoreCase(letter)) {
-                return true; 
-            }
-        }
-        return false;
-    }
 }
-

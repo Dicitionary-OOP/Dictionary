@@ -1,14 +1,12 @@
 package dictionary.graphic.controllers;
 
+import org.controlsfx.control.Notifications;
+
 import dictionary.base.api.TextToIpaAPI;
 import dictionary.base.utils.Utils;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import org.controlsfx.control.Notifications;
-
-import java.io.IOException;
+import javafx.scene.control.TextArea;
 
 public class TextToIPAController {
     @FXML

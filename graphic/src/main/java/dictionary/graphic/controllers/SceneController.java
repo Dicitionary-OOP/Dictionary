@@ -1,19 +1,18 @@
 package dictionary.graphic.controllers;
 
-import dictionary.base.utils.Utils;
-import dictionary.graphic.Font;
-import dictionary.graphic.Theme;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import dictionary.graphic.Font;
+import dictionary.graphic.SettingsManager;
+import dictionary.graphic.Theme;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
-import dictionary.graphic.SettingsManager;
 
 public class SceneController {
     private static SceneController INSTANCE;

@@ -1,18 +1,17 @@
 package dictionary.graphic;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class SoundManager {
     private static SoundManager INSTANCE;
     private Map<String, MediaPlayer> mediaPlayers;
 
-    public static SoundManager getInstance()
-    {
+    public static SoundManager getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new SoundManager();
         }
@@ -23,7 +22,6 @@ public class SoundManager {
     private SoundManager() {
         this.mediaPlayers = new HashMap<>();
     }
-
 
     public void addSound(final String soundName, final String soundFilePath) {
         final Media media = new Media(new File(soundFilePath).toURI().toString());

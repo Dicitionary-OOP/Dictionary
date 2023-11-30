@@ -15,9 +15,9 @@ import javafx.scene.web.WebView;
 
 public class ChatbotController {
     private ChatGPT chatGPT;
-    Parser parserMarkdown;
-    HtmlRenderer renderer;
-    private StringBuilder chatHistory = new StringBuilder();
+    private Parser parserMarkdown;
+    private HtmlRenderer renderer;
+    private final StringBuilder chatHistory = new StringBuilder();
 
     @FXML
     private WebView output;
@@ -50,9 +50,9 @@ public class ChatbotController {
         final String query = input.getText().trim();
         input.clear();
 
-        Thread thread = new Thread(() -> {
+        final Thread thread = new Thread(() -> {
             try {
-                String userMessage = "<div><b>You</b>:<br/>" + query + "</div></br>";
+                final String userMessage = "<div><b>You</b>:<br/>" + query + "</div></br>";
                 chatHistory.append(userMessage);
 
                 Platform.runLater(() -> {
@@ -62,13 +62,13 @@ public class ChatbotController {
 
                 final String botResponse = chatGPT.chat(query);
                 final Node document = parserMarkdown.parse(botResponse);
-                String botMessage = "<div><b>Bot</b>:" + renderer.render(document) + "</div><br/>";
+                final String botMessage = "<div><b>Bot</b>:" + renderer.render(document) + "</div><br/>";
                 chatHistory.append(botMessage);
 
                 Platform.runLater(() -> {
                     output.getEngine().loadContent(chatHistory.toString());
                 });
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 Platform.runLater(() -> {
                     output.getEngine().loadContent("CHATGPT_API_KEY not valid!");
                 });

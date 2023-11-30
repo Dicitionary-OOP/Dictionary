@@ -1,41 +1,43 @@
 package dictionary.graphic.controllers;
 
-import javafx.scene.input.ScrollEvent;
-import org.apache.commons.math3.util.Pair;
-
-import dictionary.base.api.TextToSpeechOfflineAPI;
-import dictionary.base.database.DictionaryDatabase;
-import dictionary.base.Example;
-import dictionary.base.Explain;
-import dictionary.base.Word;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-
-import dictionary.base.Dictionary;
-import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TouchEvent;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.AnchorPane;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import dictionary.base.utils.RecordManager;
-import dictionary.base.utils.Utils;
-import dictionary.base.api.SpeechToTextOnlineAPI;
-import dictionary.base.api.SpeechToTextOfflineAPI;
+import org.apache.commons.math3.util.Pair;
 import org.controlsfx.control.Notifications;
-import javafx.scene.control.ProgressIndicator;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.util.ResourceBundle;
+import dictionary.base.Dictionary;
+import dictionary.base.Example;
+import dictionary.base.Explain;
+import dictionary.base.Word;
+import dictionary.base.api.SpeechToTextOfflineAPI;
+import dictionary.base.api.SpeechToTextOnlineAPI;
+import dictionary.base.api.TextToSpeechOfflineAPI;
+import dictionary.base.database.DictionaryDatabase;
+import dictionary.base.utils.RecordManager;
+import dictionary.base.utils.Utils;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.TouchEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 class LazyLoadManager {
     /**
