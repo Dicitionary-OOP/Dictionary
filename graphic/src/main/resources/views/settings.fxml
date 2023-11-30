@@ -41,9 +41,9 @@
                   <ChoiceBox fx:id="fontChoiceBox" prefWidth="150.0" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="14.0" prefWidth="300.0" text="ChatGPT_API_KEY(Optional)" />
+                  <Label prefHeight="14.0" prefWidth="300.0" text="ChatGPT_API_KEY" />
                   <TextField fx:id="chatGPTApiKey" prefHeight="22.0" prefWidth="151.0" />
                </children>
             </HBox>
