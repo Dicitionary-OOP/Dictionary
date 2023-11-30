@@ -18,12 +18,24 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
+import dictionary.base.utils.RecordManager;
+import dictionary.base.utils.Utils;
+import dictionary.base.api.SpeechToTextOnlineAPI;
+import dictionary.base.api.SpeechToTextOfflineAPI;
+import org.controlsfx.control.Notifications;
+import javafx.scene.control.ProgressIndicator;
+
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.ResourceBundle;
 
 class LazyLoadManager {
     /**
@@ -75,9 +87,7 @@ class LazyLoadManager {
             updateSuggestionsInView(
                     new ArrayList<Pair<String, String>>(
                             // list.subList() create a VIEW in the list, not an actual new list.
-                            allSuggestions.subList(0, LAZY_LOAD_THRESHOLD)
-                    )
-            );
+                            allSuggestions.subList(0, LAZY_LOAD_THRESHOLD)));
         } else {
             loadAllSuggestionsFromGUIThread();
         }
@@ -90,14 +100,20 @@ class LazyLoadManager {
 
     private void updateSuggestionsInView(ArrayList<Pair<String, String>> suggestions) {
         suggestedWords.setItems(
-                FXCollections.observableList(suggestions)
-        );
+                FXCollections.observableList(suggestions));
     }
 }
 
 public class EnglishVietnameseController {
     @FXML
+    private AnchorPane rootPane;
+
+    @FXML
     private Button speech;
+
+    @FXML
+    private Button speechToTextButton;
+
     @FXML
     private Label wordField;
     @FXML
@@ -108,6 +124,9 @@ public class EnglishVietnameseController {
     @FXML
     private TextField searchBar;
 
+    private Thread recordThread;
+    private Thread speechToTextThread;
+
     @FXML
     private ListView<Pair<String, String>> suggestedWords;
 
@@ -116,6 +135,13 @@ public class EnglishVietnameseController {
     private Future<?> searchWordFuture = null;
 
     private LazyLoadManager lazyLoadManager;
+
+    private FontAwesomeIconView speechToTextIcon;
+
+    private Boolean isProcessingSpeechToText = false;
+
+    private ResourceBundle bundle = ResourceBundle.getBundle("languages.language",
+            SceneController.getInstance().getLocale());
 
     @FXML
     private void initialize() {
@@ -225,8 +251,9 @@ public class EnglishVietnameseController {
             explainField.getChildren().add(error);
         }
     }
+
     @FXML
-    private void onPlayAudioButton(){
+    private void onPlayAudioButton() {
         Thread thread = new Thread(() -> TextToSpeechOfflineAPI.getTextToSpeech(wordField.getText()));
         thread.setDaemon(true);
         thread.start();
@@ -239,6 +266,7 @@ public class EnglishVietnameseController {
 
     @FXML
     private void onSearchBarKeyPressed(KeyEvent event) {
+        stopSpeechToTextProcess();
         switch (event.getCode()) {
             case ENTER:
                 pickBestMatch();
@@ -331,5 +359,85 @@ public class EnglishVietnameseController {
         alert.setHeaderText("Lỗi: " + e.getMessage());
         alert.setContentText("Vui lòng thử lại sau");
         alert.showAndWait();
+    }
+
+    private void stopSpeechToTextProcess() {
+        if (speechToTextThread != null && speechToTextThread.isAlive()) {
+            isProcessingSpeechToText = false;
+            speechToTextThread.interrupt(); // Gracefully interrupt the thread
+            updateSpeechToTextButton();
+        }
+    }
+
+    private void updateSpeechToTextButton() {
+        Platform.runLater(() -> {
+            if (isProcessingSpeechToText) {
+                ProgressIndicator spinner = new ProgressIndicator();
+                speechToTextButton.setGraphic(spinner);
+
+                speechToTextButton.setOnAction(event -> {
+                    isProcessingSpeechToText = false;
+                    stopSpeechToTextProcess();
+                });
+            } else {
+                speechToTextIcon = new FontAwesomeIconView(FontAwesomeIcon.MICROPHONE);
+                speechToTextIcon.setSize("20px");
+                speechToTextButton.setOnAction(event -> speechToText());
+                speechToTextIcon.getStyleClass().add("ikonli-font-icon");
+                speechToTextButton.setGraphic(speechToTextIcon);
+            }
+        });
+    }
+
+    @FXML
+    private void speechToText() {
+        final String speechFile = "speechToText.mp3";
+
+        if (!RecordManager.isRecording()) {
+            Notifications.create()
+                    .owner(rootPane)
+                    .text(bundle.getString("start_record"))
+                    .showInformation();
+
+            speechToTextButton.getStyleClass().add("danger");
+            recordThread = new Thread(() -> {
+                RecordManager.startRecording(speechFile);
+            });
+
+            recordThread.setDaemon(true);
+            recordThread.start();
+        } else {
+            RecordManager.stopRecording();
+            speechToTextButton.getStyleClass().remove("danger");
+
+            Notifications.create()
+                    .owner(rootPane)
+                    .text(bundle.getString("stop_record"))
+                    .showInformation();
+
+            isProcessingSpeechToText = true;
+            updateSpeechToTextButton();
+
+            speechToTextThread = new Thread(() -> {
+                try {
+                    String searchResult;
+                    if (Utils.isNetworkConnected()) {
+                        searchResult = SpeechToTextOnlineAPI.getSpeechToText(speechFile);
+                    } else {
+                        searchResult = SpeechToTextOfflineAPI.getSpeechToText(speechFile);
+                    }
+
+                    Platform.runLater(() -> searchBar.setText(searchResult));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    isProcessingSpeechToText = false;
+                    updateSpeechToTextButton();
+                }
+            });
+
+            speechToTextThread.setDaemon(true);
+            speechToTextThread.start();
+        }
     }
 }
