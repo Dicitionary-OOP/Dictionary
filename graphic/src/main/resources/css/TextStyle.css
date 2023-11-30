@@ -1,6 +1,5 @@
 .pronounce {
     -fx-font-weight: bold;
-    -fx-text-fill: purple;
 }
 
 .level1 {
@@ -12,5 +11,4 @@
 }
 
 .level3 {
-    -fx-text-fill: purple;
 }

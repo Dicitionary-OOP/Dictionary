@@ -57,6 +57,7 @@ public class AddWordController {
         }
         typeTextField.setPromptText(bundle.getString("type_prompt"));
         typeTextField.setPrefWidth(489);
+        typeTextField.getStyleClass().add("rounded");
 
         typeHbox.getChildren().add(addIcon);
         typeHbox.getChildren().add(new Label(bundle.getString("word_type")));
@@ -92,6 +93,7 @@ public class AddWordController {
             explainText = null;
         }
         explainTextField.setPrefWidth(401);
+        explainTextField.getStyleClass().add("rounded");
 
         explainHbox.getChildren().add(addIcon);
         explainHbox.getChildren().add(new Label(bundle.getString("explain")));
@@ -116,6 +118,7 @@ public class AddWordController {
             exampleText1 = null;
         }
         exampleField1.setPrefWidth(193);
+        exampleField1.getStyleClass().add("rounded");
         final TextField exampleField2 = new TextField();
         exampleField2.setPromptText(bundle.getString("vietnamese_sentence"));
         if (exampleText2 != null) {
@@ -123,6 +126,7 @@ public class AddWordController {
             exampleText2 = null;
         }
         exampleField2.setPrefWidth(193);
+        exampleField2.getStyleClass().add("rounded");
 
         final FontAwesomeIconView removeIcon = new FontAwesomeIconView(FontAwesomeIcon.TIMES_CIRCLE);
         removeIcon.setSize("25px");

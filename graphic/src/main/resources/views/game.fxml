@@ -14,9 +14,9 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="900.0" stylesheets="@../css/wordle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.GameController">
    <children>
-      <HBox layoutX="26.0" layoutY="22.0" prefHeight="17.0" prefWidth="3.0" spacing="15.0">
+      <HBox layoutX="24.0" layoutY="14.0" prefHeight="57.0" prefWidth="105.0" spacing="15.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#showHelp" prefHeight="35.0" prefWidth="35.0" styleClass="btn">
+            <Button mnemonicParsing="false" onAction="#showHelp" prefHeight="40.0" prefWidth="40.0" styleClass="button-circle">
                <graphic>
                   <FontAwesomeIconView glyphName="QUESTION" size="20" styleClass="ikonli-font-icon" />
                </graphic>
@@ -24,7 +24,7 @@
                   <Tooltip text="%help" />
                </tooltip>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onRestart" prefHeight="35.0" prefWidth="35.0">
+            <Button mnemonicParsing="false" onAction="#onRestart" prefHeight="40.0" prefWidth="40.0" styleClass="button-circle">
                <graphic>
                   <FontAwesomeIconView glyphName="REPEAT" size="20" styleClass="ikonli-font-icon" text="" />
                </graphic>

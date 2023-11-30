@@ -376,6 +376,7 @@ public class EnglishVietnameseController {
             if (isProcessingSpeechToText) {
                 ProgressIndicator spinner = new ProgressIndicator();
                 speechToTextButton.setGraphic(spinner);
+                speechToTextButton.getStyleClass().remove("accent");
 
                 speechToTextButton.setOnAction(event -> {
                     isProcessingSpeechToText = false;
@@ -386,6 +387,7 @@ public class EnglishVietnameseController {
                 speechToTextIcon.setSize("20px");
                 speechToTextButton.setOnAction(event -> speechToText());
                 speechToTextIcon.getStyleClass().add("ikonli-font-icon");
+                speechToTextButton.getStyleClass().add("accent");
                 speechToTextButton.setGraphic(speechToTextIcon);
             }
         });

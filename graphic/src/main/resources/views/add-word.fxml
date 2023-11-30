@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -20,13 +21,13 @@
                         <VBox alignment="CENTER_LEFT" spacing="10.0">
                             <children>
                                 <Label text="%word" />
-                                <TextField fx:id="wordTextField" prefWidth="220.0" />
+                                <TextField fx:id="wordTextField" prefWidth="220.0" styleClass="rounded" />
                             </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT" spacing="10.0">
                             <children>
                                 <Label text="%pronounce" />
-                                <TextField fx:id="pronounTextField" prefWidth="220.0" />
+                                <TextField fx:id="pronounTextField" prefWidth="220.0" styleClass="rounded" />
                             </children>
                         </VBox>
                     </children>
@@ -34,14 +35,17 @@
                 <Label text="%explain" />
                 <HBox>
                     <children>
-                        <Button fx:id="addTypeButton" mnemonicParsing="false" onAction="#onClickAddTypeButton" styleClass="btn" text="%add_word_type">
+                        <Button fx:id="addTypeButton" mnemonicParsing="false" onAction="#onClickAddTypeButton" styleClass="button-circle">
                             <HBox.margin>
                                 <Insets bottom="5.0" />
                             </HBox.margin>
+                     <graphic>
+                        <Label prefHeight="30.0" text="%add_word_type" />
+                     </graphic>
                         </Button>
                     </children>
                 </HBox>
-                <ScrollPane prefHeight="545.0" prefWidth="680.0">
+                <ScrollPane prefHeight="285.0" prefWidth="860.0">
                     <content>
                         <VBox fx:id="editVbox" spacing="5.0">
                             <padding>
@@ -50,17 +54,21 @@
                         </VBox>
                     </content>
                 </ScrollPane>
-                <HBox alignment="CENTER" spacing="15.0">
+                <HBox alignment="CENTER" prefHeight="56.0" prefWidth="860.0" spacing="15.0">
                     <children>
-                  <Button mnemonicParsing="false" onAction="#save" styleClass="btn">
+                  <Button mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="40.0">
                      <graphic>
                         <FontAwesomeIconView glyphName="SAVE" size="20" styleClass="ikonli-font-icon" />
                      </graphic>
                      <tooltip>
                         <Tooltip text="%save_word" />
                      </tooltip>
+                     <styleClass>
+                        <String fx:value="button-circle" />
+                        <String fx:value="accent" />
+                     </styleClass>
                   </Button>
-                        <Button mnemonicParsing="false" onAction="#reset" styleClass="btn">
+                        <Button mnemonicParsing="false" onAction="#reset" prefHeight="40.0" prefWidth="40.0" styleClass="button-circle">
                      <graphic>
                         <FontAwesomeIconView glyphName="TIMES" size="20" styleClass="ikonli-font-icon" />
                      </graphic>

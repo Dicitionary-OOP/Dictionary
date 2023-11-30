@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -51,13 +52,17 @@
                 </AnchorPane>
          </children>
       </HBox>
-        <Button fx:id="translateButton" layoutX="375.0" layoutY="355.0" mnemonicParsing="false" onAction="#onTranslateButtonClick" prefHeight="30.0" prefWidth="150.0" styleClass="menu-btn" textOverrun="WORD_ELLIPSIS">
+        <Button fx:id="translateButton" layoutX="375.0" layoutY="355.0" mnemonicParsing="false" onAction="#onTranslateButtonClick" prefHeight="40.0" prefWidth="150.0" textOverrun="WORD_ELLIPSIS">
          <font>
             <Font size="15.0" />
          </font>
          <graphic>
             <FontAwesomeIconView glyphName="EXCHANGE" size="20" styleClass="ikonli-font-icon" />
          </graphic>
+         <styleClass>
+            <String fx:value="button-circle" />
+            <String fx:value="accent" />
+         </styleClass>
       </Button>
     </children>
 </AnchorPane>
