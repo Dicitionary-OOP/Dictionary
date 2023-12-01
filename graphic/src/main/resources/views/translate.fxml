@@ -9,16 +9,27 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="900.0" styleClass="pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.TranslateController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" styleClass="pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.TranslateController">
     <children>
-      <HBox layoutX="30.0" layoutY="60.0" prefHeight="275.0" prefWidth="838.0" spacing="20.0">
+      <GridPane hgap="10.0" layoutY="50.0" prefHeight="300.0" prefWidth="900.0" vgap="10.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="601.0" minWidth="10.0" prefWidth="434.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="585.0" minWidth="10.0" prefWidth="436.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="342.0" prefWidth="429.0">
-                    <children>
-                        <HBox alignment="CENTER_LEFT" layoutX="40.0" layoutY="40.0" prefHeight="50.0" prefWidth="335.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox alignment="BOTTOM_LEFT" prefHeight="275.0" prefWidth="423.0" spacing="10.0">
+               <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="7.0" prefWidth="415.0">
                             <children>
                                 <Label text="%source">
                                     <HBox.margin>
@@ -28,12 +39,26 @@
                                 <ChoiceBox fx:id="sourceLanguageChoiceBox" onAction="#onSwitchSourceLanguage" prefWidth="150.0" />
                             </children>
                         </HBox>
-                        <TextArea fx:id="inputTextArea" layoutX="40.0" layoutY="14.0" prefHeight="200.0" prefWidth="336.0" promptText="%type_here" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="342.0" prefWidth="419.0">
-                    <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="335.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TextArea fx:id="inputTextArea" prefHeight="200.0" prefWidth="415.0" promptText="%type_here" wrapText="true" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="336.0" spacing="15.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#speakSource" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="VOLUME_UP" size="10" />
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#copySource" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="CLONE" size="10" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_LEFT" prefHeight="275.0" prefWidth="417.0" spacing="10.0" GridPane.columnIndex="1">
+               <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="16.0" prefWidth="409.0">
                             <children>
                                 <Label text="%target">
                                     <HBox.margin>
@@ -43,26 +68,47 @@
                                 <ChoiceBox fx:id="targetLanguageChoiceBox" onAction="#onSwitchTargetLanguage" prefWidth="150.0" />
                             </children>
                         </HBox>
-                        <TextArea fx:id="outputTextArea" editable="false" layoutX="7.0" prefHeight="200.0" prefWidth="345.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                        <TextArea fx:id="outputTextArea" editable="false" prefHeight="200.0" prefWidth="409.0" wrapText="true">
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                   </TextArea>
-                    </children>
-                </AnchorPane>
+                  <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="336.0" spacing="15.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#speakTarget" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="VOLUME_UP" size="10" />
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#copyTarget" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="CLONE" size="10" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </GridPane>
+      <HBox alignment="CENTER" layoutY="400.0" prefWidth="900.0">
+         <children>
+              <Button fx:id="translateButton" mnemonicParsing="false" onAction="#onTranslateButtonClick" prefHeight="40.0" prefWidth="150.0" textOverrun="WORD_ELLIPSIS">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView glyphName="EXCHANGE" size="20" styleClass="ikonli-font-icon" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-circle" />
+                  <String fx:value="accent" />
+               </styleClass>
+            </Button>
          </children>
       </HBox>
-        <Button fx:id="translateButton" layoutX="375.0" layoutY="355.0" mnemonicParsing="false" onAction="#onTranslateButtonClick" prefHeight="40.0" prefWidth="150.0" textOverrun="WORD_ELLIPSIS">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <graphic>
-            <FontAwesomeIconView glyphName="EXCHANGE" size="20" styleClass="ikonli-font-icon" />
-         </graphic>
-         <styleClass>
-            <String fx:value="button-circle" />
-            <String fx:value="accent" />
-         </styleClass>
-      </Button>
     </children>
 </AnchorPane>

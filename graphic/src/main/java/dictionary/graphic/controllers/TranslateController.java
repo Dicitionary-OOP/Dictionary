@@ -1,15 +1,24 @@
 package dictionary.graphic.controllers;
 
 import dictionary.base.api.GoogleTranslateAPI;
+import dictionary.base.api.TextToSpeechOfflineAPI;
 import dictionary.base.utils.Utils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+import org.controlsfx.control.Notifications;
+
 public class TranslateController {
+    @FXML
+    private AnchorPane rootPane;
+
     @FXML
     private ChoiceBox<String> sourceLanguageChoiceBox;
 
@@ -28,6 +37,50 @@ public class TranslateController {
         targetLanguageChoiceBox.setItems(FXCollections.observableArrayList("en", "vi"));
         sourceLanguageChoiceBox.setValue("en");
         targetLanguageChoiceBox.setValue("vi");
+    }
+
+    private void copyToClipBoard(String text) {
+        if(text.isEmpty()) {
+            return;
+        }
+
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(text);
+        clipboard.setContent(content);
+        Notifications.create()
+                .owner(rootPane)
+                .title("Dictionary")
+                .text("Copied to clipboard!")
+                .showInformation();
+    }
+
+    @FXML
+    private void copySource() {
+        copyToClipBoard(inputTextArea.getText());
+    }
+
+    @FXML
+    private void copyTarget() {
+        copyToClipBoard(outputTextArea.getText());
+    }
+
+    @FXML
+    private void speakSource() {
+        final Thread thread = new Thread(() -> {
+            TextToSpeechOfflineAPI.getTextToSpeech(inputTextArea.getText());
+        });
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    @FXML
+    private void speakTarget() {
+        final Thread thread = new Thread(() -> {
+            TextToSpeechOfflineAPI.getTextToSpeech(outputTextArea.getText());
+        });
+        thread.setDaemon(true);
+        thread.start();
     }
 
     @FXML

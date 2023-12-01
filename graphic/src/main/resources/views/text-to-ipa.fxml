@@ -2,44 +2,89 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" styleClass="pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.TextToIPAController">
     <children>
-      <HBox layoutX="30.0" layoutY="60.0" prefHeight="275.0" prefWidth="838.0" spacing="20.0">
+      <GridPane hgap="10.0" layoutY="50.0" prefHeight="300.0" prefWidth="900.0" vgap="10.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="342.0" prefWidth="429.0">
+            <VBox alignment="BOTTOM_LEFT" prefHeight="275.0" prefWidth="421.0" spacing="10.0">
                <children>
-                  <TextArea fx:id="inputTextArea" layoutX="40.0" layoutY="14.0" prefHeight="200.0" prefWidth="336.0" promptText="%type_here" styleClass="rounded" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+                  <Label text="Text" />
+                  <TextArea fx:id="inputTextArea" prefHeight="200.0" prefWidth="425.0" promptText="%type_here" styleClass="rounded" wrapText="true" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="336.0" spacing="15.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#speakSource" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="VOLUME_UP" size="10" />
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#copySource" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="CLONE" size="10" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
-            </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="342.0" prefWidth="419.0">
+            </VBox>
+            <VBox alignment="BOTTOM_LEFT" prefHeight="275.0" prefWidth="435.0" spacing="10.0" GridPane.columnIndex="1">
                <children>
-                  <TextArea fx:id="outputTextArea" editable="false" layoutX="7.0" prefHeight="200.0" prefWidth="345.0" styleClass="rounded" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                  <Label text="IPA" />
+                  <TextArea fx:id="outputTextArea" editable="false" prefHeight="200.0" prefWidth="419.0" styleClass="rounded" wrapText="true">
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                   </TextArea>
+                  <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="336.0" spacing="15.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#copyTarget" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="CLONE" size="10" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
-            </AnchorPane>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </GridPane>
+      <HBox alignment="CENTER" layoutY="400.0" prefWidth="900.0">
+         <children>
+            <Button fx:id="translateButton" mnemonicParsing="false" onAction="#onIpaButtonClick" prefHeight="40.0" prefWidth="150.0" textOverrun="WORD_ELLIPSIS">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView glyphName="EXCHANGE" size="20" styleClass="ikonli-font-icon" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-circle" />
+                  <String fx:value="accent" />
+               </styleClass>
+            </Button>
          </children>
       </HBox>
-      <Button layoutX="375.0" layoutY="355.0" mnemonicParsing="false" onAction="#onIpaButtonClick" prefHeight="40.0" prefWidth="150.0" textOverrun="WORD_ELLIPSIS">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <graphic>
-            <FontAwesomeIconView glyphName="EXCHANGE" size="20" styleClass="ikonli-font-icon" />
-         </graphic>
-         <styleClass>
-            <String fx:value="button-circle" />
-            <String fx:value="accent" />
-         </styleClass>
-      </Button>
     </children>
 </AnchorPane>
