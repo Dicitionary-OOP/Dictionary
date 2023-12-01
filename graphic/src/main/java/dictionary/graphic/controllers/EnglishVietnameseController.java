@@ -23,10 +23,11 @@ import dictionary.base.database.DictionaryDatabase;
 import dictionary.base.utils.RecordManager;
 import dictionary.base.utils.Utils;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -39,73 +40,6 @@ import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-class LazyLoadManager {
-    /**
-     * If the number of suggestions is higher than this constant,
-     * the suggestions will be lazy-loaded.
-     */
-    public static final int LAZY_LOAD_THRESHOLD = 50;
-
-    private final ListView<Pair<String, String>> suggestedWords;
-
-    private ArrayList<Pair<String, String>> allSuggestions;
-
-    private boolean isLazyLoadInEffect;
-
-    public LazyLoadManager(ListView<Pair<String, String>> suggestedWords) {
-        this.suggestedWords = suggestedWords;
-        this.allSuggestions = new ArrayList<>();
-        this.isLazyLoadInEffect = false;
-    }
-
-    /**
-     * Call this function to update the suggestions,
-     * and perform lazy load when necessary.
-     *
-     * @param _allSuggestions All suggestions looked up.
-     */
-    public void updateSuggestionsFromNonGUIThread(ArrayList<Pair<String, String>> _allSuggestions) {
-        Platform.runLater(() -> {
-            updateSuggestionsFromGUIThread(_allSuggestions);
-        });
-    }
-
-    /**
-     * Force the suggestion list view to contain
-     * all entries which was previously set by
-     * `updateSuggestionsThreadSafe()`. This is
-     * the "load" step in "lazy load".
-     */
-    public void loadAllSuggestionsFromNonGUIThread() {
-        Platform.runLater(() -> {
-            loadAllSuggestionsFromGUIThread();
-        });
-    }
-
-    public void updateSuggestionsFromGUIThread(ArrayList<Pair<String, String>> _allSuggestions) {
-        allSuggestions = _allSuggestions;
-        if (allSuggestions.size() > LAZY_LOAD_THRESHOLD) {
-            isLazyLoadInEffect = true;
-            updateSuggestionsInView(
-                    new ArrayList<Pair<String, String>>(
-                            // list.subList() create a VIEW in the list, not an actual new list.
-                            allSuggestions.subList(0, LAZY_LOAD_THRESHOLD)));
-        } else {
-            loadAllSuggestionsFromGUIThread();
-        }
-    }
-
-    public void loadAllSuggestionsFromGUIThread() {
-        isLazyLoadInEffect = false;
-        updateSuggestionsInView(allSuggestions);
-    }
-
-    private void updateSuggestionsInView(ArrayList<Pair<String, String>> suggestions) {
-        suggestedWords.setItems(
-                FXCollections.observableList(suggestions));
-    }
-}
-
 public class EnglishVietnameseController {
     @FXML
     private AnchorPane rootPane;
@@ -114,12 +48,17 @@ public class EnglishVietnameseController {
     private Button speech;
 
     @FXML
+    private Button deleteWord;
+
+    @FXML
     private Button speechToTextButton;
 
     @FXML
     private Label wordField;
+
     @FXML
     private Label pronounceField;
+
     @FXML
     private VBox explainField;
 
@@ -127,6 +66,7 @@ public class EnglishVietnameseController {
     private TextField searchBar;
 
     private Thread recordThread;
+
     private Thread speechToTextThread;
 
     @FXML
@@ -142,8 +82,10 @@ public class EnglishVietnameseController {
 
     private Boolean isProcessingSpeechToText = false;
 
-    private ResourceBundle bundle = ResourceBundle.getBundle("languages.language",
+    private final ResourceBundle bundle = ResourceBundle.getBundle("languages.language",
             SceneController.getInstance().getLocale());
+
+    private final String speechFile = "speechToText.mp3";
 
     @FXML
     private void initialize() {
@@ -152,10 +94,10 @@ public class EnglishVietnameseController {
         // constructor nor in its in-class definition, but here.
         lazyLoadManager = new LazyLoadManager(suggestedWords);
 
-        suggestedWords.setCellFactory((ListView<Pair<String, String>> list) -> {
-            ListCell<Pair<String, String>> cell = new ListCell<>() {
+        suggestedWords.setCellFactory((final ListView<Pair<String, String>> list) -> {
+            final ListCell<Pair<String, String>> cell = new ListCell<>() {
                 @Override
-                public void updateItem(Pair<String, String> p, boolean empty) {
+                public void updateItem(final Pair<String, String> p, final boolean empty) {
                     super.updateItem(p, empty);
                     if (!empty) {
                         setText(p.getFirst());
@@ -165,18 +107,18 @@ public class EnglishVietnameseController {
                 }
             };
 
-            cell.setOnMouseClicked((MouseEvent event) -> {
+            cell.setOnMouseClicked((final MouseEvent event) -> {
                 pickCurrentSuggestion();
             });
 
-            cell.setOnTouchReleased((TouchEvent event) -> {
+            cell.setOnTouchReleased((final TouchEvent event) -> {
                 pickCurrentSuggestion();
             });
 
             return cell;
         });
 
-        suggestedWords.setOnKeyPressed((KeyEvent event) -> {
+        suggestedWords.setOnKeyPressed((final KeyEvent event) -> {
             switch (event.getCode()) {
                 case ENTER:
                     pickCurrentSuggestion();
@@ -198,7 +140,7 @@ public class EnglishVietnameseController {
             }
         });
 
-        suggestedWords.addEventHandler(ScrollEvent.SCROLL, (ScrollEvent event) -> {
+        suggestedWords.addEventHandler(ScrollEvent.SCROLL, (final ScrollEvent event) -> {
             // suggestedWords is a ListView object, which, under our investigation,
             // seems to capture ALL mouse scroll events and handle them itself
             // internally. However, when the scrolling exceeds boundary (i.e. when
@@ -215,22 +157,47 @@ public class EnglishVietnameseController {
         });
     }
 
-    private void showDetail(String wordID) {
-        try {
+    private void showDetail(final String wordID) {
+        final Alert confirmationDialog = new Alert(AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Confirm delete");
+        confirmationDialog.setHeaderText("Confirm Action");
+        confirmationDialog.setContentText("Are you sure to delete this word?");
 
-            DictionaryDatabase database = Dictionary.getInstance().getDatabase();
-            Word word = database.getWordByWordID(wordID);
+        try {
+            final DictionaryDatabase database = Dictionary.getInstance().getDatabase();
+            final Word word = database.getWordByWordID(wordID);
             explainField.getChildren().clear();
             speech.setDisable(false);
+            deleteWord.setDisable(false);
             speech.setVisible(true);
+            deleteWord.setVisible(true);
+
+            deleteWord.setOnAction(event -> {
+                confirmationDialog.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        try {
+                            Dictionary.getInstance().removeWord(word);
+                            Notifications.create()
+                                    .owner(rootPane)
+                                    .text(bundle.getString("Word has been delete"))
+                                    .showInformation();
+                        } catch (final SQLException e) {
+                            Notifications.create()
+                                    .owner(rootPane)
+                                    .text(bundle.getString("Error when delete word"))
+                                    .showInformation();
+                        }
+                    }
+                });
+            });
 
             wordField.setText(word.getWord());
             pronounceField.setText('[' + word.getPronunce() + ']');
 
-            ArrayList<Explain> explains = database.getExplainsByWordID(word.getWordID());
-            for (Explain explain : explains) {
-                Label type = new Label(explain.getType() + "\n");
-                Label meaning = new Label("\t" + explain.getMeaning() + "\n");
+            final ArrayList<Explain> explains = database.getExplainsByWordID(word.getWordID());
+            for (final Explain explain : explains) {
+                final Label type = new Label(explain.getType() + "\n");
+                final Label meaning = new Label("\t" + explain.getMeaning() + "\n");
                 type.getStyleClass().add("level1");
                 type.setWrapText(true);
                 meaning.getStyleClass().add("level2");
@@ -238,25 +205,25 @@ public class EnglishVietnameseController {
                 explainField.getChildren().add(type);
                 explainField.getChildren().add(meaning);
 
-                ArrayList<Example> examples = database.getExamples(explain.getExplainID());
-                for (Example example : examples) {
-                    Label exampleText = new Label("\t\t" + example.getExample() + "\n");
+                final ArrayList<Example> examples = database.getExamples(explain.getExplainID());
+                for (final Example example : examples) {
+                    final Label exampleText = new Label("\t\t" + example.getExample() + "\n");
                     exampleText.getStyleClass().add("level3");
                     exampleText.setWrapText(true);
                     explainField.getChildren().add(exampleText);
                 }
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             wordField.setText(null);
             explainField.getChildren().clear();
-            Label error = new Label("Đã có lỗi xảy ra");
+            final Label error = new Label("Đã có lỗi xảy ra");
             explainField.getChildren().add(error);
         }
     }
 
     @FXML
     private void onPlayAudioButton() {
-        Thread thread = new Thread(() -> TextToSpeechOfflineAPI.getTextToSpeech(wordField.getText()));
+        final Thread thread = new Thread(() -> TextToSpeechOfflineAPI.getTextToSpeech(wordField.getText()));
         thread.setDaemon(true);
         thread.start();
     }
@@ -267,7 +234,7 @@ public class EnglishVietnameseController {
     }
 
     @FXML
-    private void onSearchBarKeyPressed(KeyEvent event) {
+    private void onSearchBarKeyPressed(final KeyEvent event) {
         stopSpeechToTextProcess();
         switch (event.getCode()) {
             case ENTER:
@@ -293,7 +260,7 @@ public class EnglishVietnameseController {
             try {
                 final ArrayList<Pair<String, String>> wordPairs = Dictionary.getInstance().lookup(searchString);
                 lazyLoadManager.updateSuggestionsFromNonGUIThread(wordPairs);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 Platform.runLater(() -> handleException(e));
             }
         });
@@ -317,14 +284,14 @@ public class EnglishVietnameseController {
      * search bar, and display its word's details.
      */
     private void pickCurrentSuggestion() {
-        Pair<String, String> p = suggestedWords.getSelectionModel().getSelectedItem();
+        final Pair<String, String> p = suggestedWords.getSelectionModel().getSelectedItem();
         if (p == null) {
             return;
         }
 
         try {
             showDetail(p.getSecond());
-        } catch (Exception e) {
+        } catch (final Exception e) {
             handleException(e);
         }
 
@@ -338,7 +305,7 @@ public class EnglishVietnameseController {
      */
     private void pickBestMatch() {
         if (suggestedWords.getItems().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            final Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lỗi");
             alert.setHeaderText(String.format("Không tìm thấy từ tương tự \'%s\'", searchBar.getText()));
             alert.setContentText("Vui lòng nhập lại từ đúng hoặc thêm từ mới.");
@@ -355,8 +322,8 @@ public class EnglishVietnameseController {
         searchBar.positionCaret(searchBar.getText().length());
     }
 
-    private static void handleException(Exception e) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+    private static void handleException(final Exception e) {
+        final Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Lỗi");
         alert.setHeaderText("Lỗi: " + e.getMessage());
         alert.setContentText("Vui lòng thử lại sau");
@@ -366,7 +333,7 @@ public class EnglishVietnameseController {
     private void stopSpeechToTextProcess() {
         if (speechToTextThread != null && speechToTextThread.isAlive()) {
             isProcessingSpeechToText = false;
-            speechToTextThread.interrupt(); // Gracefully interrupt the thread
+            speechToTextThread.interrupt();
             updateSpeechToTextButton();
         }
     }
@@ -374,7 +341,7 @@ public class EnglishVietnameseController {
     private void updateSpeechToTextButton() {
         Platform.runLater(() -> {
             if (isProcessingSpeechToText) {
-                ProgressIndicator spinner = new ProgressIndicator();
+                final ProgressIndicator spinner = new ProgressIndicator();
                 speechToTextButton.setGraphic(spinner);
                 speechToTextButton.getStyleClass().remove("accent");
 
@@ -395,8 +362,6 @@ public class EnglishVietnameseController {
 
     @FXML
     private void speechToText() {
-        final String speechFile = "speechToText.mp3";
-
         if (!RecordManager.isRecording()) {
             Notifications.create()
                     .owner(rootPane)
@@ -410,38 +375,39 @@ public class EnglishVietnameseController {
 
             recordThread.setDaemon(true);
             recordThread.start();
-        } else {
-            RecordManager.stopRecording();
-            speechToTextButton.getStyleClass().remove("danger");
-
-            Notifications.create()
-                    .owner(rootPane)
-                    .text(bundle.getString("stop_record"))
-                    .showInformation();
-
-            isProcessingSpeechToText = true;
-            updateSpeechToTextButton();
-
-            speechToTextThread = new Thread(() -> {
-                try {
-                    String searchResult;
-                    if (Utils.isNetworkConnected()) {
-                        searchResult = SpeechToTextOnlineAPI.getSpeechToText(speechFile);
-                    } else {
-                        searchResult = SpeechToTextOfflineAPI.getSpeechToText(speechFile);
-                    }
-
-                    Platform.runLater(() -> searchBar.setText(searchResult));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    isProcessingSpeechToText = false;
-                    updateSpeechToTextButton();
-                }
-            });
-
-            speechToTextThread.setDaemon(true);
-            speechToTextThread.start();
+            return;
         }
+
+        RecordManager.stopRecording();
+        speechToTextButton.getStyleClass().remove("danger");
+
+        Notifications.create()
+                .owner(rootPane)
+                .text(bundle.getString("stop_record"))
+                .showInformation();
+
+        isProcessingSpeechToText = true;
+        updateSpeechToTextButton();
+
+        speechToTextThread = new Thread(() -> {
+            try {
+                String searchResult;
+                if (Utils.isNetworkConnected()) {
+                    searchResult = SpeechToTextOnlineAPI.getSpeechToText(speechFile);
+                } else {
+                    searchResult = SpeechToTextOfflineAPI.getSpeechToText(speechFile);
+                }
+
+                Platform.runLater(() -> searchBar.setText(searchResult));
+            } catch (final Exception e) {
+                e.printStackTrace();
+            } finally {
+                isProcessingSpeechToText = false;
+                updateSpeechToTextButton();
+            }
+        });
+
+        speechToTextThread.setDaemon(true);
+        speechToTextThread.start();
     }
 }

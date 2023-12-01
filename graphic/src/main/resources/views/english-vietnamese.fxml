@@ -62,6 +62,15 @@
                         <FontAwesomeIconView glyphName="VOLUME_UP" size="20" styleClass="ikonli-font-icon" />
                      </graphic>
                   </Button>
+                  <Button fx:id="deleteWord" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" visible="false">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="TRASH" size="20" styleClass="ikonli-font-icon" />
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="button-circle" />
+                        <String fx:value="danger" />
+                     </styleClass>
+                  </Button>
                </children>
             </HBox>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="607.0">
