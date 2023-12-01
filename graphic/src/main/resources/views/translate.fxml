@@ -44,12 +44,12 @@
                      <children>
                         <Button mnemonicParsing="false" onAction="#speakSource" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle">
                            <graphic>
-                              <FontAwesomeIconView glyphName="VOLUME_UP" size="10" />
+                              <FontAwesomeIconView glyphName="VOLUME_UP" size="15" styleClass="ikonli-font-icon" />
                            </graphic>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#copySource" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle">
                            <graphic>
-                              <FontAwesomeIconView glyphName="CLONE" size="10" />
+                              <FontAwesomeIconView glyphName="CLONE" size="15" styleClass="ikonli-font-icon" />
                            </graphic>
                         </Button>
                      </children>
@@ -77,12 +77,12 @@
                      <children>
                         <Button mnemonicParsing="false" onAction="#speakTarget" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle">
                            <graphic>
-                              <FontAwesomeIconView glyphName="VOLUME_UP" size="10" />
+                              <FontAwesomeIconView glyphName="VOLUME_UP" size="15" styleClass="ikonli-font-icon" />
                            </graphic>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#copyTarget" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle">
                            <graphic>
-                              <FontAwesomeIconView glyphName="CLONE" size="10" />
+                              <FontAwesomeIconView glyphName="CLONE" size="15" styleClass="ikonli-font-icon" />
                            </graphic>
                         </Button>
                      </children>
