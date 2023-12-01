@@ -192,7 +192,7 @@ public class EnglishVietnameseController {
             });
 
             wordField.setText(word.getWord());
-            pronounceField.setText('[' + word.getPronunce() + ']');
+            pronounceField.setText('/' + word.getPronunce() + '/');
 
             final ArrayList<Explain> explains = database.getExplainsByWordID(word.getWordID());
             for (final Explain explain : explains) {
