@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" stylesheets="@../css/TextStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.graphic.controllers.EnglishVietnameseController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphic.controllers.EnglishVietnameseController">
     <children>
       <VBox layoutY="1.0" prefHeight="500.0" prefWidth="263.0" spacing="15.0" AnchorPane.leftAnchor="0.0">
          <children>
             <HBox prefHeight="59.0" prefWidth="233.0" spacing="15.0">
                <children>
-                  <TextField fx:id="searchBar" onKeyPressed="#onSearchBarKeyPressed" onKeyTyped="#onSearchBarInputTextChanged" prefHeight="35.0" prefWidth="198.0" styleClass="rounded" />
+                  <TextField fx:id="searchInput" onKeyPressed="#onSearchBarKeyPressed" onKeyTyped="#onSearchBarInputTextChanged" prefHeight="35.0" prefWidth="198.0" styleClass="rounded" />
                   <Button fx:id="speechToTextButton" mnemonicParsing="false" onAction="#speechToText" prefHeight="35.0" prefWidth="53.0">
                      <graphic>
                         <FontAwesomeIconView glyphName="MICROPHONE" size="20" styleClass="ikonli-font-icon" />
@@ -57,12 +57,12 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="speech" disable="true" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle" visible="false">
+                  <Button fx:id="speechButton" disable="true" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle" visible="false">
                      <graphic>
                         <FontAwesomeIconView glyphName="VOLUME_UP" size="20" styleClass="ikonli-font-icon" />
                      </graphic>
                   </Button>
-                  <Button fx:id="deleteWord" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" visible="false">
+                  <Button fx:id="deleteWordButton" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" visible="false">
                      <graphic>
                         <FontAwesomeIconView glyphName="TRASH" size="20" styleClass="ikonli-font-icon" />
                      </graphic>

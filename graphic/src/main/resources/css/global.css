@@ -1,3 +1,18 @@
 .tooltip {
     -fx-show-delay: 100ms;
 }
+
+.pronounce {
+    -fx-font-weight: bold;
+}
+
+.level1 {
+    -fx-font-weight: bold;
+}
+
+.level2 {
+    -fx-font-style: italic;
+}
+
+.level3 {
+}
