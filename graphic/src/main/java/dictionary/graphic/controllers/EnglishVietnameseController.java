@@ -176,15 +176,27 @@ public class EnglishVietnameseController {
                 confirmationDialog.showAndWait().ifPresent(response -> {
                     if (response == ButtonType.OK) {
                         try {
+                            wordField.setText("");
+                            pronounceField.setText("");
+                            explainField.getChildren().clear();
+
+                            speech.setDisable(true);
+                            deleteWord.setDisable(true);
+                            speech.setVisible(false);
+                            deleteWord.setVisible(false);
+
                             Dictionary.getInstance().removeWord(word);
                             Notifications.create()
                                     .owner(rootPane)
-                                    .text(bundle.getString("Word has been delete"))
+                                    .text("Word has been delete")
                                     .showInformation();
+
+                            updateSuggestions();
+                            return;
                         } catch (final SQLException e) {
                             Notifications.create()
                                     .owner(rootPane)
-                                    .text(bundle.getString("Error when delete word"))
+                                    .text("Error when delete word")
                                     .showInformation();
                         }
                     }
