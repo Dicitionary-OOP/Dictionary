@@ -61,6 +61,10 @@ public class EditWordController {
 
         wordTextField.setText(word.getWord());
         pronounTextField.setText(word.getPronunce());
+        pronounTextField.textProperty().addListener((obs, old, niu) -> {
+            word.setPronunce(pronounTextField.getText());
+        });
+
         db = Dictionary.getInstance().getDatabase();
 
         try {
