@@ -165,7 +165,8 @@ public class EnglishVietnameseController {
         });
 
         suggestedWords.addEventHandler(ScrollEvent.SCROLL, (final ScrollEvent event) -> {
-            if (event.getDeltaY() < 0) {
+            boolean userScrolledToBottomOfSearchSuggestionList = (event.getDeltaY() < 0);
+            if (userScrolledToBottomOfSearchSuggestionList) {
                 lazyLoadManager.loadAllSuggestionsFromGUIThread();
             }
         });
