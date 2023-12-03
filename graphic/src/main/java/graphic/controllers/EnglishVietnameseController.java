@@ -234,19 +234,16 @@ public class EnglishVietnameseController {
 
             final ArrayList<Explain> explains = database.getExplainsByWordID(word.getWordID());
             for (final Explain explain : explains) {
-                final Label type = new Label(explain.getType() + "\n");
-                final Label meaning = new Label("\t" + explain.getMeaning() + "\n");
-                type.getStyleClass().add("level1");
+                final Label type = new Label(explain.getType());
+                final Label meaning = new Label("\t" + explain.getMeaning());
                 type.setWrapText(true);
-                meaning.getStyleClass().add("level2");
                 meaning.setWrapText(true);
                 explainField.getChildren().add(type);
                 explainField.getChildren().add(meaning);
 
                 final ArrayList<Example> examples = database.getExamples(explain.getExplainID());
                 for (final Example example : examples) {
-                    final Label exampleText = new Label("\t\t" + example.getExample() + "\n");
-                    exampleText.getStyleClass().add("level3");
+                    final Label exampleText = new Label("\t\t" + example.getExample());
                     exampleText.setWrapText(true);
                     explainField.getChildren().add(exampleText);
                 }

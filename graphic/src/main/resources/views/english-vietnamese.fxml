@@ -37,39 +37,45 @@
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
       </VBox>
-      <VBox layoutX="278.0" layoutY="1.0" prefHeight="488.0" prefWidth="622.0" spacing="15.0">
+      <VBox layoutX="278.0" layoutY="1.0" prefHeight="488.0" prefWidth="622.0">
          <children>
-            <HBox prefWidth="622.0" spacing="20.0">
+            <HBox prefHeight="53.0" prefWidth="607.0" spacing="15.0">
                <children>
-                  <Label fx:id="pronounceField" styleClass="accent" textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label fx:id="wordField" textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Button fx:id="speechButton" disable="true" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle" visible="false">
+                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="576.0" spacing="15.0">
+                     <children>
+                        <VBox prefHeight="40.0">
+                           <children>
+                              <Label fx:id="wordField" prefHeight="30.0" styleClass="title-1" textAlignment="CENTER" wrapText="true">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="pronounceField" textAlignment="CENTER" wrapText="true">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <styleClass>
+                                    <String fx:value="accent" />
+                                    <String fx:value="text-caption" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <Button fx:id="speechButton" disable="true" mnemonicParsing="false" onAction="#onPlayAudioButton" prefHeight="15.0" prefWidth="15.0" styleClass="button-circle" visible="false">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="VOLUME_UP" size="15" styleClass="ikonli-font-icon" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Button fx:id="editButton" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="button-circle" visible="false">
                      <graphic>
-                        <FontAwesomeIconView glyphName="VOLUME_UP" size="20" styleClass="ikonli-font-icon" />
+                        <FontAwesomeIconView glyphName="EDIT" size="15" styleClass="ikonli-font-icon" />
                      </graphic>
                   </Button>
-                  <Button fx:id="editButton" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle" visible="false">
+                  <Button fx:id="deleteWordButton" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" visible="false">
                      <graphic>
-                        <FontAwesomeIconView glyphName="EDIT" size="20" styleClass="ikonli-font-icon" />
-                     </graphic>
-                  </Button>
-                  <Button fx:id="deleteWordButton" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" visible="false">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="TRASH" size="20" styleClass="ikonli-font-icon" />
+                        <FontAwesomeIconView glyphName="TRASH" size="15" styleClass="ikonli-font-icon" />
                      </graphic>
                      <styleClass>
                         <String fx:value="button-circle" />
@@ -78,10 +84,14 @@
                   </Button>
                </children>
             </HBox>
+            <HBox prefHeight="25.0" prefWidth="607.0" spacing="15.0" />
             <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="607.0">
                <content>
                   <VBox fx:id="explainField" prefHeight="436.0" prefWidth="605.0" styleClass="leve3" />
                </content>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
             </ScrollPane>
          </children>
          <padding>
