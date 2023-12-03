@@ -300,7 +300,7 @@ public class EnglishVietnameseController {
         if (searchWordFuture != null && !searchWordFuture.isDone()) {
             searchWordFuture.cancel(true);
         }
-        final String searchString = searchInput.getText();
+        final String searchString = searchInput.getText().trim().toLowerCase();
         searchWordFuture = searchWordExecutor.submit(() -> {
             try {
                 final ArrayList<Pair<String, String>> wordPairs = Dictionary.getInstance().lookup(searchString);
