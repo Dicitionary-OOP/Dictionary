@@ -6,7 +6,7 @@ import org.commonmark.renderer.html.HtmlRenderer;
 
 import com.plexpt.chatgpt.ChatGPT;
 
-import graphic.SettingsManager;
+import graphic.managers.SettingsManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;

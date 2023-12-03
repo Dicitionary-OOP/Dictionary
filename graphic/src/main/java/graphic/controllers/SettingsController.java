@@ -8,9 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.Notifications;
 
-import graphic.Theme;
-import graphic.Font;
-import graphic.SettingsManager;
+import graphic.enums.Theme;
+import graphic.enums.Font;
+import graphic.managers.SettingsManager;
 import javafx.scene.control.TextField;
 
 public class SettingsController {
@@ -72,10 +72,11 @@ public class SettingsController {
             SettingsManager.getInstance().saveSettings();
 
             Notifications.create()
-            .owner(rootPane)
-            .title("Dictionary")
-            .text("Settings have been updated")
-            .showInformation();
-        } catch(Exception e){}
+                    .owner(rootPane)
+                    .title("Dictionary")
+                    .text("Settings have been updated")
+                    .showInformation();
+        } catch (Exception e) {
+        }
     }
 }

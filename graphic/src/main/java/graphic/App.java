@@ -7,6 +7,7 @@ import atlantafx.base.theme.PrimerDark;
 import atlantafx.base.theme.PrimerLight;
 import base.utils.Utils;
 import graphic.controllers.SceneController;
+import graphic.enums.View;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;

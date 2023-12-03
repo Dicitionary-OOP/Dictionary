@@ -5,9 +5,9 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import graphic.Font;
-import graphic.SettingsManager;
-import graphic.Theme;
+import graphic.enums.Font;
+import graphic.enums.Theme;
+import graphic.managers.SettingsManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
