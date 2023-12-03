@@ -107,7 +107,6 @@ public class EnglishVietnameseController {
 
         wordNotFoundAlert = new Alert(Alert.AlertType.ERROR);
         wordNotFoundAlert.setTitle("Lỗi");
-        wordNotFoundAlert.setHeaderText(String.format("Không tìm thấy từ tương tự \'%s\'", searchInput.getText()));
         wordNotFoundAlert.setContentText("Vui lòng nhập lại từ đúng hoặc thêm từ mới.");
 
         noSpeechAlert = new Alert(Alert.AlertType.ERROR);
@@ -346,6 +345,7 @@ public class EnglishVietnameseController {
 
     private void pickBestMatch() {
         if (suggestedWords.getItems().isEmpty()) {
+            wordNotFoundAlert.setHeaderText(String.format("Không tìm thấy từ tương tự \'%s\'", searchInput.getText()));
             wordNotFoundAlert.showAndWait();
             return;
         }
