@@ -243,7 +243,7 @@ public class GameController {
     }
 
     private boolean isValidGuess(final String guess) {
-        return Dictionary.getInstance().isExistWord(guess);
+        return guess.length() == MAX_COLUMN && Dictionary.getInstance().isExistWord(guess);
     }
 
     public void resetGame(final GridPane gridPane) {
