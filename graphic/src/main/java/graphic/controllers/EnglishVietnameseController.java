@@ -204,6 +204,7 @@ public class EnglishVietnameseController {
 
             editButton.setOnAction(event -> {
                 new EditWordWindow(word);
+                showDetail(wordID);
             });
 
             deleteWordButton.setOnAction(event -> {
@@ -320,7 +321,6 @@ public class EnglishVietnameseController {
             handleException(e);
         }
 
-        searchInput.setText(selectedItem.getFirst());
         focusOnSearchBar();
     }
 

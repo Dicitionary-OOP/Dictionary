@@ -33,7 +33,7 @@ public class EditWordWindow {
             controller.loadWord(word);
 
             stage.setScene(scene);
-            stage.show();
+            stage.showAndWait();
         } catch (final Exception e) {
             e.printStackTrace();
         }

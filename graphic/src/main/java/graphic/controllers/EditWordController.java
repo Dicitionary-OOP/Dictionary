@@ -26,6 +26,10 @@ public class EditWordController {
     @FXML
     private AnchorPane root;
 
+    private Database db;
+
+    private final Stage stage;
+
     @FXML
     private TextField wordTextField, pronounTextField;
 
@@ -38,9 +42,9 @@ public class EditWordController {
 
     private final HashMap<Explain, ArrayList<Example>> examples;
 
-    private Database db;
+    private final ArrayList<Explain> removeExplains;
 
-    private final Stage stage;
+    private final ArrayList<Example> removeExample;
 
     private final ResourceBundle bundle = ResourceBundle.getBundle("languages.language",
             SceneController.getInstance().getLocale());
@@ -48,6 +52,8 @@ public class EditWordController {
     public EditWordController(final Stage stage) {
         this.stage = stage;
         this.examples = new HashMap<>();
+        this.removeExplains = new ArrayList<>();
+        this.removeExample = new ArrayList<>();
     }
 
     public void loadWord(final Word word) {
@@ -80,12 +86,17 @@ public class EditWordController {
         final FontAwesomeIconView addIcon = new FontAwesomeIconView(FontAwesomeIcon.PLUS_CIRCLE);
         addIcon.setSize("25px");
         addIcon.getStyleClass().add("ikonli-font-icon");
-        addIcon.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onClickAddExplainButton(typeParentVBox, explain));
+        addIcon.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            onClickAddExplainButton(typeParentVBox, explain);
+        });
 
         final FontAwesomeIconView removeIcon = new FontAwesomeIconView(FontAwesomeIcon.TIMES_CIRCLE);
         removeIcon.setSize("25px");
         removeIcon.getStyleClass().add("ikonli-font-icon");
-        removeIcon.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> editVbox.getChildren().remove(typeParentVBox));
+        removeIcon.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            editVbox.getChildren().remove(typeParentVBox);
+            removeExplains.add(explain);
+        });
 
         final TextField typeTextField = new TextField();
         typeTextField.setText(explain.getType());
@@ -120,13 +131,18 @@ public class EditWordController {
         final FontAwesomeIconView addIcon = new FontAwesomeIconView(FontAwesomeIcon.PLUS_CIRCLE);
         addIcon.setSize("25px");
         addIcon.getStyleClass().add("ikonli-font-icon");
-        addIcon.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onClickAddExampleButton(explainParentVBox, explain));
+        addIcon.addEventHandler(MouseEvent.MOUSE_CLICKED, (event) -> {
+            onClickAddExampleButton(explainParentVBox, explain);
+        });
 
         final FontAwesomeIconView removeIcon = new FontAwesomeIconView(FontAwesomeIcon.TIMES_CIRCLE);
         removeIcon.setSize("25px");
         removeIcon.getStyleClass().add("ikonli-font-icon");
         removeIcon.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                event -> parentVBox.getChildren().remove(explainParentVBox));
+                (event) -> {
+                    parentVBox.getChildren().remove(explainParentVBox);
+                    removeExplains.add(explain);
+                });
 
         final TextField explainTextField = new TextField();
         explainTextField.setPromptText(bundle.getString("explain_in_vietnamese"));
@@ -179,7 +195,10 @@ public class EditWordController {
         removeIcon.setSize("25px");
         removeIcon.getStyleClass().add("ikonli-font-icon");
         removeIcon.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                event -> parentVBox.getChildren().remove(exampleParentVbox));
+                event -> {
+                    parentVBox.getChildren().remove(exampleParentVbox);
+                    removeExample.add(example);
+                });
 
         exampleHbox.getChildren().add(new Label(bundle.getString("example")));
         exampleHbox.getChildren().add(exampleField1);
@@ -241,6 +260,18 @@ public class EditWordController {
                     } else {
                         db.addExample(example);
                     }
+                }
+            }
+
+            for (final Explain explain : removeExplains) {
+                if (explain.getExplainID() != null) {
+                    db.removeExplain(explain.getExplainID());
+                }
+            }
+
+            for (final Example example : removeExample) {
+                if (example.getExampleID() != null) {
+                    db.removeExample(example.getExampleID());
                 }
             }
             stage.close();
