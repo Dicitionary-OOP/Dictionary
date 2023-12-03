@@ -3,9 +3,7 @@ package graphic.controllers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 import org.apache.commons.math3.util.Pair;
 import org.controlsfx.control.Notifications;
@@ -96,6 +94,8 @@ public class EnglishVietnameseController {
 
     private Alert wordNotFoundAlert;
 
+    private Alert noSpeechAlert;
+
     @FXML
     private void initialize() {
         lazyLoadManager = new LazyLoadManager(suggestedWords);
@@ -109,6 +109,11 @@ public class EnglishVietnameseController {
         wordNotFoundAlert.setTitle("Lỗi");
         wordNotFoundAlert.setHeaderText(String.format("Không tìm thấy từ tương tự \'%s\'", searchInput.getText()));
         wordNotFoundAlert.setContentText("Vui lòng nhập lại từ đúng hoặc thêm từ mới.");
+
+        noSpeechAlert = new Alert(Alert.AlertType.ERROR);
+        noSpeechAlert.setTitle("Lỗi");
+        noSpeechAlert.setHeaderText("Bạn chưa nói từ nào !");
+        noSpeechAlert.setContentText("Vui lòng bấm vào biểu tượng micro và nói lại từ bạn muốn tra, hoặc nhập từ đó bằng bàn phím.");
 
         setupSuggest();
     }
@@ -287,6 +292,14 @@ public class EnglishVietnameseController {
     }
 
     private void updateSuggestions() {
+        _updateSuggestionsInternal(false);
+    }
+
+    private void updateSuggestionsAndPickBestMatch() {
+        _updateSuggestionsInternal(true);
+    }
+
+    private void _updateSuggestionsInternal(boolean pickBestMatchImmediately) {
         if (searchWordFuture != null && !searchWordFuture.isDone()) {
             searchWordFuture.cancel(true);
         }
@@ -294,7 +307,14 @@ public class EnglishVietnameseController {
         searchWordFuture = searchWordExecutor.submit(() -> {
             try {
                 final ArrayList<Pair<String, String>> wordPairs = Dictionary.getInstance().lookup(searchString);
-                lazyLoadManager.updateSuggestionsFromNonGUIThread(wordPairs);
+                if (!pickBestMatchImmediately) {
+                    lazyLoadManager.updateSuggestionsFromNonGUIThread(wordPairs);
+                } else {
+                    Platform.runLater(() -> {
+                        lazyLoadManager.updateSuggestionsFromGUIThread(wordPairs);
+                        pickBestMatch();
+                    });
+                }
             } catch (final Exception e) {
                 Platform.runLater(() -> handleException(e));
             }
@@ -416,7 +436,15 @@ public class EnglishVietnameseController {
                     searchResult = SpeechToTextOfflineAPI.getSpeechToText(speechFile);
                 }
 
-                Platform.runLater(() -> searchInput.setText(searchResult));
+                Platform.runLater(() -> {
+                    if (searchResult.isEmpty()) {
+                        noSpeechAlert.showAndWait();
+                        return;
+                    }
+                    searchInput.setText(searchResult);
+                    // Immediately show detail of the spoken word !
+                    updateSuggestionsAndPickBestMatch();
+                });
             } catch (final Exception e) {
                 e.printStackTrace();
             } finally {
