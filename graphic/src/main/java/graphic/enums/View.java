@@ -7,6 +7,7 @@ public enum View {
     TextToIpa("/views/text-to-ipa.fxml"),
     Synonym("/views/synonym.fxml"),
     AddWord("/views/add-word.fxml"),
+    EditWord("/views/edit-word.fxml"),
     Game("/views/game.fxml"),
     Settings("/views/settings.fxml");
 

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox layoutX="64.0" layoutY="40.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                    <children>
+                        <VBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label text="%word" />
+                                <TextField fx:id="wordTextField" disable="true" prefWidth="220.0" styleClass="rounded" />
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label text="%pronounce" />
+                                <TextField fx:id="pronounTextField" prefWidth="220.0" styleClass="rounded" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <Label text="%explain" />
+                <HBox>
+                    <children>
+                        <Button fx:id="addTypeButton" mnemonicParsing="false" onAction="#onClickAddTypeButton" styleClass="button-circle">
+                            <HBox.margin>
+                                <Insets bottom="5.0" />
+                            </HBox.margin>
+                     <graphic>
+                        <Label prefHeight="30.0" text="%add_word_type" />
+                     </graphic>
+                        </Button>
+                    </children>
+                </HBox>
+                <ScrollPane prefHeight="285.0" prefWidth="860.0">
+                    <content>
+                        <VBox fx:id="editVbox" spacing="5.0">
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+                <HBox alignment="CENTER" prefHeight="56.0" prefWidth="860.0" spacing="15.0">
+                    <children>
+                  <Button mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="SAVE" size="20" styleClass="ikonli-font-icon" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="%save_word" />
+                     </tooltip>
+                     <styleClass>
+                        <String fx:value="button-circle" />
+                        <String fx:value="accent" />
+                     </styleClass>
+                  </Button>
+                        <Button mnemonicParsing="false" onAction="#cancel" prefHeight="40.0" prefWidth="40.0" styleClass="button-circle">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="TIMES" size="20" styleClass="ikonli-font-icon" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="%cancle" />
+                     </tooltip></Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

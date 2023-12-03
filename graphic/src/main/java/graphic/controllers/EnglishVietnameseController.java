@@ -23,6 +23,7 @@ import base.utils.Utils;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import graphic.managers.LazyLoadManager;
+import graphic.windows.EditWordWindow;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -59,6 +60,9 @@ public class EnglishVietnameseController {
 
     @FXML
     private Button speechButton;
+
+    @FXML
+    private Button editButton;
 
     @FXML
     private Button deleteWordButton;
@@ -164,38 +168,56 @@ public class EnglishVietnameseController {
         updateSuggestions();
     }
 
+    private void showActionButtons() {
+        speechButton.setDisable(false);
+        editButton.setDisable(false);
+        deleteWordButton.setDisable(false);
+        speechButton.setVisible(true);
+        editButton.setVisible(true);
+        deleteWordButton.setVisible(true);
+    }
+
+    private void hideActionButton() {
+        speechButton.setDisable(true);
+        editButton.setDisable(true);
+        deleteWordButton.setDisable(true);
+        speechButton.setVisible(false);
+        editButton.setVisible(false);
+        deleteWordButton.setVisible(false);
+    }
+
+    private void resetShowDetail() {
+        wordField.setText("");
+        pronounceField.setText("");
+        explainField.getChildren().clear();
+
+        hideActionButton();
+    }
+
     private void showDetail(final String wordID) {
         try {
             final Database database = Dictionary.getInstance().getDatabase();
             final Word word = database.getWordByWordID(wordID);
 
             explainField.getChildren().clear();
-            speechButton.setDisable(false);
-            deleteWordButton.setDisable(false);
-            speechButton.setVisible(true);
-            deleteWordButton.setVisible(true);
+            showActionButtons();
+
+            editButton.setOnAction(event -> {
+                new EditWordWindow(word);
+            });
 
             deleteWordButton.setOnAction(event -> {
                 deleteConfirm.showAndWait().ifPresent(response -> {
                     if (response == ButtonType.OK) {
                         try {
-                            wordField.setText("");
-                            pronounceField.setText("");
-                            explainField.getChildren().clear();
-
-                            speechButton.setDisable(true);
-                            deleteWordButton.setDisable(true);
-                            speechButton.setVisible(false);
-                            deleteWordButton.setVisible(false);
-
                             Dictionary.getInstance().removeWord(word);
                             Notifications.create()
                                     .owner(rootPane)
                                     .text("Word has been delete")
                                     .showInformation();
 
+                            resetShowDetail();
                             updateSuggestions();
-                            return;
                         } catch (final SQLException e) {
                             Notifications.create()
                                     .owner(rootPane)

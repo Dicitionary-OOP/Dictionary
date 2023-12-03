@@ -120,24 +120,25 @@ public class Database {
         return resultSet.getString("word_id");
     }
 
-    public void updateWord(final String wordID, final Word word) throws SQLException {
+    public void updateWord(final Word word) throws SQLException {
         final StringBuilder query = new StringBuilder();
-        query.append("UPDATE words");
-        query.append("SET");
-        query.append("word = ?");
-        query.append("pronounce = ?");
+        query.append("UPDATE words ");
+        query.append("SET ");
+        query.append("word = ? , ");
+        query.append("pronounce = ? ");
         query.append("WHERE word_id = ?");
+
         final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
         preparedStatement.setString(1, word.getWord());
         preparedStatement.setString(2, word.getPronunce());
-        preparedStatement.setString(3, wordID);
+        preparedStatement.setString(3, word.getWordID());
         preparedStatement.executeUpdate();
     }
 
     public void removeWord(final String wordID) throws SQLException {
         final StringBuilder query = new StringBuilder();
         query.append("DELETE FROM words ");
-        query.append("WHERE word_id = ?");
+        query.append("WHERE word_id = ? ");
         final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
         preparedStatement.setString(1, wordID);
         preparedStatement.executeUpdate();
@@ -170,19 +171,19 @@ public class Database {
         preparedStatement.executeUpdate();
     }
 
-    public void updateExplain(final String explainID, final Explain explain) throws SQLException {
+    public void updateExplain(final Explain explain) throws SQLException {
         final StringBuilder query = new StringBuilder();
-        query.append("UPDATE explains");
-        query.append("SET");
-        query.append("word_id = ? ,");
-        query.append("type = ? ,");
-        query.append("meaning = ?");
+        query.append("UPDATE explains ");
+        query.append("SET ");
+        query.append("word_id = ? , ");
+        query.append("type = ? , ");
+        query.append("meaning = ? ");
         query.append("WHERE explain_id = ?");
         final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
         preparedStatement.setString(1, explain.getWordID());
         preparedStatement.setString(2, explain.getType());
         preparedStatement.setString(3, explain.getMeaning());
-        preparedStatement.setString(4, explainID);
+        preparedStatement.setString(4, explain.getExplainID());
         preparedStatement.executeUpdate();
     }
 
@@ -202,19 +203,19 @@ public class Database {
         preparedStatement.executeUpdate();
     }
 
-    public void updateExample(final String exampleID, final Example example) throws SQLException {
+    public void updateExample(final Example example) throws SQLException {
         final StringBuilder query = new StringBuilder();
-        query.append("UPDATE examples");
-        query.append("SET");
-        query.append("explain_id = ? ,");
-        query.append("example = ? ,");
-        query.append("translate = ?");
+        query.append("UPDATE examples ");
+        query.append("SET ");
+        query.append("explain_id = ? , ");
+        query.append("example = ? , ");
+        query.append("translate = ? ");
         query.append("WHERE example_id = ?");
         final PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
         preparedStatement.setString(1, example.getExampleID());
         preparedStatement.setString(2, example.getExample());
         preparedStatement.setString(3, example.getTranslate());
-        preparedStatement.setString(4, exampleID);
+        preparedStatement.setString(4, example.getExampleID());
         preparedStatement.executeUpdate();
     }
 

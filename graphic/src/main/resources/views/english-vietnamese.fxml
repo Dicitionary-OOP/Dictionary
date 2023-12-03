@@ -62,6 +62,11 @@
                         <FontAwesomeIconView glyphName="VOLUME_UP" size="20" styleClass="ikonli-font-icon" />
                      </graphic>
                   </Button>
+                  <Button fx:id="editButton" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="button-circle" visible="false">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="EDIT" size="20" styleClass="ikonli-font-icon" />
+                     </graphic>
+                  </Button>
                   <Button fx:id="deleteWordButton" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" visible="false">
                      <graphic>
                         <FontAwesomeIconView glyphName="TRASH" size="20" styleClass="ikonli-font-icon" />
