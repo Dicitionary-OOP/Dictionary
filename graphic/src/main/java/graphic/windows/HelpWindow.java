@@ -1,4 +1,4 @@
-package graphic.controllers;
+package graphic.windows;
 
 import java.util.ArrayList;
 import java.util.Objects;

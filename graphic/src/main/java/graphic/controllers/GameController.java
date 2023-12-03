@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import base.core.Dictionary;
+import graphic.windows.HelpWindow;
+import graphic.windows.ScoreWindow;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
@@ -70,7 +72,8 @@ public class GameController {
         }
     }
 
-    private void setLabelText(final GridPane gridPane, final int searchRow, final int searchColumn, final String input) {
+    private void setLabelText(final GridPane gridPane, final int searchRow, final int searchColumn,
+            final String input) {
         final Label label = getLabel(gridPane, searchRow, searchColumn);
         if (label != null) {
             label.setText(input.toUpperCase());
@@ -98,7 +101,8 @@ public class GameController {
         return null;
     }
 
-    private void setLabelStyleClass(final GridPane gridPane, final int searchRow, final int searchColumn, final String styleclass) {
+    private void setLabelStyleClass(final GridPane gridPane, final int searchRow, final int searchColumn,
+            final String styleclass) {
         final Label label = getLabel(gridPane, searchRow, searchColumn);
         if (label != null) {
             label.getStyleClass().add(styleclass);
