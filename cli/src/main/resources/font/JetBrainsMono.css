@@ -1,8 +1,0 @@
-@font-face {
-    -fx-font-family: 'JetBrainsMono';
-    src: url("JetBrainsMono.ttf"),
-}
-
-.root {
-    -fx-font-family: "JetBrainsMono";
-}

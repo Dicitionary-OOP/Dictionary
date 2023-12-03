@@ -1,8 +1,0 @@
-@font-face {
-    -fx-font-family: 'Roboto';
-    src: url("Roboto.ttf"),
-}
-
-.root {
-    -fx-font-family: "Roboto";
-}
