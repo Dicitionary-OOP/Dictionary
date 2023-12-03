@@ -107,7 +107,6 @@ public class SpeechToTextOnlineAPI {
             break;
         }
 
-        System.out.println(text);
         // Remove trailing punctuations such as .,?!
         return text.replaceFirst("[^A-Za-z0-9_-]*$", "").toLowerCase();
     }
