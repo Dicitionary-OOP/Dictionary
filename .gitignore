@@ -15,3 +15,7 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+# Recording of user speaking a word that he/she wants to look up
+speechToText.mp3
+cc
