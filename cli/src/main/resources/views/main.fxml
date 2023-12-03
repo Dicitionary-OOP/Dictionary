@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="950.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="40.0" tabMinHeight="40.0" tabMinWidth="40.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+    <tabs>
+        <Tab closable="false">
+            <content>
+                <fx:include source="english-vietnamese.fxml" />
+            </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="SEARCH" size="24" text="" />
+         </graphic>
+         <tooltip>
+            <Tooltip text="%search" />
+         </tooltip>
+        </Tab>
+        <Tab closable="false">
+            <content>
+                <fx:include source="translate.fxml" />
+            </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="LANGUAGE" size="24">
+               <font>
+                  <Font size="30.0" />
+               </font></FontAwesomeIconView>
+         </graphic>
+         <tooltip>
+            <Tooltip text="%translate" />
+         </tooltip>
+        </Tab>
+        <Tab closable="false">
+            <content>
+                <fx:include source="text-to-ipa.fxml" />
+            </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="FONT" size="24" />
+         </graphic>
+         <tooltip>
+            <Tooltip text="%text_to_ipa" />
+         </tooltip>
+        </Tab>
+        <Tab closable="false">
+            <content>
+                <fx:include source="synonym.fxml" />
+            </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="CUBES" size="24" />
+         </graphic>
+         <tooltip>
+            <Tooltip text="%synonym" />
+         </tooltip>
+        </Tab>
+        <Tab closable="false">
+            <content>
+                <fx:include source="add-word.fxml" />
+            </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="PLUS" size="24" />
+         </graphic>
+         <tooltip>
+            <Tooltip text="%add_word" />
+         </tooltip>
+        </Tab>
+        <Tab closable="false">
+            <content>
+                <fx:include source="game.fxml" />
+            </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="GAMEPAD" size="24" />
+         </graphic>
+         <tooltip>
+            <Tooltip text="%game" />
+         </tooltip>
+        </Tab>
+        <Tab closable="false">
+            <content>
+                <fx:include source="chatbot.fxml" />
+            </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="COMMENTS" size="24" />
+         </graphic>
+         <tooltip>
+            <Tooltip text="%chatbot" />
+         </tooltip>
+        </Tab>
+        <Tab closable="false">
+            <content>
+                <fx:include source="settings.fxml" />
+            </content>
+         <graphic>
+            <FontAwesomeIconView glyphName="GEAR" size="24" text="" />
+         </graphic>
+         <tooltip>
+            <Tooltip text="%settings" />
+         </tooltip>
+        </Tab>
+    </tabs>
+</TabPane>
