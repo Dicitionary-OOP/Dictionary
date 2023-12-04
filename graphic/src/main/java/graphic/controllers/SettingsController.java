@@ -13,7 +13,7 @@ import graphic.enums.Font;
 import graphic.managers.SettingsManager;
 import javafx.scene.control.TextField;
 
-public class SettingsController {
+public class SettingsController extends LocalizedController {
     @FXML
     private AnchorPane rootPane;
 

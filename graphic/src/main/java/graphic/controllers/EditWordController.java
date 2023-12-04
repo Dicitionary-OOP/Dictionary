@@ -2,7 +2,6 @@ package graphic.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.ResourceBundle;
 
 import base.core.Dictionary;
 import base.core.Example;
@@ -22,7 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class EditWordController {
+public class EditWordController extends LocalizedController {
     @FXML
     private AnchorPane root;
 
@@ -45,9 +44,6 @@ public class EditWordController {
     private final ArrayList<Explain> removeExplains;
 
     private final ArrayList<Example> removeExample;
-
-    private final ResourceBundle bundle = ResourceBundle.getBundle("languages.language",
-            SceneController.getInstance().getLocale());
 
     public EditWordController(final Stage stage) {
         this.stage = stage;

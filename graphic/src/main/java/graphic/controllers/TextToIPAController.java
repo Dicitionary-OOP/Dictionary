@@ -12,7 +12,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
 
-public class TextToIPAController {
+public class TextToIPAController extends LocalizedController {
     @FXML
     private AnchorPane rootPane;
 

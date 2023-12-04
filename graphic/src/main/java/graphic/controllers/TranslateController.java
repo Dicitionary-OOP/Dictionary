@@ -15,7 +15,7 @@ import java.io.IOException;
 
 import org.controlsfx.control.Notifications;
 
-public class TranslateController {
+public class TranslateController extends LocalizedController {
     @FXML
     private AnchorPane rootPane;
 

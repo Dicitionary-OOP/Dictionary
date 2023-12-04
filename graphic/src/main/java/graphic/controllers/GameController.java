@@ -17,7 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
-public class GameController {
+public class GameController extends LocalizedController {
     @FXML
     public GridPane gridPane;
 

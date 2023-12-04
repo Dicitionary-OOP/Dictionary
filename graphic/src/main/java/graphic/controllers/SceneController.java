@@ -14,7 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class SceneController {
+public class SceneController extends Controller {
     private static SceneController INSTANCE;
 
     private Stage stage;
