@@ -79,7 +79,11 @@ public class Dictionary {
     }
 
     public Boolean isExistWord(final String word) {
-        return words.getEndNode(word) != null;
+        if(words.getEndNode(word) == null){
+            return false;
+        }else {
+            return words.getEndNode(word).isEnd();
+        }
     }
 
     public String getRandomWordByLength(final int length) throws SQLException {
