@@ -1,7 +1,5 @@
 package graphic.controllers;
 
-import java.util.ResourceBundle;
-
 import org.controlsfx.control.Notifications;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -20,9 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class AddWordController {
-    ResourceBundle bundle = ResourceBundle.getBundle("languages.language", SceneController.getInstance().getLocale());
-
+public class AddWordController extends LocalizedController {
     @FXML
     private AnchorPane root;
     @FXML

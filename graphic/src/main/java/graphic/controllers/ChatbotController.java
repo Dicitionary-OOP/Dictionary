@@ -13,7 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 
-public class ChatbotController {
+public class ChatbotController extends LocalizedController {
     private ChatGPT chatGPT;
     private Parser parserMarkdown;
     private HtmlRenderer renderer;

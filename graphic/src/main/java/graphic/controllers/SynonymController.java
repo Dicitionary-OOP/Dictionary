@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class SynonymController {
+public class SynonymController extends LocalizedController {
     @FXML
     private TextArea outputSynonym;
     @FXML

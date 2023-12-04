@@ -2,7 +2,6 @@ package graphic.controllers;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 import java.util.concurrent.*;
 
 import org.apache.commons.math3.util.Pair;
@@ -40,7 +39,7 @@ import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class EnglishVietnameseController {
+public class EnglishVietnameseController extends LocalizedController {
     @FXML
     private AnchorPane rootPane;
 
@@ -84,9 +83,6 @@ public class EnglishVietnameseController {
     private FontAwesomeIconView speechToTextIcon;
 
     private Boolean isProcessingSpeechToText = false;
-
-    private final ResourceBundle bundle = ResourceBundle.getBundle("languages.language",
-            SceneController.getInstance().getLocale());
 
     private final String speechFile = "speechToText.mp3";
 
