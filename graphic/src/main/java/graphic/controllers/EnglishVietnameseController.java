@@ -202,7 +202,7 @@ public class EnglishVietnameseController {
     private void showDetail(final String wordID) {
         try {
             final Database database = Dictionary.getInstance().getDatabase();
-            final Word word = database.getWordByWordID(wordID);
+            final Word word = database.getWord(wordID);
 
             explainField.getChildren().clear();
             showActionButtons();
@@ -237,7 +237,7 @@ public class EnglishVietnameseController {
             wordField.setText(word.getWord());
             pronounceField.setText('/' + word.getPronunce() + '/');
 
-            final ArrayList<Explain> explains = database.getExplainsByWordID(word.getWordID());
+            final ArrayList<Explain> explains = database.getExplains(word.getWordID());
             for (final Explain explain : explains) {
                 final Label type = new Label(explain.getType());
                 final Label meaning = new Label("\t" + explain.getMeaning());
@@ -263,7 +263,7 @@ public class EnglishVietnameseController {
 
     @FXML
     private void onPlayAudioButton() {
-        final Thread thread = new Thread(() -> TextToSpeechOfflineAPI.getTextToSpeech(wordField.getText()));
+        final Thread thread = new Thread(() -> TextToSpeechOfflineAPI.speak(wordField.getText()));
         thread.setDaemon(true);
         thread.start();
     }
@@ -429,9 +429,9 @@ public class EnglishVietnameseController {
             try {
                 String searchResult;
                 if (Utils.isNetworkConnected()) {
-                    searchResult = SpeechToTextOnlineAPI.getSpeechToText(speechFile);
+                    searchResult = SpeechToTextOnlineAPI.getText(speechFile);
                 } else {
-                    searchResult = SpeechToTextOfflineAPI.getSpeechToText(speechFile);
+                    searchResult = SpeechToTextOfflineAPI.getText(speechFile);
                 }
 
                 Platform.runLater(() -> {

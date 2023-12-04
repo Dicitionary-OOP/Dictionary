@@ -12,7 +12,7 @@ public class SpeakCommand implements Runnable {
     @Override
     public void run() {
         try {
-            TextToSpeechOfflineAPI.getTextToSpeech(text);
+            TextToSpeechOfflineAPI.speak(text);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

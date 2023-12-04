@@ -35,7 +35,7 @@ public class TextToIPAController {
         Thread thread = new Thread(() -> {
             String output = null;
             try {
-                output = TextToIpaAPI.textToIPA(inputTextArea.getText());
+                output = TextToIpaAPI.getIPA(inputTextArea.getText());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -76,7 +76,7 @@ public class TextToIPAController {
     @FXML
     private void speakSource() {
         final Thread thread = new Thread(() -> {
-            TextToSpeechOfflineAPI.getTextToSpeech(inputTextArea.getText());
+            TextToSpeechOfflineAPI.speak(inputTextArea.getText());
         });
         thread.setDaemon(true);
         thread.start();

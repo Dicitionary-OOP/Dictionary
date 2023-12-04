@@ -12,7 +12,7 @@ public class TextToIpaCommand implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println(TextToIpaAPI.textToIPA(textToCreatedIpa));
+            System.out.println(TextToIpaAPI.getIPA(textToCreatedIpa));
         } catch (Exception e) {
             System.err.println("Error converting text to IPA: " + e.getMessage());
         }

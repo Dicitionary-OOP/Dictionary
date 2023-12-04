@@ -96,7 +96,7 @@ public class SpeechToTextOnlineAPI {
         return text.get("text").toString();
     }
 
-    public static String getSpeechToText(final String speechFile) throws IOException {
+    public static String getText(final String speechFile) throws IOException {
         final String audioID = postSpeechToTextApi(uploadFileSpeech(speechFile));
         String text;
         while (true) {
@@ -107,7 +107,6 @@ public class SpeechToTextOnlineAPI {
             break;
         }
 
-        // Remove trailing punctuations such as .,?!
         return text.replaceFirst("[^A-Za-z0-9_-]*$", "").toLowerCase();
     }
 

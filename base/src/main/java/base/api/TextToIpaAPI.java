@@ -14,7 +14,7 @@ import org.json.JSONObject;
 public class TextToIpaAPI {
     private static final String API = "https://png-text-to-ipa.onrender.com";
 
-    public static String textToIPA(final String text) throws IOException {
+    public static String getIPA(final String text) throws IOException {
         final String encodedText = URLEncoder.encode(text, StandardCharsets.UTF_8);
         final URI uri = URI.create(String.format("%s?text=%s", API, encodedText));
 

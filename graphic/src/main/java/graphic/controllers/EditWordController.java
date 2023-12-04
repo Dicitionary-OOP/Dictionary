@@ -68,7 +68,7 @@ public class EditWordController {
         db = Dictionary.getInstance().getDatabase();
 
         try {
-            explains = db.getExplainsByWordID(word.getWordID());
+            explains = db.getExplains(word.getWordID());
             for (final Explain explain : explains) {
                 examples.put(explain, new ArrayList<>());
                 final VBox explainVBox = addExplain(addType(explain), explain);

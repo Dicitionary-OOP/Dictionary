@@ -74,10 +74,6 @@ public class Dictionary {
         return words.getAllWordsStartWith(lookupWord);
     }
 
-    public void removeWord(final String word) {
-        words.remove(word);
-    }
-
     public Database getDatabase() {
         return database;
     }
@@ -89,5 +85,4 @@ public class Dictionary {
     public String getRandomWordByLength(final int length) throws SQLException {
         return database.getRandomWordByLength(length);
     }
-
 }

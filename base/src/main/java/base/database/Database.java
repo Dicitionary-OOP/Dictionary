@@ -45,7 +45,7 @@ public class Database {
         return words;
     }
 
-    public Word getWordByWordID(final String wordID) throws SQLException {
+    public Word getWord(final String wordID) throws SQLException {
         final StringBuilder query = new StringBuilder();
         query.append("SELECT * ");
         query.append("FROM words ");
@@ -56,16 +56,6 @@ public class Database {
         final ResultSet resultSet = preparedStatement.executeQuery();
         final Word word = new Word(resultSet);
 
-        return word;
-    }
-
-    public Word getWordObjectByWord(final String wordString) throws SQLException {
-        final String sql = "SELECT * FROM words WHERE word = ?";
-        final PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, wordString);
-
-        final ResultSet resultSet = preparedStatement.executeQuery();
-        final Word word = new Word(resultSet);
         return word;
     }
 
@@ -86,7 +76,7 @@ public class Database {
         return examples;
     }
 
-    public ArrayList<Explain> getExplainsByWordID(final String wordID) throws SQLException {
+    public ArrayList<Explain> getExplains(final String wordID) throws SQLException {
         final StringBuilder query = new StringBuilder();
         query.append("SELECT * ");
         query.append("FROM explains ");

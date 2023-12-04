@@ -6,7 +6,7 @@ import com.sun.speech.freetts.VoiceManager;
 public class TextToSpeechOfflineAPI {
     static final String VOICE_NAME = "kevin16";
 
-    public static void getTextToSpeech(final String text) {
+    public static void speak(final String text) {
         System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
         final Voice voice = VoiceManager.getInstance().getVoice(VOICE_NAME);
 

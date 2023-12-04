@@ -10,7 +10,7 @@ import edu.cmu.sphinx.api.SpeechResult;
 import edu.cmu.sphinx.api.StreamSpeechRecognizer;
 
 public class SpeechToTextOfflineAPI {
-    public static String getSpeechToText(final String speechFile) throws IOException {
+    public static String getText(final String speechFile) throws IOException {
         final Configuration configuration = new Configuration();
 
         configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");

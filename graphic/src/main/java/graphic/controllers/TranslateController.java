@@ -68,7 +68,7 @@ public class TranslateController {
     @FXML
     private void speakSource() {
         final Thread thread = new Thread(() -> {
-            TextToSpeechOfflineAPI.getTextToSpeech(inputTextArea.getText());
+            TextToSpeechOfflineAPI.speak(inputTextArea.getText());
         });
         thread.setDaemon(true);
         thread.start();
@@ -77,7 +77,7 @@ public class TranslateController {
     @FXML
     private void speakTarget() {
         final Thread thread = new Thread(() -> {
-            TextToSpeechOfflineAPI.getTextToSpeech(outputTextArea.getText());
+            TextToSpeechOfflineAPI.speak(outputTextArea.getText());
         });
         thread.setDaemon(true);
         thread.start();
