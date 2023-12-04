@@ -171,6 +171,12 @@ public class AddWordController {
                 }
             }
 
+            Notifications.create()
+                    .owner(root)
+                    .title("Dictionary")
+                    .text("Word has been added")
+                    .showInformation();
+
             reset();
         } catch (final Exception e) {
             e.printStackTrace();
