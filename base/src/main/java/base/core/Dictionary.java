@@ -85,4 +85,12 @@ public class Dictionary {
     public String getRandomWordByLength(final int length) throws SQLException {
         return database.getRandomWordByLength(length);
     }
+
+    public void close(){
+        try {
+            database.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
