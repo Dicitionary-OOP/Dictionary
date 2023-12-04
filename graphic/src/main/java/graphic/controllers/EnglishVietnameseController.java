@@ -250,7 +250,11 @@ public class EnglishVietnameseController {
                 for (final Example example : examples) {
                     final Label exampleText = new Label("\t\t" + example.getExample());
                     exampleText.setWrapText(true);
+                    final Label translate = new Label("\t\t" + example.getTranslate());
+                    exampleText.setWrapText(true);
+                    translate.setWrapText(true);
                     explainField.getChildren().add(exampleText);
+                    explainField.getChildren().add(translate);
                 }
             }
         } catch (final SQLException e) {
