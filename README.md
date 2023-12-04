@@ -27,31 +27,24 @@ Language has to offer, or enforces.
 |  22028182  | Nguyễn Văn Thiện   | <https://github.com/nvt18624>        |
 
 ## Introduction
+This is a dictionary app with features:
+- Lookup
+- Translate
+- TextToIPA
+- Synoym
+- ChatGPT
+- Wordle Game
 
-This is a dictionary app with basic features:
+![image](https://github.com/Dicitionary-OOP/Dictionary/assets/63899044/3ad28748-2ce7-42b1-891b-db5e387491d3)
+![image](https://github.com/Dicitionary-OOP/Dictionary/assets/63899044/bc06d1ab-1a73-4d1c-a8cb-0d062681b562)
 
-`(TODO: Write the features here)`
-
-`(TODO: Embed sample/demo images of the GUI here)`
-
-The app presents two interfaces to the user:
-1. The CLI (Command Line Interface): The user can run
-the JAR file in the command line to use the features
-mentioned above.
-2. The GUI (Graphical User Interface): The JAR file
-can be run directly, and a window with familiar
-graphical controls (such as dialogs, buttons, text
-boxes...) will be displayed to the user.
-
-`(TODO: Embed sample/demo images of the CLI here)`
+## Database
+Project use sqlite database with over 103,000 words from this repo: [png261/english-vietnamese-database](https://github.com/png261/english-vietnamese-database)
+![image](https://github.com/png261/english-vietnamese-database/assets/63899044/01a20ee9-d6f9-422c-9dd2-d3069bd3f77f)
 
 ## Download
 
-`(TODO: Write this)`
-
-The latest version of the app can be downloaded at: ...
-
-`(TODO: Write usage note for the CLI)`
+`TODO`
 
 ## Contributing
 
