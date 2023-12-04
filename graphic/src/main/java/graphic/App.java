@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import atlantafx.base.theme.PrimerDark;
 import atlantafx.base.theme.PrimerLight;
+import base.core.Dictionary;
 import base.utils.Utils;
 import graphic.controllers.SceneController;
 import graphic.enums.View;
@@ -26,6 +27,15 @@ public class App extends Application {
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
     }
 
+    @Override
+    public void stop(){
+        try {
+            Dictionary.getInstance().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
     public static void main(final String[] args) {
         launch(args);
     }
